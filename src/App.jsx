@@ -4,6 +4,10 @@ import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
 import Termini from './pages/Termini'
 import Klijenti from './pages/Klijenti'
+import NoviTermin from './pages/NoviTermin'
+import NoviKlijent from './pages/NoviKlijent'
+import Usluge from './pages/Usluge'
+import NovaUsluga from './pages/NovaUsluga'
 
 function App() {
   return (
@@ -14,6 +18,10 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/termini" element={<Termini />} />
         <Route path="/klijenti" element={<Klijenti />} />
+        <Route path="/novi-termin" element={<NoviTermin />} />
+        <Route path="/novi-klijent" element={<NoviKlijent />} />
+        <Route path="/usluge" element={<Usluge />} />
+        <Route path="/nova-usluga" element={<NovaUsluga />} />
       </Routes>
     </BrowserRouter>
   )

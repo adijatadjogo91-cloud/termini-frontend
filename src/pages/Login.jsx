@@ -17,8 +17,19 @@ function Login() {
         email: email,
         password: lozinka
       })
-      localStorage.setItem('token', odgovor.data.access_token)
-window.location.href = '/dashboard'
+      const token = odgovor.data.access_token
+      localStorage.setItem('token', token)
+
+      // Preuzmi businessId i sačuvaj ga
+      const bizOdgovor = await axios.get(API + '/api/businesses', {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      const businesses = bizOdgovor.data.businesses
+      if (businesses && businesses.length > 0) {
+        localStorage.setItem('businessId', businesses[0].id)
+      }
+
+      window.location.href = '/dashboard'
     } catch (err) {
       setGreska('Pogrešan email ili lozinka.')
     }

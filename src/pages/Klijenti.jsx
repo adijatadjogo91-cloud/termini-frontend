@@ -20,7 +20,7 @@ function Klijenti() {
       const headers = { Authorization: `Bearer ${token}` }
       const bizRes = await axios.get(API + '/api/businesses', { headers })
       const bizId = bizRes.data.businesses[0].id
-      const res = await axios.get(API + `/api/clients?businessId=${bizId}`, { headers })
+      const res = await axios.get(API + `/api/clients/${bizId}`, { headers })
       setKlijenti(res.data.clients || [])
     } catch (err) {
       if (err.response?.status === 401) {

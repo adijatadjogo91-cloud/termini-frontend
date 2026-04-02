@@ -20,7 +20,7 @@ function Termini() {
       const headers = { Authorization: `Bearer ${token}` }
       const bizRes = await axios.get(API + '/api/businesses', { headers })
       const bizId = bizRes.data.businesses[0].id
-      const res = await axios.get(API + `/api/appointments?businessId=${bizId}`, { headers })
+      const res = await axios.get(API + `/api/appointments/${bizId}?from=2026-01-01&to=2026-12-31`, { headers })
       setTermini(res.data.appointments || [])
     } catch (err) {
       if (err.response?.status === 401) {
