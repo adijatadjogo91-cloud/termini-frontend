@@ -8,11 +8,13 @@ import NoviTermin from './pages/NoviTermin'
 import NoviKlijent from './pages/NoviKlijent'
 import Usluge from './pages/Usluge'
 import NovaUsluga from './pages/NovaUsluga'
+import Landing from './pages/Landing'
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
