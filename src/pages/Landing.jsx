@@ -131,7 +131,7 @@ export default function Landing() {
                 <p key={i} style={{ padding: '8px 0', borderBottom: '1px solid #f0f0f0', fontSize: '15px' }}>{s}</p>
               ))}
             </div>
-            <button onClick={() => navigate('/register')} style={{
+            <button onClick={() => window.open('https://termini-pro.lemonsqueezy.com/checkout/buy/8a033a28-cf56-428a-bd22-abca6bba37f9', '_blank')} style={{
               width: '100%', background: '#1a7a4a', color: 'white', border: 'none',
               borderRadius: '10px', padding: '16px', fontSize: '16px',
               fontWeight: '600', cursor: 'pointer'
