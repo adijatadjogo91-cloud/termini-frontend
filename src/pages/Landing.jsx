@@ -1,7 +1,17 @@
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 export default function Landing() {
   const navigate = useNavigate();
+  const zanimanja = ['frizere', 'zubare', 'tattoo studije', 'kozmetičare', 'terapeute', 'nail studije']
+  const [trenutnoZanimanje, setTrenutnoZanimanje] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTrenutnoZanimanje(prev => (prev + 1) % zanimanja.length)
+    }, 2000)
+    return () => clearInterval(interval)
+  }, [])
 
   return (
     <div style={{ fontFamily: 'Inter, sans-serif', color: '#1a1a1a' }}>
@@ -45,12 +55,20 @@ export default function Landing() {
             🎉 14 dana besplatno — bez kartice
           </span>
           <h1 style={{ fontSize: '48px', fontWeight: '700', marginTop: '24px', lineHeight: '1.2' }}>
-            Zakazivanje termina<br />
-            <span style={{ color: '#1a7a4a' }}>jednostavno i brzo</span>
+            Dok spavate, vaši termini<br />
+            <span style={{ color: '#1a7a4a' }}>se pune sami.</span>
           </h1>
           <p style={{ fontSize: '18px', color: '#555', marginTop: '20px', lineHeight: '1.6' }}>
-            termini.pro je aplikacija za frizere, kozmetičare i terapeute.<br />
-            Upravljajte terminima, klijentima i prihodima — sve na jednom mjestu.
+            Jedan link. Vaši klijenti zakazuju sami — 24/7.<br />
+            termini.pro za{' '}
+            <span style={{
+              color: '#1a7a4a', fontWeight: '600',
+              borderBottom: '2px solid #1a7a4a',
+              transition: 'all 0.3s ease'
+            }}>
+              {zanimanja[trenutnoZanimanje]}
+            </span>
+            {' '}i još mnogo više.
           </p>
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', marginTop: '36px' }}>
             <button onClick={() => navigate('/register')} style={{
