@@ -8,6 +8,8 @@ function Dashboard() {
   const [podaci, setPodaci] = useState(null)
   const [biznis, setBiznis] = useState(null)
   const [ucitava, setUcitava] = useState(true)
+  const [trialIstekao, setTrialIstekao] = useState(false)
+  const [danaOstalo, setDanaOstalo] = useState(null)
 
   const token = localStorage.getItem('token')
 
@@ -21,9 +23,20 @@ function Dashboard() {
       const headers = { Authorization: `Bearer ${token}` }
       
       const bizRes = await axios.get(API + '/api/businesses', { headers })
-      const mojBiznis = bizRes.data.businesses[0]
+     const mojBiznis = bizRes.data.businesses[0]
       setBiznis(mojBiznis)
 
+      // Provjera trial perioda
+      if (mojBiznis.trial_ends_at) {
+        const trialKraj = new Date(mojBiznis.trial_ends_at)
+        const danas = new Date()
+        const razlika = Math.ceil((trialKraj - danas) / (1000 * 60 * 60 * 24))
+        if (razlika <= 0) {
+          setTrialIstekao(true)
+        } else {
+          setDanaOstalo(razlika)
+        }
+      }
       const dashRes = await axios.get(API + `/api/businesses/${mojBiznis.id}/dashboard`, { headers })
       setPodaci(dashRes.data)
     } catch (err) {
@@ -51,6 +64,26 @@ function Dashboard() {
   return (
     <div style={{ minHeight: '100vh', background: '#f5f5f5' }}>
       <Navbar />
+
+      {/* Trial banner */}
+      {trialIstekao && (
+        <div style={{ background: '#fee2e2', borderBottom: '1px solid #fca5a5', padding: '12px 2rem', textAlign: 'center' }}>
+          <p style={{ color: '#dc2626', fontSize: '14px', fontWeight: '500' }}>
+            ⚠️ Vaš besplatni period je istekao. 
+            <a href="https://termini-pro.lemonsqueezy.com/checkout/buy/8a033a28-cf56-428a-bd22-abca6bba37f9" 
+               style={{ color: '#dc2626', fontWeight: '700', marginLeft: '8px' }}>
+              Pretplatite se za 49 KM/mj →
+            </a>
+          </p>
+        </div>
+      )}
+      {danaOstalo !== null && !trialIstekao && (
+        <div style={{ background: '#fef9c3', borderBottom: '1px solid #fde047', padding: '12px 2rem', textAlign: 'center' }}>
+          <p style={{ color: '#854d0e', fontSize: '14px' }}>
+            🕐 Imate još <strong>{danaOstalo} dana</strong> besplatnog korištenja.
+          </p>
+        </div>
+      )}
 
       <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '2rem' }}>
 
