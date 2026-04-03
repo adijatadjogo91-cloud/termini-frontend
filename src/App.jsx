@@ -9,6 +9,7 @@ import NoviKlijent from './pages/NoviKlijent'
 import Usluge from './pages/Usluge'
 import NovaUsluga from './pages/NovaUsluga'
 import Landing from './pages/Landing'
+import Booking from './pages/Booking'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/novi-klijent" element={<NoviKlijent />} />
         <Route path="/usluge" element={<Usluge />} />
         <Route path="/nova-usluga" element={<NovaUsluga />} />
+        <Route path="/booking/:slug" element={<Booking />} />
       </Routes>
     </BrowserRouter>
   )
