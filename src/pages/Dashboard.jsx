@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Navbar from '../components/Navbar'
+import { QRCodeSVG } from 'qrcode.react'
 
 const API = 'https://termini-pro.onrender.com'
 
@@ -87,7 +88,7 @@ function Dashboard() {
 
       <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '2rem' }}>
 
-        {/* Pozdrav */}
+       {/* Pozdrav */}
         <div style={{ marginBottom: '2rem' }}>
           <h1 style={{ fontSize: '24px', color: '#1a1a1a', marginBottom: '4px' }}>
             Dobrodošli 👋
@@ -95,6 +96,32 @@ function Dashboard() {
           <p style={{ color: '#888', fontSize: '15px' }}>
             {biznis?.name || 'Vaš salon'} — danas je {datum()}
           </p>
+          <div style={{ marginTop: '12px', background: '#eaf3de', borderRadius: '8px', padding: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+              <QRCodeSVG value={`https://termini.pro/booking/${biznis?.slug}`} size={80} />
+              <div>
+                <p style={{ fontSize: '13px', color: '#1a7a4a', fontWeight: '600', marginBottom: '4px' }}>
+                  🔗 Vaš booking link
+                </p>
+                <p style={{ fontSize: '12px', color: '#555' }}>
+                  termini.pro/booking/{biznis?.slug}
+                </p>
+                <p style={{ fontSize: '11px', color: '#888', marginTop: '4px' }}>
+                  Podijelite link ili QR kod sa klijentima
+                </p>
+              </div>
+            </div>
+            <button onClick={() => {
+              navigator.clipboard.writeText(`https://termini.pro/booking/${biznis?.slug}`)
+              alert('Link kopiran!')
+            }} style={{
+              background: '#1a7a4a', color: 'white', border: 'none',
+              borderRadius: '6px', padding: '8px 16px', fontSize: '12px',
+              cursor: 'pointer', whiteSpace: 'nowrap'
+            }}>
+              Kopiraj link
+            </button>
+          </div>
         </div>
 
         {/* Kartice sa brojevima */}
