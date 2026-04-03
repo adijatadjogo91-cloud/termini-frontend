@@ -78,13 +78,14 @@ function Termini() {
             <h1 style={{ fontSize: '24px', color: '#1a1a1a', marginBottom: '4px' }}>Termini</h1>
             <p style={{ color: '#888', fontSize: '15px' }}>Pregled svih termina vašeg salona</p>
           </div>
-          <button style={{
+          <button onClick={() => window.location.href = '/novi-termin'} style={{
             background: '#1a7a4a', color: 'white', border: 'none',
             borderRadius: '8px', padding: '10px 20px', fontSize: '14px',
             fontWeight: '500', cursor: 'pointer'
           }}>
             + Novi termin
           </button>
+  
         </div>
 
         {/* Filter */}
