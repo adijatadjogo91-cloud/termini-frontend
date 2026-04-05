@@ -101,8 +101,8 @@ export default function Landing() {
               { icon: '👥', title: 'Klijenti', opis: 'Baza svih vaših klijenata sa historijom posjeta i kontakt informacijama.' },
               { icon: '📱', title: 'SMS podsjetnici', opis: 'Automatski podsjetnici klijentima dan prije termina. Manje otkaza!' },
               { icon: '💰', title: 'Prihodi', opis: 'Pratite prihode po danu, sedmici i mjesecu. Znajte gdje stojite.' },
-              { icon: '✂️', title: 'Usluge', opis: 'Definirajte svoje usluge, cijene i trajanje. Prilagodite svom salonu.' },
-              { icon: '🤖', title: 'AI asistent', opis: 'Pametni asistent koji analizira vaše poslovanje i daje savjete.' },
+              { icon: '📋', title: 'Usluge', opis: 'Definirajte svoje usluge, cijene i trajanje. Prilagodite svom biznisu.' },
+              { icon: '✨', title: 'AI asistent', opis: 'Pametni asistent koji analizira vaše poslovanje i daje savjete.' },
             ].map((f, i) => (
               <div key={i} style={{
                 padding: '28px', borderRadius: '12px', border: '1px solid #eee',
