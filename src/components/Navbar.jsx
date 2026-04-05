@@ -1,7 +1,19 @@
+import { useState, useEffect } from 'react'
 import AsistentChat from './AsistentChat'
 
 function Navbar() {
   const trenutnaStrana = window.location.pathname
+  const [pokaziAI, setPokaziAI] = useState(false)
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (!token) return
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]))
+      // Prikazujemo AI samo placenim korisnicima - provjeravamo na backendu
+      setPokaziAI(true) // Za sad pokazujemo svima, ali AI nece raditi u trialu
+    } catch (e) {}
+  }, [])
 
   function handleOdjava() {
     localStorage.removeItem('token')
@@ -59,7 +71,7 @@ function Navbar() {
           Odjava
         </button>
       </div>
-      <AsistentChat />
+      {pokaziAI && <AsistentChat />}
     </>
   )
 }

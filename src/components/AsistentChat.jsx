@@ -10,6 +10,7 @@ function AsistentChat() {
   ])
   const [unos, setUnos] = useState('')
   const [salje, setSalje] = useState(false)
+  const [trialing, setTrialing] = useState(false)
   const token = localStorage.getItem('token')
 
   async function posaljiPoruku() {
@@ -22,14 +23,22 @@ function AsistentChat() {
     try {
       const headers = { Authorization: `Bearer ${token}` }
       const bizRes = await axios.get(API + '/api/businesses', { headers })
-      const bizId = bizRes.data.businesses[0].id
+      const biznis = bizRes.data.businesses[0]
+
+      // Provjeri da li je trial
+      if (biznis.sub_status === 'trialing') {
+        setTrialing(true)
+        setPoruke(prev => [...prev, { role: 'assistant', text: '🔒 AI asistent je dostupan samo u plaćenoj verziji. Pretplatite se na termini.pro za pristup!' }])
+        setSalje(false)
+        return
+      }
 
       const history = poruke.map(p => ({
         role: p.role === 'user' ? 'user' : 'assistant',
         content: p.text
       }))
 
-      const res = await axios.post(API + `/api/ai/${bizId}/chat`, {
+      const res = await axios.post(API + `/api/ai/${biznis.id}/chat`, {
         message: unos,
         history
       }, { headers })
@@ -60,7 +69,10 @@ function AsistentChat() {
             justifyContent: 'space-between'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <span style={{ fontSize: '20px' }}>🤖</span>
+              <div style={{
+                background: 'rgba(255,255,255,0.2)', borderRadius: '8px',
+                padding: '4px 8px', fontSize: '12px', fontWeight: '700', color: 'white'
+              }}>AI</div>
               <div>
                 <p style={{ color: 'white', fontWeight: '600', fontSize: '14px' }}>AI Asistent</p>
                 <p style={{ color: '#a7f3d0', fontSize: '11px' }}>termini.pro</p>
@@ -125,19 +137,21 @@ function AsistentChat() {
         </div>
       )}
 
-      {/* Chat dugme */}
+      {/* Chat dugme — novo AI dugme */}
       <button
         onClick={() => setOtvoren(!otvoren)}
         style={{
           position: 'fixed', bottom: '24px', right: '24px',
-          width: '56px', height: '56px', borderRadius: '50%',
+          borderRadius: '12px',
           background: '#1a7a4a', color: 'white', border: 'none',
-          fontSize: '24px', cursor: 'pointer',
+          padding: '10px 18px',
+          fontSize: '13px', fontWeight: '700',
+          cursor: 'pointer',
           boxShadow: '0 4px 16px rgba(26,122,74,0.4)',
-          zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center'
+          zIndex: 1000, display: 'flex', alignItems: 'center', gap: '6px'
         }}
       >
-        🤖
+        <span style={{ fontSize: '11px', letterSpacing: '1px' }}>✨ AI</span>
       </button>
     </>
   )
