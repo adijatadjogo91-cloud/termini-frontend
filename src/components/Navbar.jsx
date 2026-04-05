@@ -1,3 +1,5 @@
+import AsistentChat from './AsistentChat'
+
 function Navbar() {
   const trenutnaStrana = window.location.pathname
 
@@ -17,47 +19,48 @@ function Navbar() {
   })
 
   return (
-    <div style={{
-      height: '60px',
-      background: 'white',
-      borderBottom: '1px solid #eee',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      padding: '0 2rem',
-      position: 'sticky',
-      top: 0,
-      zIndex: 100
-    }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
-        <h2 style={{ color: '#1a1a1a', fontSize: '20px' }}>
-          termini<span style={{ color: '#1a7a4a' }}>.pro</span>
-        </h2>
-
-        <nav style={{ display: 'flex', gap: '4px' }}>
-          <a href="/dashboard" style={linkStyle('/dashboard')}>Dashboard</a>
-          <a href="/termini" style={linkStyle('/termini')}>Termini</a>
-          <a href="/klijenti" style={linkStyle('/klijenti')}>Klijenti</a>
-<a href="/usluge" style={linkStyle('/usluge')}>Usluge</a>
-          <a href="/uposlenici" style={linkStyle('/uposlenici')}>Uposlenici</a>
-        </nav>
+    <>
+      <div style={{
+        height: '60px',
+        background: 'white',
+        borderBottom: '1px solid #eee',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '0 2rem',
+        position: 'sticky',
+        top: 0,
+        zIndex: 100
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+          <h2 style={{ color: '#1a1a1a', fontSize: '20px' }}>
+            termini<span style={{ color: '#1a7a4a' }}>.pro</span>
+          </h2>
+          <nav style={{ display: 'flex', gap: '4px' }}>
+            <a href="/dashboard" style={linkStyle('/dashboard')}>Dashboard</a>
+            <a href="/termini" style={linkStyle('/termini')}>Termini</a>
+            <a href="/klijenti" style={linkStyle('/klijenti')}>Klijenti</a>
+            <a href="/usluge" style={linkStyle('/usluge')}>Usluge</a>
+            <a href="/uposlenici" style={linkStyle('/uposlenici')}>Uposlenici</a>
+          </nav>
+        </div>
+        <button
+          onClick={handleOdjava}
+          style={{
+            background: 'none',
+            border: '1px solid #ddd',
+            borderRadius: '8px',
+            padding: '8px 16px',
+            fontSize: '14px',
+            color: '#555',
+            cursor: 'pointer'
+          }}
+        >
+          Odjava
+        </button>
       </div>
-
-      <button
-        onClick={handleOdjava}
-        style={{
-          background: 'none',
-          border: '1px solid #ddd',
-          borderRadius: '8px',
-          padding: '8px 16px',
-          fontSize: '14px',
-          color: '#555',
-          cursor: 'pointer'
-        }}
-      >
-        Odjava
-      </button>
-    </div>
+      <AsistentChat />
+    </>
   )
 }
 
