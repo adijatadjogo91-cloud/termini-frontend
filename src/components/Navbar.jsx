@@ -39,6 +39,7 @@ function Navbar() {
           <a href="/termini" style={linkStyle('/termini')}>Termini</a>
           <a href="/klijenti" style={linkStyle('/klijenti')}>Klijenti</a>
 <a href="/usluge" style={linkStyle('/usluge')}>Usluge</a>
+          <a href="/uposlenici" style={linkStyle('/uposlenici')}>Uposlenici</a>
         </nav>
       </div>
 
