@@ -165,6 +165,11 @@ export default function Landing() {
         <p style={{ color: '#888', fontSize: '14px' }}>
           © 2026 termini.pro — Napravljeno s ❤️ u Bosni i Hercegovini
         </p>
+        <p style={{ marginTop: '8px' }}>
+          <a href="/terms" style={{ color: '#888', fontSize: '13px', textDecoration: 'underline' }}>
+            Uslovi korištenja
+          </a>
+        </p>
       </div>
 
     </div>

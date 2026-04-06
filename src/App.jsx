@@ -11,7 +11,7 @@ import NovaUsluga from './pages/NovaUsluga'
 import Landing from './pages/Landing'
 import Booking from './pages/Booking'
 import Uposlenici from './pages/Uposlenici'
-
+import TermsAndConditions from './pages/TermsAndConditions'
 function App() {
   return (
     <BrowserRouter>
@@ -27,6 +27,7 @@ function App() {
         <Route path="/usluge" element={<Usluge />} />
         <Route path="/nova-usluga" element={<NovaUsluga />} />
         <Route path="/booking/:slug" element={<Booking />} />
+        <Route path="/terms" element={<TermsAndConditions />} />
         <Route path="/uposlenici" element={<Uposlenici />} />
       </Routes>
     </BrowserRouter>
