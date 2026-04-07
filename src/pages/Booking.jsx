@@ -14,6 +14,7 @@ function Booking() {
   const [odabranoVrijeme, setOdabranoVrijeme] = useState(null)
   const [ime, setIme] = useState('')
   const [telefon, setTelefon] = useState('')
+  const [email, setEmail] = useState('')
   const [ucitava, setUcitava] = useState(true)
   const [ucitavaVremena, setUcitavaVremena] = useState(false)
   const [saljeZahtjev, setSaljeZahtjev] = useState(false)
@@ -57,6 +58,7 @@ function Booking() {
         startsAt: `${odabranDatum}T${odabranoVrijeme}:00`,
         name: ime,
         phone: telefon,
+        email: email,
       })
       setKorak(6)
     } catch (err) {
@@ -276,13 +278,23 @@ function Booking() {
                   style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '8px', fontSize: '15px', boxSizing: 'border-box' }}
                 />
               </div>
-              <div style={{ marginBottom: '1.5rem' }}>
+              <div style={{ marginBottom: '1rem' }}>
                 <label style={{ fontSize: '13px', color: '#555', display: 'block', marginBottom: '6px' }}>Broj telefona</label>
                 <input
                   type="tel"
                   value={telefon}
                   onChange={e => setTelefon(e.target.value)}
                   placeholder="061 123 456"
+                  style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '8px', fontSize: '15px', boxSizing: 'border-box' }}
+                />
+              </div>
+              <div style={{ marginBottom: '1.5rem' }}>
+                <label style={{ fontSize: '13px', color: '#555', display: 'block', marginBottom: '6px' }}>Email (opciono)</label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  placeholder="ana@gmail.com"
                   style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '8px', fontSize: '15px', boxSizing: 'border-box' }}
                 />
               </div>
@@ -331,8 +343,10 @@ function Booking() {
               <p style={{ fontSize: '14px', color: '#1a1a1a', marginTop: '8px' }}>🕐 {formatVrijeme(odabranoVrijeme)}</p>
               <p style={{ fontSize: '14px', color: '#1a7a4a', fontWeight: '600', marginTop: '8px' }}>💰 {odabranaUsluga?.price} KM</p>
             </div>
-            <p style={{ color: '#888', fontSize: '13px', marginTop: '1.5rem' }}>
-              Dobit ćete SMS potvrdu na {telefon}
+           <p style={{ color: '#888', fontSize: '13px', marginTop: '1.5rem' }}>
+              {email && telefon && `Potvrda je poslana na ${email} i ${telefon}`}
+              {email && !telefon && `Potvrda je poslana na ${email}`}
+              {!email && telefon && `Potvrda je poslana na ${telefon}`}
             </p>
           </div>
         )}
