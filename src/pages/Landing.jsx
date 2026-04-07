@@ -99,7 +99,7 @@ export default function Landing() {
             {[
               { icon: '📅', title: 'Termini', opis: 'Lako zakazujte i pratite sve termine. Pregled po danu, sedmici ili mjesecu.' },
               { icon: '👥', title: 'Klijenti', opis: 'Baza svih vaših klijenata sa historijom posjeta i kontakt informacijama.' },
-              { icon: '📱', title: 'SMS podsjetnici', opis: 'Automatski podsjetnici klijentima dan prije termina. Manje otkaza!' },
+              { icon: '📧', title: 'Email podsjetnici', opis: 'Automatski email podsjetnici klijentima dan prije termina. Manje otkaza!' },
               { icon: '💰', title: 'Prihodi', opis: 'Pratite prihode po danu, sedmici i mjesecu. Znajte gdje stojite.' },
               { icon: '📋', title: 'Usluge', opis: 'Definirajte svoje usluge, cijene i trajanje. Prilagodite svom biznisu.' },
               { icon: '✨', title: 'AI asistent', opis: 'Pametni asistent koji analizira vaše poslovanje i daje savjete.' },
@@ -119,43 +119,93 @@ export default function Landing() {
 
       {/* Cijene */}
       <div style={{ padding: '80px 2rem', background: '#f9f9f9' }}>
-        <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
           <h2 style={{ fontSize: '32px', fontWeight: '700', marginBottom: '12px' }}>
             Jednostavne cijene
           </h2>
           <p style={{ color: '#666', fontSize: '16px', marginBottom: '48px' }}>
-            Jedan plan, sve uključeno. Bez skrivenih troškova.
+            Odaberite plan koji odgovara vašem biznisu. Bez skrivenih troškova.
           </p>
-          <div style={{
-            background: 'white', borderRadius: '16px', padding: '48px',
-            boxShadow: '0 4px 24px rgba(0,0,0,0.08)', border: '2px solid #1a7a4a'
-          }}>
-            <p style={{ fontSize: '14px', color: '#1a7a4a', fontWeight: '600', marginBottom: '8px' }}>
-              STARTER PLAN
-            </p>
-            <p style={{ fontSize: '48px', fontWeight: '700', marginBottom: '4px' }}>
-              49 KM<span style={{ fontSize: '18px', color: '#888', fontWeight: '400' }}>/mjesečno</span>
-            </p>
-            <p style={{ color: '#888', marginBottom: '32px' }}>14 dana besplatno, bez kartice</p>
-            <div style={{ textAlign: 'left', marginBottom: '32px' }}>
-              {[
-                '✅ Neograničeni termini',
-                '✅ Neograničeni klijenti',
-                '✅ SMS podsjetnici',
-                '✅ Praćenje prihoda',
-                '✅ AI asistent',
-                '✅ Podrška putem emaila',
-              ].map((s, i) => (
-                <p key={i} style={{ padding: '8px 0', borderBottom: '1px solid #f0f0f0', fontSize: '15px' }}>{s}</p>
-              ))}
-            </div>
-            <button onClick={() => window.open('https://termini-pro.lemonsqueezy.com/checkout/buy/8a033a28-cf56-428a-bd22-abca6bba37f9', '_blank')} style={{
-              width: '100%', background: '#1a7a4a', color: 'white', border: 'none',
-              borderRadius: '10px', padding: '16px', fontSize: '16px',
-              fontWeight: '600', cursor: 'pointer'
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+
+            {/* Starter */}
+            <div style={{
+              background: 'white', borderRadius: '16px', padding: '40px',
+              boxShadow: '0 4px 24px rgba(0,0,0,0.06)', border: '1px solid #eee',
+              textAlign: 'left'
             }}>
-              Počni 14 dana besplatno →
-            </button>
+              <p style={{ fontSize: '13px', color: '#888', fontWeight: '600', marginBottom: '8px' }}>
+                STARTER
+              </p>
+              <p style={{ fontSize: '42px', fontWeight: '700', marginBottom: '4px' }}>
+                49 KM<span style={{ fontSize: '16px', color: '#888', fontWeight: '400' }}>/mj</span>
+              </p>
+              <p style={{ color: '#888', fontSize: '14px', marginBottom: '28px' }}>14 dana besplatno, bez kartice</p>
+              <div style={{ marginBottom: '28px' }}>
+                {[
+                  '✅ Neograničeni termini',
+                  '✅ Neograničeni klijenti',
+                  '✅ Email podsjetnici',
+                  '✅ Praćenje prihoda',
+                  '✅ AI asistent (20 upita/dan)',
+                  '✅ Booking mini-stranica',
+                  '✅ Mjesečni izvještaj',
+                  '✅ Podrška putem emaila',
+                ].map((s, i) => (
+                  <p key={i} style={{ padding: '7px 0', borderBottom: '1px solid #f0f0f0', fontSize: '14px' }}>{s}</p>
+                ))}
+              </div>
+              <button onClick={() => window.open('https://termini-pro.lemonsqueezy.com/checkout/buy/8a033a28-cf56-428a-bd22-abca6bba37f9', '_blank')} style={{
+                width: '100%', background: '#1a7a4a', color: 'white', border: 'none',
+                borderRadius: '10px', padding: '14px', fontSize: '15px',
+                fontWeight: '600', cursor: 'pointer'
+              }}>
+                Počni besplatno →
+              </button>
+            </div>
+
+            {/* Premium */}
+            <div style={{
+              background: 'white', borderRadius: '16px', padding: '40px',
+              boxShadow: '0 4px 24px rgba(0,0,0,0.08)', border: '2px solid #1a7a4a',
+              textAlign: 'left', position: 'relative'
+            }}>
+              <div style={{
+                position: 'absolute', top: '-14px', left: '50%', transform: 'translateX(-50%)',
+                background: '#1a7a4a', color: 'white', padding: '4px 16px',
+                borderRadius: '20px', fontSize: '12px', fontWeight: '600'
+              }}>
+                NAJPOPULARNIJE
+              </div>
+              <p style={{ fontSize: '13px', color: '#1a7a4a', fontWeight: '600', marginBottom: '8px' }}>
+                PREMIUM
+              </p>
+              <p style={{ fontSize: '42px', fontWeight: '700', marginBottom: '4px' }}>
+                99 KM<span style={{ fontSize: '16px', color: '#888', fontWeight: '400' }}>/mj</span>
+              </p>
+              <p style={{ color: '#888', fontSize: '14px', marginBottom: '28px' }}>14 dana besplatno, bez kartice</p>
+              <div style={{ marginBottom: '28px' }}>
+                {[
+                  '✅ Sve iz Starter plana',
+                  '✅ WhatsApp podsjetnici',
+                  '✅ AI asistent (neograničeno)',
+                  '✅ Automatski ponovni dolazak',
+                  '✅ Recenzije nakon termina',
+                  '✅ Prioritetna podrška',
+                ].map((s, i) => (
+                  <p key={i} style={{ padding: '7px 0', borderBottom: '1px solid #f0f0f0', fontSize: '14px' }}>{s}</p>
+                ))}
+              </div>
+              <button onClick={() => navigate('/register')} style={{
+                width: '100%', background: '#1a7a4a', color: 'white', border: 'none',
+                borderRadius: '10px', padding: '14px', fontSize: '15px',
+                fontWeight: '600', cursor: 'pointer'
+              }}>
+                Počni besplatno →
+              </button>
+            </div>
+
           </div>
         </div>
       </div>
