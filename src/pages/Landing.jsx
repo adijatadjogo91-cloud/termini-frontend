@@ -147,6 +147,7 @@ export default function Landing() {
                   '✅ Neograničeni termini',
                   '✅ Neograničeni klijenti',
                   '✅ Email podsjetnici',
+                  '✅ SMS podsjetnici (backup)',
                   '✅ Praćenje prihoda',
                   '✅ AI asistent (20 upita/dan)',
                   '✅ Booking mini-stranica',
