@@ -208,7 +208,7 @@ function Booking() {
                 style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '8px', fontSize: '15px', boxSizing: 'border-box' }}
               />
               {!odabranDatum && (
-                <p style={{ fontSize: '13px', color: '#aaa', marginTop: '8px', textAlign: 'center' }}>
+              <p style={{ fontSize: '13px', color: '#666', marginTop: '8px', textAlign: 'center' }}>
                   👆 Kliknite na polje iznad da odaberete datum
                 </p>
               )}
