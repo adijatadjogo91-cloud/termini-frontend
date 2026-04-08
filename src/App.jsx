@@ -1,3 +1,4 @@
+import OtkaziTermin from './pages/OtkaziTermin'
 import Postavke from './pages/Postavke'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Login from './pages/Login'
@@ -17,6 +18,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/otkazi/:token" element={<OtkaziTermin />} />
         <Route path="/postavke" element={<Postavke />} />
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
