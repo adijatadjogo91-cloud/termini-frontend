@@ -37,7 +37,7 @@ function Termini() {
       const headers = { Authorization: `Bearer ${token}` }
       const bizRes = await axios.get(API + '/api/businesses', { headers })
       const bizId = bizRes.data.businesses[0].id
-      await axios.patch(API + `/api/appointments/${bizId}/${terminId}`,
+      await axios.patch(API + `/api/appointments/${bizId}/${terminId}/status`,
         { status: 'cancelled' },
         { headers }
       )
