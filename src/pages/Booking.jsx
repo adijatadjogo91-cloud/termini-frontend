@@ -144,6 +144,31 @@ function Booking() {
         {/* Korak 1 — Usluga */}
         {korak === 1 && (
           <div>
+
+            {/* O salonu */}
+            {(salon?.description || salon?.address || salon?.phone) && (
+              <div style={{
+                background: 'white', borderRadius: '14px', padding: '1.25rem',
+                marginBottom: '1rem', boxShadow: '0 2px 8px rgba(0,0,0,0.06)'
+              }}>
+                {salon?.description && (
+                  <p style={{ fontSize: '14px', color: '#444', lineHeight: '1.6', marginBottom: '12px' }}>
+                    {salon.description}
+                  </p>
+                )}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  {salon?.address && (
+                    <p style={{ fontSize: '13px', color: '#555' }}>📍 {salon.address}{salon.city ? `, ${salon.city}` : ''}</p>
+                  )}
+                  {salon?.phone && (
+                    <a href={`tel:${salon.phone}`} style={{ fontSize: '13px', color: '#1a7a4a', textDecoration: 'none', fontWeight: '500' }}>
+                      📞 {salon.phone}
+                    </a>
+                  )}
+                </div>
+              </div>
+            )}
+
             <h3 style={{ fontSize: '17px', fontWeight: '700', marginBottom: '1rem', color: '#1a1a1a' }}>
               Odaberite uslugu
             </h3>
