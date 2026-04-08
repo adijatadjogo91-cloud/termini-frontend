@@ -31,6 +31,22 @@ function Termini() {
     setUcitava(false)
   }
 
+  async function otkaziTermin(terminId) {
+    if (!window.confirm('Da li ste sigurni da želite otkazati ovaj termin?')) return;
+    try {
+      const headers = { Authorization: `Bearer ${token}` }
+      const bizRes = await axios.get(API + '/api/businesses', { headers })
+      const bizId = bizRes.data.businesses[0].id
+      await axios.patch(API + `/api/appointments/${bizId}/${terminId}`,
+        { status: 'cancelled' },
+        { headers }
+      )
+      ucitajTermine()
+    } catch (err) {
+      alert('Greška pri otkazivanju termina.')
+    }
+  }
+
   function formatDatum(datum) {
     const d = new Date(datum)
     const dani = ['ned','pon','uto','sri','čet','pet','sub']
@@ -85,7 +101,6 @@ function Termini() {
           }}>
             + Novi termin
           </button>
-  
         </div>
 
         {/* Filter */}
@@ -131,15 +146,26 @@ function Termini() {
                     <p style={{ fontSize: '13px', color: '#888' }}>{t.service_name || 'Usluga'}</p>
                   </div>
                 </div>
-                <div style={{ textAlign: 'right' }}>
-                  <p style={{ fontSize: '13px', color: '#555', marginBottom: '4px' }}>{formatDatum(t.starts_at)}</p>
-                  <span style={{
-                    fontSize: '12px', padding: '3px 10px', borderRadius: '20px',
-                    background: statusBoja(t.status) + '20',
-                    color: statusBoja(t.status), fontWeight: '500'
-                  }}>
-                    {statusNaziv(t.status)}
-                  </span>
+                <div style={{ textAlign: 'right', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <div>
+                    <p style={{ fontSize: '13px', color: '#555', marginBottom: '4px' }}>{formatDatum(t.starts_at)}</p>
+                    <span style={{
+                      fontSize: '12px', padding: '3px 10px', borderRadius: '20px',
+                      background: statusBoja(t.status) + '20',
+                      color: statusBoja(t.status), fontWeight: '500'
+                    }}>
+                      {statusNaziv(t.status)}
+                    </span>
+                  </div>
+                  {t.status !== 'cancelled' && t.status !== 'completed' && (
+                    <button onClick={() => otkaziTermin(t.id)} style={{
+                      background: 'none', border: '1px solid #e24b4a', color: '#e24b4a',
+                      borderRadius: '8px', padding: '6px 12px', fontSize: '12px',
+                      cursor: 'pointer'
+                    }}>
+                      Otkaži
+                    </button>
+                  )}
                 </div>
               </div>
             ))
