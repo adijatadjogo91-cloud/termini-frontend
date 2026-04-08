@@ -289,7 +289,7 @@ function Booking() {
                 />
               </div>
               <div style={{ marginBottom: '1.5rem' }}>
-                <label style={{ fontSize: '13px', color: '#555', display: 'block', marginBottom: '6px' }}>Email (opciono)</label>
+                <label style={{ fontSize: '13px', color: '#555', display: 'block', marginBottom: '6px' }}>Email <span style={{color: '#e24b4a'}}>*</span> ili telefon (bar jedno obavezno)</label>
                 <input
                   type="email"
                   value={email}
@@ -313,12 +313,12 @@ function Booking() {
 
               <button
                 onClick={zakaziTermin}
-                disabled={!ime || !telefon || saljeZahtjev}
+                disabled={!ime || (!telefon && !email) || saljeZahtjev}
                 style={{
-                  width: '100%', background: (!ime || !telefon) ? '#ccc' : '#1a7a4a',
+                  width: '100%', background: (!ime || (!telefon && !email)) ? '#ccc' : '#1a7a4a',
                   color: 'white', border: 'none', borderRadius: '8px',
                   padding: '14px', fontSize: '15px', fontWeight: '600',
-                  cursor: (!ime || !telefon) ? 'not-allowed' : 'pointer'
+                  cursor: (!ime || (!telefon && !email)) ? 'not-allowed' : 'pointer'
                 }}>
                 {saljeZahtjev ? 'Zakazivanje...' : 'Potvrdi termin →'}
               </button>
