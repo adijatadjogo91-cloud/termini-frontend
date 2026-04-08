@@ -207,6 +207,11 @@ function Booking() {
                 }}
                 style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '8px', fontSize: '15px', boxSizing: 'border-box' }}
               />
+              {!odabranDatum && (
+                <p style={{ fontSize: '13px', color: '#aaa', marginTop: '8px', textAlign: 'center' }}>
+                  👆 Kliknite na polje iznad da odaberete datum
+                </p>
+              )}
               {odabranDatum && (
                 <button onClick={() => { ucitajSlobodnaVremena(odabranDatum); setKorak(4) }} style={{
                   width: '100%', marginTop: '1rem', background: '#1a7a4a', color: 'white',
@@ -281,6 +286,7 @@ function Booking() {
               <div style={{ marginBottom: '1rem' }}>
                 <label style={{ fontSize: '13px', color: '#555', display: 'block', marginBottom: '6px' }}>Broj telefona</label>
                 <input
+            
                   type="tel"
                   value={telefon}
                   onChange={e => setTelefon(e.target.value)}
