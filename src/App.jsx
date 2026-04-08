@@ -1,3 +1,4 @@
+import Prihodi from './pages/Prihodi'
 import OtkaziTermin from './pages/OtkaziTermin'
 import Postavke from './pages/Postavke'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
@@ -18,6 +19,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/prihodi" element={<Prihodi />} />
         <Route path="/otkazi/:token" element={<OtkaziTermin />} />
         <Route path="/postavke" element={<Postavke />} />
         <Route path="/" element={<Landing />} />

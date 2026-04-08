@@ -32,6 +32,7 @@ function Navbar() {
   })
 
   const linkovi = [
+    { putanja: '/prihodi', naziv: '💰 Prihodi' },
     { putanja: '/dashboard', naziv: '🏠 Dashboard' },
     { putanja: '/termini', naziv: '📅 Termini' },
     { putanja: '/klijenti', naziv: '👥 Klijenti' },
