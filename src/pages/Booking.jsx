@@ -336,7 +336,7 @@ function Booking() {
                   <label style={{ fontSize: '13px', color: '#333', fontWeight: '500', display: 'block', marginBottom: '6px' }}>
                     {f.label}
                     {f.key === 'email' && <span style={{ color: '#e24b4a' }}> *</span>}
-                    {f.key === 'email' && <span style={{ color: '#888', fontWeight: '400' }}> (ili telefon)</span>}
+                    
                   </label>
                   <input
                     type={f.type}
