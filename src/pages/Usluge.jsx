@@ -49,7 +49,7 @@ export default function Usluge() {
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2rem', flexWrap: 'wrap', gap: '12px' }}>
           <div>
             <h1 style={{ fontSize: '26px', fontWeight: '700', color: '#f0f4ff', marginBottom: '4px' }}>
-              ✂️ Usluge
+            📋 Usluge
             </h1>
             <p style={{ color: '#6b7fa3', fontSize: '15px' }}>
               {usluge.length} usluga ukupno
@@ -70,7 +70,7 @@ export default function Usluge() {
           gap: '12px', marginBottom: '1.5rem'
         }}>
           {[
-            { label: 'Ukupno usluga', vrijednost: usluge.length, boja: '#4ade80', icon: '✂️' },
+            { label: 'Ukupno usluga', vrijednost: usluge.length, boja: '#4ade80', icon: '📋' },
             { label: 'Prosječna cijena', vrijednost: usluge.length ? Math.round(usluge.reduce((s, u) => s + Number(u.price), 0) / usluge.length) + ' KM' : '0 KM', boja: '#c084fc', icon: '💰' },
             { label: 'Prosječno trajanje', vrijednost: usluge.length ? Math.round(usluge.reduce((s, u) => s + Number(u.duration), 0) / usluge.length) + ' min' : '0 min', boja: '#60a5fa', icon: '⏱' },
           ].map((k, i) => (
@@ -97,7 +97,7 @@ export default function Usluge() {
         }}>
           {usluge.length === 0 ? (
             <div style={{ padding: '4rem', textAlign: 'center' }}>
-              <p style={{ fontSize: '40px', marginBottom: '12px' }}>✂️</p>
+              <p style={{ fontSize: '40px', marginBottom: '12px' }}>📋</p>
               <p style={{ color: '#c8d0e8', fontSize: '15px', fontWeight: '500' }}>Nema usluga još.</p>
               <p style={{ color: '#6b7fa3', fontSize: '13px', marginTop: '8px' }}>
                 Dodajte prvu uslugu klikom na dugme iznad.
