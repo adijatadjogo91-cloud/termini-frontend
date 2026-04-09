@@ -245,51 +245,112 @@ function Booking() {
         )}
 
         {/* Korak 3 — Datum */}
-        {korak === 3 && (
-          <div>
-            <button onClick={() => setKorak(2)} style={{
-              background: 'none', border: 'none', color: '#1a7a4a', cursor: 'pointer',
-              marginBottom: '1rem', fontSize: '14px', fontWeight: '500', padding: 0
-            }}>
-              ← Nazad
-            </button>
-            <h3 style={{ fontSize: '17px', fontWeight: '700', marginBottom: '1rem', color: '#1a1a1a' }}>
-              Odaberite datum
-            </h3>
-            <div style={{ background: 'white', borderRadius: '14px', padding: '1.5rem', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
-              <input
-                type="date"
-                min={minDatum()}
-                max={maxDatum()}
-                value={odabranDatum}
-                onChange={e => {
-                  setOdabranDatum(e.target.value)
-                  setOdabranoVrijeme(null)
-                  setSlobodnaVremena([])
-                }}
-                style={{
-                  width: '100%', padding: '14px', border: '2px solid #eee',
-                  borderRadius: '10px', fontSize: '15px', boxSizing: 'border-box',
-                  color: '#1a1a1a', outline: 'none'
-                }}
-              />
-              {!odabranDatum && (
-                <p style={{ fontSize: '13px', color: '#666', marginTop: '10px', textAlign: 'center' }}>
-                  👆 Kliknite na polje iznad da odaberete datum
-                </p>
-              )}
-              {odabranDatum && (
-                <button onClick={() => { ucitajSlobodnaVremena(odabranDatum); setKorak(4) }} style={{
-                  width: '100%', marginTop: '1rem', background: '#1a7a4a', color: 'white',
-                  border: 'none', borderRadius: '10px', padding: '14px', fontSize: '15px',
-                  fontWeight: '600', cursor: 'pointer'
-                }}>
-                  Dalje →
-                </button>
-              )}
-            </div>
+{korak === 3 && (
+  <div>
+    <button onClick={() => setKorak(2)} style={{
+      background: 'none', border: 'none', color: '#1a7a4a', cursor: 'pointer',
+      marginBottom: '1rem', fontSize: '14px', fontWeight: '500', padding: 0
+    }}>
+      ← Nazad
+    </button>
+    <h3 style={{ fontSize: '17px', fontWeight: '700', marginBottom: '1rem', color: '#1a1a1a' }}>
+      Odaberite datum
+    </h3>
+
+    {/* Prikaz radnog vremena po danima */}
+    {salon?.working_hours && (() => {
+      const daniRedoslijed = ['mon','tue','wed','thu','fri','sat','sun']
+      const daniNazivi = { mon:'Pon', tue:'Uto', wed:'Sri', thu:'Čet', fri:'Pet', sat:'Sub', sun:'Ned' }
+      const wh = typeof salon.working_hours === 'string'
+        ? JSON.parse(salon.working_hours)
+        : salon.working_hours
+      return (
+        <div style={{
+          background: 'white', borderRadius: '14px', padding: '1rem 1.25rem',
+          marginBottom: '1rem', boxShadow: '0 2px 8px rgba(0,0,0,0.06)'
+        }}>
+          <p style={{ fontSize: '12px', color: '#888', fontWeight: '600', marginBottom: '10px', textTransform: 'uppercase' }}>
+            Radno vrijeme
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            {daniRedoslijed.map(dan => (
+              <div key={dan} style={{
+                display: 'flex', justifyContent: 'space-between', alignItems: 'center'
+              }}>
+                <span style={{ fontSize: '13px', color: wh[dan] ? '#333' : '#bbb', fontWeight: '500' }}>
+                  {daniNazivi[dan]}
+                </span>
+                <span style={{ fontSize: '13px', color: wh[dan] ? '#1a7a4a' : '#bbb' }}>
+                  {wh[dan] ? `${wh[dan].from} – ${wh[dan].to}` : 'Zatvoreno'}
+                </span>
+              </div>
+            ))}
           </div>
-        )}
+        </div>
+      )
+    })()}
+
+    <div style={{ background: 'white', borderRadius: '14px', padding: '1.5rem', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
+      <input
+        type="date"
+        min={minDatum()}
+        max={maxDatum()}
+        value={odabranDatum}
+        onChange={e => {
+          const noviDatum = e.target.value
+          // Provjeri da li salon radi tog dana
+          const wh = typeof salon?.working_hours === 'string'
+            ? JSON.parse(salon.working_hours)
+            : salon.working_hours
+          const dayMap = { 0:'sun', 1:'mon', 2:'tue', 3:'wed', 4:'thu', 5:'fri', 6:'sat' }
+          const dayKey = dayMap[new Date(noviDatum + 'T00:00:00').getDay()]
+          if (!wh?.[dayKey]) {
+            alert('Salon ne radi tog dana. Molimo odaberite drugi datum.')
+            return
+          }
+          setOdabranDatum(noviDatum)
+          setOdabranoVrijeme(null)
+          setSlobodnaVremena([])
+        }}
+        style={{
+          width: '100%', padding: '14px', border: '2px solid #eee',
+          borderRadius: '10px', fontSize: '15px', boxSizing: 'border-box',
+          color: '#1a1a1a', outline: 'none'
+        }}
+      />
+
+      {/* Prikaz radnog vremena za odabrani datum */}
+      {odabranDatum && (() => {
+        const wh = typeof salon?.working_hours === 'string'
+          ? JSON.parse(salon.working_hours)
+          : salon.working_hours
+        const dayMap = { 0:'sun', 1:'mon', 2:'tue', 3:'wed', 4:'thu', 5:'fri', 6:'sat' }
+        const dayKey = dayMap[new Date(odabranDatum + 'T00:00:00').getDay()]
+        const hours = wh?.[dayKey]
+        return hours ? (
+          <p style={{ fontSize: '13px', color: '#1a7a4a', marginTop: '10px', textAlign: 'center', fontWeight: '500' }}>
+            🕐 Radno vrijeme: {hours.from} – {hours.to}
+          </p>
+        ) : null
+      })()}
+
+      {!odabranDatum && (
+        <p style={{ fontSize: '13px', color: '#666', marginTop: '10px', textAlign: 'center' }}>
+          👆 Kliknite na polje iznad da odaberete datum
+        </p>
+      )}
+      {odabranDatum && (
+        <button onClick={() => { ucitajSlobodnaVremena(odabranDatum); setKorak(4) }} style={{
+          width: '100%', marginTop: '1rem', background: '#1a7a4a', color: 'white',
+          border: 'none', borderRadius: '10px', padding: '14px', fontSize: '15px',
+          fontWeight: '600', cursor: 'pointer'
+        }}>
+          Dalje →
+        </button>
+      )}
+    </div>
+  </div>
+)}
 
         {/* Korak 4 — Vrijeme */}
         {korak === 4 && (
