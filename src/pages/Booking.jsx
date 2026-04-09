@@ -5,6 +5,7 @@ const API = 'https://termini-pro.onrender.com'
 
 function Booking() {
   const slug = window.location.pathname.split('/booking/')[1]
+  const [datumBlokiran, setDatumBlokiran] = useState(false)
   const [salon, setSalon] = useState(null)
   const [usluge, setUsluge] = useState([])
   const [korak, setKorak] = useState(1)
@@ -37,16 +38,17 @@ function Booking() {
   }
 
   async function ucitajSlobodnaVremena(datum) {
-    setUcitavaVremena(true)
-    try {
-      const res = await axios.get(API + `/api/public/b/${slug}/slots?date=${datum}&serviceId=${odabranaUsluga.id}`)
-      setSlobodnaVremena(res.data.slots || [])
-    } catch (err) {
-      setSlobodnaVremena([])
-    }
-    setUcitavaVremena(false)
+  setUcitavaVremena(true)
+  try {
+    const res = await axios.get(API + `/api/public/b/${slug}/slots?date=${datum}&serviceId=${odabranaUsluga.id}`)
+    setSlobodnaVremena(res.data.slots || [])
+    setDatumBlokiran(res.data.closed || false)
+  } catch (err) {
+    setSlobodnaVremena([])
+    setDatumBlokiran(false)
   }
-
+  setUcitavaVremena(false)
+}
   async function zakaziTermin() {
     setSaljeZahtjev(true)
     setGreska('')
@@ -370,17 +372,19 @@ function Booking() {
                 <p>Učitavanje slobodnih termina...</p>
               </div>
             ) : slobodnaVremena.length === 0 ? (
-              <div style={{ background: 'white', borderRadius: '14px', padding: '2rem', textAlign: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
-                <p style={{ fontSize: '32px', marginBottom: '12px' }}>😔</p>
-                <p style={{ color: '#555', fontWeight: '500' }}>Nema slobodnih termina za ovaj dan.</p>
-                <button onClick={() => setKorak(3)} style={{
-                  marginTop: '1rem', background: '#1a7a4a', color: 'white',
-                  border: 'none', borderRadius: '10px', padding: '12px 24px', cursor: 'pointer',
-                  fontWeight: '600'
-                }}>
-                  Odaberi drugi datum
-                </button>
-              </div>
+            <div style={{ background: 'white', borderRadius: '14px', padding: '2rem', textAlign: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
+            <p style={{ fontSize: '32px', marginBottom: '12px' }}>{datumBlokiran ? '🚫' : '😔'}</p>
+            <p style={{ color: '#555', fontWeight: '500' }}>
+            {datumBlokiran ? 'Salon ne radi ovaj dan.' : 'Nema slobodnih termina za ovaj dan.'}
+            </p>
+            <button onClick={() => setKorak(3)} style={{
+            marginTop: '1rem', background: '#1a7a4a', color: 'white',
+            border: 'none', borderRadius: '10px', padding: '12px 24px', cursor: 'pointer',
+            fontWeight: '600'
+            }}>
+            Odaberi drugi datum
+            </button>
+            </div>
             ) : (
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
                 {slobodnaVremena.map((slot, i) => (
