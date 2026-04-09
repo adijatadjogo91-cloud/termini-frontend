@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Navbar from '../components/Navbar'
 import { QRCodeSVG } from 'qrcode.react'
-
+import Onboarding from './Onboarding'
 const API = 'https://termini-pro.onrender.com'
 
 function Dashboard() {
@@ -11,7 +11,7 @@ function Dashboard() {
   const [ucitava, setUcitava] = useState(true)
   const [trialIstekao, setTrialIstekao] = useState(false)
   const [danaOstalo, setDanaOstalo] = useState(null)
-
+  const [pokaziOnboarding, setPokaziOnboarding] = useState(false)
   const token = localStorage.getItem('token')
 
   useEffect(() => {
@@ -25,6 +25,9 @@ function Dashboard() {
       const bizRes = await axios.get(API + '/api/businesses', { headers })
       const mojBiznis = bizRes.data.businesses[0]
       setBiznis(mojBiznis)
+      if (!mojBiznis.phone && !mojBiznis.address && !mojBiznis.description) {
+      setPokaziOnboarding(true)
+     }
       if (mojBiznis.trial_ends_at) {
         const trialKraj = new Date(mojBiznis.trial_ends_at)
         const danas = new Date()
@@ -49,7 +52,15 @@ function Dashboard() {
     const mjeseci = ['januar','februar','mart','april','maj','juni','juli','august','septembar','oktobar','novembar','decembar']
     return `${dani[d.getDay()]}, ${d.getDate()}. ${mjeseci[d.getMonth()]}`
   }
-
+ if (pokaziOnboarding && biznis) return (
+  <Onboarding
+    biznis={biznis}
+    onZavrsi={() => {
+      setPokaziOnboarding(false)
+      ucitajPodatke()
+    }}
+  />
+ )
   if (ucitava) return (
     <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0a0f1e' }}>
       <div style={{ textAlign: 'center' }}>
