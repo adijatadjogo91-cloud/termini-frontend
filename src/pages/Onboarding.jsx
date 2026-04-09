@@ -30,7 +30,7 @@ export default function Onboarding({ biznis, onZavrsi }) {
     wed: { active: true, from: '09:00', to: '17:00' },
     thu: { active: true, from: '09:00', to: '17:00' },
     fri: { active: true, from: '09:00', to: '17:00' },
-    sat: { active: false, from: '09:00', to: '14:00' },
+    sat: { active: true, from: '09:00', to: '14:00' },
     sun: { active: false, from: '09:00', to: '14:00' },
   })
 
