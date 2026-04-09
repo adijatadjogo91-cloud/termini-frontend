@@ -12,6 +12,9 @@ function Uposlenici() {
   const [greska, setGreska] = useState('')
   const token = localStorage.getItem('token')
 
+  const boje = ['#4ade80', '#60a5fa', '#c084fc', '#fb923c', '#f472b6', '#34d399']
+  const bojaPoBroju = (i) => boje[i % boje.length]
+
   useEffect(() => {
     if (!token) { window.location.href = '/login'; return }
     ucitajUposlenike()
@@ -69,29 +72,39 @@ function Uposlenici() {
   }
 
   if (ucitava) return (
-    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f5f5f5' }}>
-      <p style={{ color: '#888' }}>Učitavanje...</p>
+    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0a0f1e' }}>
+      <div style={{ textAlign: 'center' }}>
+        <div style={{ width: '40px', height: '40px', border: '3px solid #4ade80', borderTopColor: 'transparent', borderRadius: '50%', margin: '0 auto 12px', animation: 'spin 1s linear infinite' }} />
+        <p style={{ color: '#6b7fa3', fontSize: '14px' }}>Učitavanje...</p>
+      </div>
+      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </div>
   )
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f5f5f5' }}>
+    <div style={{ minHeight: '100vh', background: '#0a0f1e', fontFamily: 'Inter, sans-serif' }}>
       <Navbar />
 
       <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '2rem' }}>
 
         {/* Naslov */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2rem' }}>
-          <div>
-            <h1 style={{ fontSize: '24px', color: '#1a1a1a', marginBottom: '4px' }}>Uposlenici</h1>
-            <p style={{ color: '#888', fontSize: '15px' }}>{uposlenici.length} uposlenika ukupno</p>
-          </div>
+        <div style={{ marginBottom: '2rem' }}>
+          <h1 style={{ fontSize: '26px', fontWeight: '700', color: '#f0f4ff', marginBottom: '4px' }}>
+            👤 Uposlenici
+          </h1>
+          <p style={{ color: '#6b7fa3', fontSize: '15px' }}>
+            {uposlenici.length} uposlenika ukupno
+          </p>
         </div>
 
         {/* Forma za dodavanje */}
-        <div style={{ background: 'white', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 1px 4px rgba(0,0,0,0.06)', marginBottom: '1.5rem' }}>
-          <h3 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '1rem', color: '#1a1a1a' }}>
-            Dodaj novog uposlenika
+        <div style={{
+          background: 'rgba(74,222,128,0.06)',
+          border: '1px solid rgba(74,222,128,0.2)',
+          borderRadius: '16px', padding: '1.5rem', marginBottom: '1.5rem'
+        }}>
+          <h3 style={{ fontSize: '15px', fontWeight: '600', marginBottom: '1rem', color: '#f0f4ff' }}>
+            ➕ Dodaj novog uposlenika
           </h3>
           <div style={{ display: 'flex', gap: '12px' }}>
             <input
@@ -101,55 +114,83 @@ function Uposlenici() {
               onChange={e => setIme(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && dodajUposlenika()}
               style={{
-                flex: 1, padding: '10px 14px', border: '1px solid #ddd',
-                borderRadius: '8px', fontSize: '14px', outline: 'none'
+                flex: 1, padding: '11px 14px',
+                background: 'rgba(255,255,255,0.07)',
+                border: '1px solid rgba(255,255,255,0.12)',
+                borderRadius: '10px', fontSize: '14px',
+                color: '#f0f4ff', outline: 'none',
+                fontFamily: 'Inter, sans-serif'
               }}
             />
             <button
               onClick={dodajUposlenika}
               disabled={!ime.trim() || dodaje}
               style={{
-                background: !ime.trim() ? '#ccc' : '#1a7a4a', color: 'white',
-                border: 'none', borderRadius: '8px', padding: '10px 20px',
-                fontSize: '14px', fontWeight: '500', cursor: !ime.trim() ? 'not-allowed' : 'pointer'
+                background: !ime.trim() ? 'rgba(255,255,255,0.1)' : '#16a34a',
+                color: !ime.trim() ? '#6b7fa3' : 'white',
+                border: 'none', borderRadius: '10px', padding: '11px 22px',
+                fontSize: '14px', fontWeight: '600',
+                cursor: !ime.trim() ? 'not-allowed' : 'pointer',
+                fontFamily: 'Inter, sans-serif', whiteSpace: 'nowrap'
               }}>
               {dodaje ? 'Dodavanje...' : '+ Dodaj'}
             </button>
           </div>
-          {greska && <p style={{ color: '#e24b4a', fontSize: '13px', marginTop: '8px' }}>{greska}</p>}
+          {greska && <p style={{ color: '#f87171', fontSize: '13px', marginTop: '8px' }}>{greska}</p>}
         </div>
 
         {/* Lista uposlenika */}
-        <div style={{ background: 'white', borderRadius: '12px', boxShadow: '0 1px 4px rgba(0,0,0,0.06)' }}>
+        <div style={{
+          background: 'rgba(255,255,255,0.04)',
+          border: '1px solid rgba(255,255,255,0.08)',
+          borderRadius: '16px', overflow: 'hidden'
+        }}>
           {uposlenici.length === 0 ? (
             <div style={{ padding: '4rem', textAlign: 'center' }}>
-              <p style={{ fontSize: '32px', marginBottom: '1rem' }}>👤</p>
-              <p style={{ color: '#888', fontSize: '15px' }}>Nema uposlenika još.</p>
-              <p style={{ color: '#bbb', fontSize: '13px', marginTop: '8px' }}>Dodajte prvog uposlenika gore.</p>
+              <p style={{ fontSize: '40px', marginBottom: '12px' }}>👤</p>
+              <p style={{ color: '#c8d0e8', fontSize: '15px', fontWeight: '500' }}>Nema uposlenika još.</p>
+              <p style={{ color: '#6b7fa3', fontSize: '13px', marginTop: '8px' }}>
+                Dodajte prvog uposlenika gore.
+              </p>
             </div>
           ) : (
             uposlenici.map((u, i) => (
               <div key={i} style={{
                 display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                 padding: '1rem 1.5rem',
-                borderBottom: i < uposlenici.length - 1 ? '1px solid #f0f0f0' : 'none'
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                borderBottom: i < uposlenici.length - 1 ? '1px solid rgba(255,255,255,0.06)' : 'none',
+                transition: 'background 0.15s'
+              }}
+                onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.03)'}
+                onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                   <div style={{
-                    width: '40px', height: '40px', borderRadius: '50%',
-                    background: '#eaf3de', display: 'flex', alignItems: 'center',
-                    justifyContent: 'center', fontSize: '14px', fontWeight: '600',
-                    color: '#1a7a4a'
+                    width: '44px', height: '44px', borderRadius: '50%',
+                    background: bojaPoBroju(i) + '22',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: '15px', fontWeight: '700', color: bojaPoBroju(i),
+                    flexShrink: 0
                   }}>
                     {inicijali(u.name)}
                   </div>
-                  <p style={{ fontSize: '14px', fontWeight: '500', color: '#1a1a1a' }}>{u.name}</p>
+                  <div>
+                    <p style={{ fontSize: '15px', fontWeight: '500', color: '#e2e8f7', margin: 0 }}>
+                      {u.name}
+                    </p>
+                    <p style={{ fontSize: '12px', color: '#6b7fa3', marginTop: '3px' }}>
+                      Aktivan uposlenik
+                    </p>
+                  </div>
                 </div>
                 <button
                   onClick={() => obrisiUposlenika(u.id)}
                   style={{
-                    background: 'none', border: '1px solid #fca5a5', borderRadius: '6px',
-                    padding: '6px 12px', fontSize: '12px', color: '#e24b4a', cursor: 'pointer'
+                    background: 'rgba(248,113,113,0.1)',
+                    border: '1px solid rgba(248,113,113,0.3)',
+                    borderRadius: '8px', padding: '7px 14px',
+                    fontSize: '13px', color: '#f87171', cursor: 'pointer',
+                    fontFamily: 'Inter, sans-serif'
                   }}>
                   Obriši
                 </button>
