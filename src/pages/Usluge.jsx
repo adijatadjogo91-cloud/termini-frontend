@@ -127,7 +127,7 @@ export default function Usluge() {
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     fontSize: '18px', flexShrink: 0
                   }}>
-                    ✂️
+                  📌
                   </div>
                   <div>
                     <p style={{ fontSize: '15px', fontWeight: '500', color: '#e2e8f7', margin: 0 }}>
