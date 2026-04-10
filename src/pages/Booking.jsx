@@ -27,7 +27,7 @@ function Booking() {
   useEffect(() => { ucitajSalon() }, [])
 
   async function ucitajSalon() {
-  console.log('Slug:', slug)
+ 
   try {
     const res = await axios.get(API + `/api/public/b/${slug}`)
     setSalon(res.data.business)
@@ -36,7 +36,7 @@ function Booking() {
     // Dohvati galeriju
     try {
       const galRes = await axios.get(API + `/api/public/b/${slug}/gallery`)
-console.log('Galerija:', galRes.data.gallery)
+
 setGalerija(galRes.data.gallery || [])
     } catch (e) {}
   } catch (err) {
