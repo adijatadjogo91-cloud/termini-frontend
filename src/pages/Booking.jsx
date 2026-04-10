@@ -27,36 +27,34 @@ function Booking() {
   useEffect(() => { ucitajSalon() }, [])
 
   async function ucitajSalon() {
- 
-  try {
-    const res = await axios.get(API + `/api/public/b/${slug}`)
-    setSalon(res.data.business)
-    setUsluge(res.data.services || [])
-    setUposlenici(res.data.staff || [])
-    // Dohvati galeriju
     try {
-      const galRes = await axios.get(API + `/api/public/b/${slug}/gallery`)
-
-setGalerija(galRes.data.gallery || [])
-    } catch (e) {}
-  } catch (err) {
-    setGreska('Salon nije pronađen.')
+      const res = await axios.get(API + `/api/public/b/${slug}`)
+      setSalon(res.data.business)
+      setUsluge(res.data.services || [])
+      setUposlenici(res.data.staff || [])
+      try {
+        const galRes = await axios.get(API + `/api/public/b/${slug}/gallery`)
+        setGalerija(galRes.data.gallery || [])
+      } catch (e) {}
+    } catch (err) {
+      setGreska('Salon nije pronađen.')
+    }
+    setUcitava(false)
   }
-  setUcitava(false)
-}
 
   async function ucitajSlobodnaVremena(datum) {
-  setUcitavaVremena(true)
-  try {
-    const res = await axios.get(API + `/api/public/b/${slug}/slots?date=${datum}&serviceId=${odabranaUsluga.id}`)
-    setSlobodnaVremena(res.data.slots || [])
-    setDatumBlokiran(res.data.closed || false)
-  } catch (err) {
-    setSlobodnaVremena([])
-    setDatumBlokiran(false)
+    setUcitavaVremena(true)
+    try {
+      const res = await axios.get(API + `/api/public/b/${slug}/slots?date=${datum}&serviceId=${odabranaUsluga.id}`)
+      setSlobodnaVremena(res.data.slots || [])
+      setDatumBlokiran(res.data.closed || false)
+    } catch (err) {
+      setSlobodnaVremena([])
+      setDatumBlokiran(false)
+    }
+    setUcitavaVremena(false)
   }
-  setUcitavaVremena(false)
-}
+
   async function zakaziTermin() {
     setSaljeZahtjev(true)
     setGreska('')
@@ -97,52 +95,80 @@ setGalerija(galRes.data.gallery || [])
     return `${dani[d.getDay()]}, ${d.getDate()}. ${mjeseci[d.getMonth()]}`
   }
 
+  const inputStyle = {
+    width: '100%', padding: '12px 14px',
+    background: 'rgba(255,255,255,0.08)',
+    border: '1px solid rgba(255,255,255,0.15)',
+    borderRadius: '10px', fontSize: '15px',
+    color: '#f0f4ff', outline: 'none',
+    boxSizing: 'border-box', fontFamily: 'Inter, sans-serif'
+  }
+
+  const karticaStyle = {
+    background: 'rgba(255,255,255,0.06)',
+    border: '1px solid rgba(255,255,255,0.1)',
+    borderRadius: '14px', padding: '1rem 1.25rem',
+    marginBottom: '10px',
+  }
+
   if (ucitava) return (
-    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f8f9fa' }}>
+    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0a0f1e' }}>
       <div style={{ textAlign: 'center' }}>
-        <div style={{ width: '40px', height: '40px', border: '3px solid #1a7a4a', borderTopColor: 'transparent', borderRadius: '50%', margin: '0 auto 12px', animation: 'spin 1s linear infinite' }} />
-        <p style={{ color: '#888', fontSize: '14px' }}>Učitavanje...</p>
+        <div style={{ width: '40px', height: '40px', border: '3px solid #4ade80', borderTopColor: 'transparent', borderRadius: '50%', margin: '0 auto 12px', animation: 'spin 1s linear infinite' }} />
+        <p style={{ color: '#6b7fa3', fontSize: '14px' }}>Učitavanje...</p>
       </div>
+      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </div>
   )
 
   if (greska && !salon) return (
-    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f8f9fa' }}>
-      <p style={{ color: '#e24b4a' }}>{greska}</p>
+    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0a0f1e' }}>
+      <p style={{ color: '#f87171' }}>{greska}</p>
     </div>
   )
 
-  // Progress bar koraci
   const ukupnoKoraka = 5
   const progress = ((korak - 1) / (ukupnoKoraka - 1)) * 100
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f8f9fa', fontFamily: 'Inter, sans-serif' }}>
+    <div style={{ minHeight: '100vh', background: '#0a0f1e', fontFamily: 'Inter, sans-serif' }}>
 
       {/* Header */}
       <div style={{
-        background: 'linear-gradient(135deg, #1a7a4a 0%, #2d9e64 100%)',
-        padding: '1.5rem 1.5rem 2.5rem',
-        textAlign: 'center', color: 'white'
+        background: 'linear-gradient(135deg, #0f2d1f 0%, #0a0f1e 100%)',
+        borderBottom: '1px solid rgba(74,222,128,0.15)',
+        padding: '1.5rem 1.5rem 2rem',
+        textAlign: 'center',
+        position: 'relative', overflow: 'hidden'
       }}>
-        <h2 style={{ fontSize: '22px', fontWeight: '700', marginBottom: '4px' }}>{salon?.name}</h2>
-        <p style={{ fontSize: '13px', opacity: 0.85 }}>📍 {salon?.city || 'Bosna i Hercegovina'}</p>
+        <div style={{
+          position: 'absolute', inset: 0,
+          background: 'radial-gradient(ellipse 80% 80% at 50% 120%, rgba(74,222,128,0.12) 0%, transparent 70%)',
+          pointerEvents: 'none'
+        }} />
+        <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#f0f4ff', marginBottom: '4px', position: 'relative' }}>
+          {salon?.name}
+        </h2>
+        <p style={{ fontSize: '13px', color: '#4ade80', position: 'relative' }}>
+          📍 {salon?.city || 'Bosna i Hercegovina'}
+        </p>
       </div>
 
       {/* Progress bar */}
       {korak < 6 && (
-        <div style={{ background: 'white', padding: '12px 1.5rem', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
+        <div style={{ background: 'rgba(255,255,255,0.03)', padding: '12px 1.5rem', borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
             {['Usluga', 'Uposlenik', 'Datum', 'Vrijeme', 'Podaci'].map((k, i) => (
               <span key={i} style={{
                 fontSize: '10px', fontWeight: i + 1 <= korak ? '600' : '400',
-                color: i + 1 <= korak ? '#1a7a4a' : '#bbb'
+                color: i + 1 <= korak ? '#4ade80' : '#4a5a7a'
               }}>{k}</span>
             ))}
           </div>
-          <div style={{ background: '#eee', borderRadius: '4px', height: '4px' }}>
+          <div style={{ background: 'rgba(255,255,255,0.08)', borderRadius: '4px', height: '4px' }}>
             <div style={{
-              background: '#1a7a4a', height: '4px', borderRadius: '4px',
+              background: 'linear-gradient(to right, #16a34a, #4ade80)',
+              height: '4px', borderRadius: '4px',
               width: `${progress}%`, transition: 'width 0.3s ease'
             }} />
           </div>
@@ -154,66 +180,63 @@ setGalerija(galRes.data.gallery || [])
         {/* Korak 1 — Usluga */}
         {korak === 1 && (
           <div>
-
             {/* O salonu */}
             {(salon?.description || salon?.address || salon?.phone) && (
-              <div style={{
-                background: 'white', borderRadius: '14px', padding: '1.25rem',
-                marginBottom: '1rem', boxShadow: '0 2px 8px rgba(0,0,0,0.06)'
-              }}>
+              <div style={{ ...karticaStyle, marginBottom: '1rem' }}>
                 {salon?.description && (
-                  <p style={{ fontSize: '14px', color: '#444', lineHeight: '1.6', marginBottom: '12px' }}>
+                  <p style={{ fontSize: '14px', color: '#c8d0e8', lineHeight: '1.6', marginBottom: '12px' }}>
                     {salon.description}
                   </p>
                 )}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                   {salon?.address && (
-                    <p style={{ fontSize: '13px', color: '#555' }}>📍 {salon.address}{salon.city ? `, ${salon.city}` : ''}</p>
+                    <p style={{ fontSize: '13px', color: '#8b9ec7' }}>📍 {salon.address}{salon.city ? `, ${salon.city}` : ''}</p>
                   )}
                   {salon?.phone && (
-                    <a href={`tel:${salon.phone}`} style={{ fontSize: '13px', color: '#1a7a4a', textDecoration: 'none', fontWeight: '500' }}>
+                    <a href={`tel:${salon.phone}`} style={{ fontSize: '13px', color: '#4ade80', textDecoration: 'none', fontWeight: '500' }}>
                       📞 {salon.phone}
                     </a>
                   )}
                 </div>
               </div>
             )}
-{galerija.length > 0 && (
-  <div style={{ marginBottom: '1rem' }}>
-    <p style={{ fontSize: '13px', color: '#888', fontWeight: '600', marginBottom: '10px', textTransform: 'uppercase' }}>
-      Naši radovi
-    </p>
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px' }}>
-      {galerija.map((slika, i) => (
-        <img
-          key={i}
-          src={slika.image_url}
-          alt="Rad salona"
-          style={{ width: '100%', height: '90px', objectFit: 'cover', borderRadius: '10px' }}
-        />
-      ))}
-    </div>
-  </div>
-)}
-            <h3 style={{ fontSize: '17px', fontWeight: '700', marginBottom: '1rem', color: '#1a1a1a' }}>
+
+            {/* Galerija */}
+            {galerija.length > 0 && (
+              <div style={{ marginBottom: '1.25rem' }}>
+                <p style={{ fontSize: '12px', color: '#6b7fa3', fontWeight: '600', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                  Naši radovi
+                </p>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px' }}>
+                  {galerija.map((slika, i) => (
+                    <img key={i} src={slika.image_url} alt="Rad salona"
+                      style={{ width: '100%', height: '90px', objectFit: 'cover', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.08)' }}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <h3 style={{ fontSize: '17px', fontWeight: '700', marginBottom: '1rem', color: '#f0f4ff' }}>
               Odaberite uslugu
             </h3>
             {usluge.map((u, i) => (
               <div key={i} onClick={() => { setOdabranaUsluga(u); setKorak(2) }} style={{
-                background: 'white', borderRadius: '14px', padding: '1rem 1.25rem',
-                marginBottom: '10px', cursor: 'pointer',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+                ...karticaStyle,
+                cursor: 'pointer',
                 display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                border: '2px solid transparent',
-                transition: 'border-color 0.2s'
-              }}>
+                transition: 'border-color 0.2s',
+              }}
+                onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(74,222,128,0.4)'}
+                onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'}
+              >
                 <div>
-                  <p style={{ fontSize: '15px', fontWeight: '600', color: '#1a1a1a' }}>{u.name}</p>
-                  <p style={{ fontSize: '13px', color: '#555', marginTop: '3px' }}>⏱ {u.duration || u.duration_minutes} min</p>
+                  <p style={{ fontSize: '15px', fontWeight: '600', color: '#e2e8f7', margin: 0 }}>{u.name}</p>
+                  <p style={{ fontSize: '13px', color: '#6b7fa3', marginTop: '3px' }}>⏱ {u.duration || u.duration_minutes} min</p>
                 </div>
                 <div style={{ textAlign: 'right' }}>
-                  <p style={{ fontSize: '16px', fontWeight: '700', color: '#1a7a4a' }}>{u.price} KM</p>
-                  <p style={{ fontSize: '11px', color: '#aaa', marginTop: '2px' }}>→</p>
+                  <p style={{ fontSize: '16px', fontWeight: '700', color: '#4ade80', margin: 0 }}>{u.price} KM</p>
+                  <p style={{ fontSize: '11px', color: '#4a5a7a', marginTop: '2px' }}>→</p>
                 </div>
               </div>
             ))}
@@ -224,201 +247,175 @@ setGalerija(galRes.data.gallery || [])
         {korak === 2 && (
           <div>
             <button onClick={() => setKorak(1)} style={{
-              background: 'none', border: 'none', color: '#1a7a4a', cursor: 'pointer',
+              background: 'none', border: 'none', color: '#4ade80', cursor: 'pointer',
               marginBottom: '1rem', fontSize: '14px', fontWeight: '500', padding: 0
-            }}>
-              ← Nazad
-            </button>
-            <h3 style={{ fontSize: '17px', fontWeight: '700', marginBottom: '1rem', color: '#1a1a1a' }}>
+            }}>← Nazad</button>
+            <h3 style={{ fontSize: '17px', fontWeight: '700', marginBottom: '1rem', color: '#f0f4ff' }}>
               Odaberite uposlenika
             </h3>
             <div onClick={() => { setOdabraniUposlenik(null); setKorak(3) }} style={{
-              background: 'white', borderRadius: '14px', padding: '1rem 1.25rem',
-              marginBottom: '10px', cursor: 'pointer',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+              ...karticaStyle, cursor: 'pointer',
               display: 'flex', alignItems: 'center', gap: '14px'
             }}>
               <div style={{
                 width: '44px', height: '44px', borderRadius: '50%',
-                background: '#f0f0f0', display: 'flex', alignItems: 'center',
+                background: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center',
                 justifyContent: 'center', fontSize: '20px', flexShrink: 0
               }}>👥</div>
               <div>
-                <p style={{ fontSize: '15px', fontWeight: '600', color: '#1a1a1a' }}>Bilo koji uposlenik</p>
-                <p style={{ fontSize: '13px', color: '#555' }}>Prvi slobodni termin</p>
+                <p style={{ fontSize: '15px', fontWeight: '600', color: '#e2e8f7', margin: 0 }}>Bilo koji uposlenik</p>
+                <p style={{ fontSize: '13px', color: '#6b7fa3', marginTop: '2px' }}>Prvi slobodni termin</p>
               </div>
             </div>
             {uposlenici.map((u, i) => (
               <div key={i} onClick={() => { setOdabraniUposlenik(u); setKorak(3) }} style={{
-                background: 'white', borderRadius: '14px', padding: '1rem 1.25rem',
-                marginBottom: '10px', cursor: 'pointer',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+                ...karticaStyle, cursor: 'pointer',
                 display: 'flex', alignItems: 'center', gap: '14px',
-                border: '2px solid ' + (odabraniUposlenik?.id === u.id ? '#1a7a4a' : 'transparent')
+                borderColor: odabraniUposlenik?.id === u.id ? 'rgba(74,222,128,0.4)' : 'rgba(255,255,255,0.1)'
               }}>
                 <div style={{
                   width: '44px', height: '44px', borderRadius: '50%',
-                  background: u.color || '#1a7a4a', display: 'flex', alignItems: 'center',
+                  background: u.color || '#16a34a', display: 'flex', alignItems: 'center',
                   justifyContent: 'center', fontSize: '18px', fontWeight: '700',
                   color: 'white', flexShrink: 0
                 }}>
                   {u.name?.charAt(0)}
                 </div>
-                <p style={{ fontSize: '15px', fontWeight: '600', color: '#1a1a1a' }}>{u.name}</p>
+                <p style={{ fontSize: '15px', fontWeight: '600', color: '#e2e8f7', margin: 0 }}>{u.name}</p>
               </div>
             ))}
           </div>
         )}
 
         {/* Korak 3 — Datum */}
-{korak === 3 && (
-  <div>
-    <button onClick={() => setKorak(2)} style={{
-      background: 'none', border: 'none', color: '#1a7a4a', cursor: 'pointer',
-      marginBottom: '1rem', fontSize: '14px', fontWeight: '500', padding: 0
-    }}>
-      ← Nazad
-    </button>
-    <h3 style={{ fontSize: '17px', fontWeight: '700', marginBottom: '1rem', color: '#1a1a1a' }}>
-      Odaberite datum
-    </h3>
+        {korak === 3 && (
+          <div>
+            <button onClick={() => setKorak(2)} style={{
+              background: 'none', border: 'none', color: '#4ade80', cursor: 'pointer',
+              marginBottom: '1rem', fontSize: '14px', fontWeight: '500', padding: 0
+            }}>← Nazad</button>
+            <h3 style={{ fontSize: '17px', fontWeight: '700', marginBottom: '1rem', color: '#f0f4ff' }}>
+              Odaberite datum
+            </h3>
 
-    {/* Prikaz radnog vremena po danima */}
-    {salon?.working_hours && (() => {
-      const daniRedoslijed = ['mon','tue','wed','thu','fri','sat','sun']
-      const daniNazivi = { mon:'Pon', tue:'Uto', wed:'Sri', thu:'Čet', fri:'Pet', sat:'Sub', sun:'Ned' }
-      const wh = typeof salon.working_hours === 'string'
-        ? JSON.parse(salon.working_hours)
-        : salon.working_hours
-      return (
-        <div style={{
-          background: 'white', borderRadius: '14px', padding: '1rem 1.25rem',
-          marginBottom: '1rem', boxShadow: '0 2px 8px rgba(0,0,0,0.06)'
-        }}>
-          <p style={{ fontSize: '12px', color: '#888', fontWeight: '600', marginBottom: '10px', textTransform: 'uppercase' }}>
-            Radno vrijeme
-          </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-            {daniRedoslijed.map(dan => (
-              <div key={dan} style={{
-                display: 'flex', justifyContent: 'space-between', alignItems: 'center'
-              }}>
-                <span style={{ fontSize: '13px', color: wh[dan] ? '#333' : '#bbb', fontWeight: '500' }}>
-                  {daniNazivi[dan]}
-                </span>
-                <span style={{ fontSize: '13px', color: wh[dan] ? '#1a7a4a' : '#bbb' }}>
-                  {wh[dan] ? `${wh[dan].from} – ${wh[dan].to}` : 'Zatvoreno'}
-                </span>
-              </div>
-            ))}
+            {salon?.working_hours && (() => {
+              const daniRedoslijed = ['mon','tue','wed','thu','fri','sat','sun']
+              const daniNazivi = { mon:'Pon', tue:'Uto', wed:'Sri', thu:'Čet', fri:'Pet', sat:'Sub', sun:'Ned' }
+              const wh = typeof salon.working_hours === 'string' ? JSON.parse(salon.working_hours) : salon.working_hours
+              return (
+                <div style={{ ...karticaStyle, marginBottom: '1rem' }}>
+                  <p style={{ fontSize: '12px', color: '#6b7fa3', fontWeight: '600', marginBottom: '10px', textTransform: 'uppercase' }}>
+                    Radno vrijeme
+                  </p>
+                  {daniRedoslijed.map(dan => (
+                    <div key={dan} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                      <span style={{ fontSize: '13px', color: wh[dan] ? '#c8d0e8' : '#4a5a7a', fontWeight: '500' }}>
+                        {daniNazivi[dan]}
+                      </span>
+                      <span style={{ fontSize: '13px', color: wh[dan] ? '#4ade80' : '#4a5a7a' }}>
+                        {wh[dan] ? `${wh[dan].from} – ${wh[dan].to}` : 'Zatvoreno'}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )
+            })()}
+
+            <div style={{ ...karticaStyle }}>
+              <input
+                type="date" min={minDatum()} max={maxDatum()} value={odabranDatum}
+                onChange={e => {
+                  const noviDatum = e.target.value
+                  const wh = typeof salon?.working_hours === 'string' ? JSON.parse(salon.working_hours) : salon.working_hours
+                  const dayMap = { 0:'sun', 1:'mon', 2:'tue', 3:'wed', 4:'thu', 5:'fri', 6:'sat' }
+                  const dayKey = dayMap[new Date(noviDatum + 'T00:00:00').getDay()]
+                  if (!wh?.[dayKey]) {
+                    alert('Salon ne radi tog dana. Molimo odaberite drugi datum.')
+                    return
+                  }
+                  setOdabranDatum(noviDatum)
+                  setOdabranoVrijeme(null)
+                  setSlobodnaVremena([])
+                }}
+                style={{
+                  width: '100%', padding: '14px',
+                  background: 'rgba(255,255,255,0.07)',
+                  border: '1px solid rgba(255,255,255,0.12)',
+                  borderRadius: '10px', fontSize: '15px',
+                  boxSizing: 'border-box', color: '#f0f4ff', outline: 'none',
+                  fontFamily: 'Inter, sans-serif'
+                }}
+              />
+              {odabranDatum && (() => {
+                const wh = typeof salon?.working_hours === 'string' ? JSON.parse(salon.working_hours) : salon.working_hours
+                const dayMap = { 0:'sun', 1:'mon', 2:'tue', 3:'wed', 4:'thu', 5:'fri', 6:'sat' }
+                const dayKey = dayMap[new Date(odabranDatum + 'T00:00:00').getDay()]
+                const hours = wh?.[dayKey]
+                return hours ? (
+                  <p style={{ fontSize: '13px', color: '#4ade80', marginTop: '10px', textAlign: 'center', fontWeight: '500' }}>
+                    🕐 Radno vrijeme: {hours.from} – {hours.to}
+                  </p>
+                ) : null
+              })()}
+              {!odabranDatum && (
+                <p style={{ fontSize: '13px', color: '#6b7fa3', marginTop: '10px', textAlign: 'center' }}>
+                  👆 Kliknite na polje iznad da odaberete datum
+                </p>
+              )}
+              {odabranDatum && (
+                <button onClick={() => { ucitajSlobodnaVremena(odabranDatum); setKorak(4) }} style={{
+                  width: '100%', marginTop: '1rem', background: '#16a34a', color: 'white',
+                  border: 'none', borderRadius: '10px', padding: '14px', fontSize: '15px',
+                  fontWeight: '600', cursor: 'pointer', fontFamily: 'Inter, sans-serif'
+                }}>
+                  Dalje →
+                </button>
+              )}
+            </div>
           </div>
-        </div>
-      )
-    })()}
-
-    <div style={{ background: 'white', borderRadius: '14px', padding: '1.5rem', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
-      <input
-        type="date"
-        min={minDatum()}
-        max={maxDatum()}
-        value={odabranDatum}
-        onChange={e => {
-          const noviDatum = e.target.value
-          // Provjeri da li salon radi tog dana
-          const wh = typeof salon?.working_hours === 'string'
-            ? JSON.parse(salon.working_hours)
-            : salon.working_hours
-          const dayMap = { 0:'sun', 1:'mon', 2:'tue', 3:'wed', 4:'thu', 5:'fri', 6:'sat' }
-          const dayKey = dayMap[new Date(noviDatum + 'T00:00:00').getDay()]
-          if (!wh?.[dayKey]) {
-            alert('Salon ne radi tog dana. Molimo odaberite drugi datum.')
-            return
-          }
-          setOdabranDatum(noviDatum)
-          setOdabranoVrijeme(null)
-          setSlobodnaVremena([])
-        }}
-        style={{
-          width: '100%', padding: '14px', border: '2px solid #eee',
-          borderRadius: '10px', fontSize: '15px', boxSizing: 'border-box',
-          color: '#1a1a1a', outline: 'none'
-        }}
-      />
-
-      {/* Prikaz radnog vremena za odabrani datum */}
-      {odabranDatum && (() => {
-        const wh = typeof salon?.working_hours === 'string'
-          ? JSON.parse(salon.working_hours)
-          : salon.working_hours
-        const dayMap = { 0:'sun', 1:'mon', 2:'tue', 3:'wed', 4:'thu', 5:'fri', 6:'sat' }
-        const dayKey = dayMap[new Date(odabranDatum + 'T00:00:00').getDay()]
-        const hours = wh?.[dayKey]
-        return hours ? (
-          <p style={{ fontSize: '13px', color: '#1a7a4a', marginTop: '10px', textAlign: 'center', fontWeight: '500' }}>
-            🕐 Radno vrijeme: {hours.from} – {hours.to}
-          </p>
-        ) : null
-      })()}
-
-      {!odabranDatum && (
-        <p style={{ fontSize: '13px', color: '#666', marginTop: '10px', textAlign: 'center' }}>
-          👆 Kliknite na polje iznad da odaberete datum
-        </p>
-      )}
-      {odabranDatum && (
-        <button onClick={() => { ucitajSlobodnaVremena(odabranDatum); setKorak(4) }} style={{
-          width: '100%', marginTop: '1rem', background: '#1a7a4a', color: 'white',
-          border: 'none', borderRadius: '10px', padding: '14px', fontSize: '15px',
-          fontWeight: '600', cursor: 'pointer'
-        }}>
-          Dalje →
-        </button>
-      )}
-    </div>
-  </div>
-)}
+        )}
 
         {/* Korak 4 — Vrijeme */}
         {korak === 4 && (
           <div>
             <button onClick={() => setKorak(3)} style={{
-              background: 'none', border: 'none', color: '#1a7a4a', cursor: 'pointer',
+              background: 'none', border: 'none', color: '#4ade80', cursor: 'pointer',
               marginBottom: '1rem', fontSize: '14px', fontWeight: '500', padding: 0
-            }}>
-              ← Nazad
-            </button>
-            <h3 style={{ fontSize: '17px', fontWeight: '700', marginBottom: '4px', color: '#1a1a1a' }}>
+            }}>← Nazad</button>
+            <h3 style={{ fontSize: '17px', fontWeight: '700', marginBottom: '4px', color: '#f0f4ff' }}>
               Odaberite vrijeme
             </h3>
-            <p style={{ fontSize: '13px', color: '#555', marginBottom: '1rem' }}>📅 {formatDatum(odabranDatum)}</p>
+            <p style={{ fontSize: '13px', color: '#6b7fa3', marginBottom: '1rem' }}>📅 {formatDatum(odabranDatum)}</p>
             {ucitavaVremena ? (
-              <div style={{ textAlign: 'center', padding: '3rem', color: '#888' }}>
+              <div style={{ textAlign: 'center', padding: '3rem', color: '#6b7fa3' }}>
+                <div style={{ width: '32px', height: '32px', border: '3px solid #4ade80', borderTopColor: 'transparent', borderRadius: '50%', margin: '0 auto 12px', animation: 'spin 1s linear infinite' }} />
                 <p>Učitavanje slobodnih termina...</p>
+                <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
               </div>
             ) : slobodnaVremena.length === 0 ? (
-            <div style={{ background: 'white', borderRadius: '14px', padding: '2rem', textAlign: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
-            <p style={{ fontSize: '32px', marginBottom: '12px' }}>{datumBlokiran ? '🚫' : '😔'}</p>
-            <p style={{ color: '#555', fontWeight: '500' }}>
-            {datumBlokiran ? 'Salon ne radi ovaj dan.' : 'Nema slobodnih termina za ovaj dan.'}
-            </p>
-            <button onClick={() => setKorak(3)} style={{
-            marginTop: '1rem', background: '#1a7a4a', color: 'white',
-            border: 'none', borderRadius: '10px', padding: '12px 24px', cursor: 'pointer',
-            fontWeight: '600'
-            }}>
-            Odaberi drugi datum
-            </button>
-            </div>
+              <div style={{ ...karticaStyle, textAlign: 'center', padding: '2rem' }}>
+                <p style={{ fontSize: '32px', marginBottom: '12px' }}>{datumBlokiran ? '🚫' : '😔'}</p>
+                <p style={{ color: '#c8d0e8', fontWeight: '500' }}>
+                  {datumBlokiran ? 'Salon ne radi ovaj dan.' : 'Nema slobodnih termina za ovaj dan.'}
+                </p>
+                <button onClick={() => setKorak(3)} style={{
+                  marginTop: '1rem', background: '#16a34a', color: 'white',
+                  border: 'none', borderRadius: '10px', padding: '12px 24px',
+                  cursor: 'pointer', fontWeight: '600', fontFamily: 'Inter, sans-serif'
+                }}>
+                  Odaberi drugi datum
+                </button>
+              </div>
             ) : (
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
                 {slobodnaVremena.map((slot, i) => (
                   <div key={i} onClick={() => { setOdabranoVrijeme(slot); setKorak(5) }} style={{
-                    background: odabranoVrijeme === slot ? '#1a7a4a' : 'white',
-                    color: odabranoVrijeme === slot ? 'white' : '#1a1a1a',
+                    background: odabranoVrijeme === slot ? '#16a34a' : 'rgba(255,255,255,0.06)',
+                    color: odabranoVrijeme === slot ? 'white' : '#e2e8f7',
                     borderRadius: '10px', padding: '14px', textAlign: 'center',
                     cursor: 'pointer', fontSize: '15px', fontWeight: '600',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
-                    border: '2px solid ' + (odabranoVrijeme === slot ? '#1a7a4a' : '#eee')
+                    border: '1px solid ' + (odabranoVrijeme === slot ? '#16a34a' : 'rgba(255,255,255,0.1)'),
+                    transition: 'all 0.15s'
                   }}>
                     {formatVrijeme(slot)}
                   </div>
@@ -432,64 +429,60 @@ setGalerija(galRes.data.gallery || [])
         {korak === 5 && (
           <div>
             <button onClick={() => setKorak(4)} style={{
-              background: 'none', border: 'none', color: '#1a7a4a', cursor: 'pointer',
+              background: 'none', border: 'none', color: '#4ade80', cursor: 'pointer',
               marginBottom: '1rem', fontSize: '14px', fontWeight: '500', padding: 0
-            }}>
-              ← Nazad
-            </button>
-            <h3 style={{ fontSize: '17px', fontWeight: '700', marginBottom: '1rem', color: '#1a1a1a' }}>
+            }}>← Nazad</button>
+            <h3 style={{ fontSize: '17px', fontWeight: '700', marginBottom: '1rem', color: '#f0f4ff' }}>
               Vaši podaci
             </h3>
-            <div style={{ background: 'white', borderRadius: '14px', padding: '1.5rem', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
+            <div style={{ ...karticaStyle, padding: '1.5rem' }}>
               {[
                 { label: 'Ime i prezime', key: 'ime', type: 'text', placeholder: 'Ana Hodžić', value: ime, set: setIme },
                 { label: 'Broj telefona', key: 'tel', type: 'tel', placeholder: '061 123 456', value: telefon, set: setTelefon },
                 { label: 'Email', key: 'email', type: 'email', placeholder: 'ana@gmail.com', value: email, set: setEmail },
               ].map((f, i) => (
                 <div key={i} style={{ marginBottom: '1rem' }}>
-                  <label style={{ fontSize: '13px', color: '#333', fontWeight: '500', display: 'block', marginBottom: '6px' }}>
+                  <label style={{ fontSize: '13px', color: '#8b9ec7', fontWeight: '500', display: 'block', marginBottom: '6px' }}>
                     {f.label}
-                    {f.key === 'email' && <span style={{ color: '#e24b4a' }}> *</span>}
-                    
+                    {f.key === 'email' && <span style={{ color: '#f87171' }}> *</span>}
                   </label>
                   <input
-                    type={f.type}
-                    value={f.value}
+                    type={f.type} value={f.value}
                     onChange={e => f.set(e.target.value)}
                     placeholder={f.placeholder}
-                    style={{
-                      width: '100%', padding: '12px 14px', border: '2px solid #eee',
-                      borderRadius: '10px', fontSize: '15px', boxSizing: 'border-box',
-                      color: '#1a1a1a', outline: 'none'
-                    }}
+                    style={inputStyle}
                   />
                 </div>
               ))}
 
               {/* Pregled */}
               <div style={{
-                background: '#f8f9fa', borderRadius: '10px', padding: '1rem',
-                marginBottom: '1.5rem', marginTop: '0.5rem'
+                background: 'rgba(74,222,128,0.06)', border: '1px solid rgba(74,222,128,0.15)',
+                borderRadius: '10px', padding: '1rem', marginBottom: '1.5rem', marginTop: '0.5rem'
               }}>
-                <p style={{ fontSize: '12px', color: '#888', fontWeight: '600', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Pregled termina</p>
-                <p style={{ fontSize: '14px', color: '#1a1a1a', marginBottom: '6px' }}>📋 {odabranaUsluga?.name}</p>
-                {odabraniUposlenik && <p style={{ fontSize: '14px', color: '#1a1a1a', marginBottom: '6px' }}>✂️ {odabraniUposlenik.name}</p>}
-                <p style={{ fontSize: '14px', color: '#1a1a1a', marginBottom: '6px' }}>📅 {formatDatum(odabranDatum)}</p>
-                <p style={{ fontSize: '14px', color: '#1a1a1a', marginBottom: '6px' }}>🕐 {formatVrijeme(odabranoVrijeme)}</p>
-                <p style={{ fontSize: '15px', fontWeight: '700', color: '#1a7a4a' }}>💰 {odabranaUsluga?.price} KM</p>
+                <p style={{ fontSize: '12px', color: '#4ade80', fontWeight: '600', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                  Pregled termina
+                </p>
+                <p style={{ fontSize: '14px', color: '#c8d0e8', marginBottom: '6px' }}>📋 {odabranaUsluga?.name}</p>
+                {odabraniUposlenik && <p style={{ fontSize: '14px', color: '#c8d0e8', marginBottom: '6px' }}>👤 {odabraniUposlenik.name}</p>}
+                <p style={{ fontSize: '14px', color: '#c8d0e8', marginBottom: '6px' }}>📅 {formatDatum(odabranDatum)}</p>
+                <p style={{ fontSize: '14px', color: '#c8d0e8', marginBottom: '6px' }}>🕐 {formatVrijeme(odabranoVrijeme)}</p>
+                <p style={{ fontSize: '15px', fontWeight: '700', color: '#4ade80' }}>💰 {odabranaUsluga?.price} KM</p>
               </div>
 
-              {greska && <p style={{ color: '#e24b4a', fontSize: '13px', marginBottom: '1rem' }}>{greska}</p>}
+              {greska && <p style={{ color: '#f87171', fontSize: '13px', marginBottom: '1rem' }}>{greska}</p>}
 
               <button
                 onClick={zakaziTermin}
                 disabled={!ime || (!telefon && !email) || saljeZahtjev}
                 style={{
                   width: '100%',
-                  background: (!ime || (!telefon && !email)) ? '#ccc' : '#1a7a4a',
-                  color: 'white', border: 'none', borderRadius: '10px',
+                  background: (!ime || (!telefon && !email)) ? 'rgba(255,255,255,0.1)' : '#16a34a',
+                  color: (!ime || (!telefon && !email)) ? '#6b7fa3' : 'white',
+                  border: 'none', borderRadius: '10px',
                   padding: '16px', fontSize: '16px', fontWeight: '700',
-                  cursor: (!ime || (!telefon && !email)) ? 'not-allowed' : 'pointer'
+                  cursor: (!ime || (!telefon && !email)) ? 'not-allowed' : 'pointer',
+                  fontFamily: 'Inter, sans-serif'
                 }}>
                 {saljeZahtjev ? 'Zakazivanje...' : '✅ Potvrdi termin'}
               </button>
@@ -502,26 +495,24 @@ setGalerija(galRes.data.gallery || [])
           <div style={{ textAlign: 'center', padding: '2rem 1rem' }}>
             <div style={{
               width: '80px', height: '80px', borderRadius: '50%',
-              background: '#eaf3de', display: 'flex', alignItems: 'center',
+              background: 'rgba(74,222,128,0.15)', border: '2px solid rgba(74,222,128,0.3)',
+              display: 'flex', alignItems: 'center',
               justifyContent: 'center', fontSize: '40px', margin: '0 auto 1.5rem'
             }}>🎉</div>
-            <h3 style={{ fontSize: '24px', fontWeight: '700', color: '#1a1a1a', marginBottom: '8px' }}>
+            <h3 style={{ fontSize: '24px', fontWeight: '700', color: '#f0f4ff', marginBottom: '8px' }}>
               Termin zakazan!
             </h3>
-            <p style={{ color: '#555', fontSize: '15px', marginBottom: '2rem' }}>
+            <p style={{ color: '#8b9ec7', fontSize: '15px', marginBottom: '2rem' }}>
               Vidimo se {formatDatum(odabranDatum)} u {formatVrijeme(odabranoVrijeme)}
             </p>
-            <div style={{
-              background: 'white', borderRadius: '14px', padding: '1.5rem',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.06)', textAlign: 'left', marginBottom: '1.5rem'
-            }}>
-              <p style={{ fontSize: '14px', color: '#1a1a1a', marginBottom: '8px' }}>📋 {odabranaUsluga?.name}</p>
-              {odabraniUposlenik && <p style={{ fontSize: '14px', color: '#1a1a1a', marginBottom: '8px' }}>✂️ {odabraniUposlenik.name}</p>}
-              <p style={{ fontSize: '14px', color: '#1a1a1a', marginBottom: '8px' }}>📅 {formatDatum(odabranDatum)}</p>
-              <p style={{ fontSize: '14px', color: '#1a1a1a', marginBottom: '8px' }}>🕐 {formatVrijeme(odabranoVrijeme)}</p>
-              <p style={{ fontSize: '16px', fontWeight: '700', color: '#1a7a4a' }}>💰 {odabranaUsluga?.price} KM</p>
+            <div style={{ ...karticaStyle, textAlign: 'left', marginBottom: '1.5rem' }}>
+              <p style={{ fontSize: '14px', color: '#c8d0e8', marginBottom: '8px' }}>📋 {odabranaUsluga?.name}</p>
+              {odabraniUposlenik && <p style={{ fontSize: '14px', color: '#c8d0e8', marginBottom: '8px' }}>👤 {odabraniUposlenik.name}</p>}
+              <p style={{ fontSize: '14px', color: '#c8d0e8', marginBottom: '8px' }}>📅 {formatDatum(odabranDatum)}</p>
+              <p style={{ fontSize: '14px', color: '#c8d0e8', marginBottom: '8px' }}>🕐 {formatVrijeme(odabranoVrijeme)}</p>
+              <p style={{ fontSize: '16px', fontWeight: '700', color: '#4ade80' }}>💰 {odabranaUsluga?.price} KM</p>
             </div>
-            <p style={{ color: '#555', fontSize: '13px' }}>
+            <p style={{ color: '#6b7fa3', fontSize: '13px' }}>
               {email && telefon && `Potvrda je poslana na ${email} i ${telefon}`}
               {email && !telefon && `Potvrda je poslana na ${email}`}
               {!email && telefon && `Potvrda je poslana na ${telefon}`}
