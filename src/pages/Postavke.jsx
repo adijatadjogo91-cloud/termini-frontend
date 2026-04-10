@@ -30,61 +30,19 @@ export default function Postavke() {
   });
   const [blokiraniDani, setBlokiraniDani] = useState([]);
   const [noviBlokiran, setNoviBlokiran] = useState('');
+  const [galerija, setGalerija] = useState([]);
+  const [uploading, setUploading] = useState(false);
   const [ucitava, setUcitava] = useState(true);
   const [sprema, setSprema] = useState(false);
   const [uspjeh, setUspjeh] = useState('');
   const [greska, setGreska] = useState('');
-  const [galerija, setGalerija] = useState([])
-const [uploading, setUploading] = useState(false)
 
-  useEffect(() => { ucitajPodatke(); ucitajGaleriju(); }, []);
+  useEffect(() => {
+    ucitajPodatke();
+    ucitajGaleriju();
+  }, []);
 
   async function ucitajPodatke() {
-    async function ucitajGaleriju() {
-  const token = localStorage.getItem('token')
-  const businessId = localStorage.getItem('businessId')
-  try {
-    const res = await fetch(`${API}/api/gallery/${businessId}`, {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-    const data = await res.json()
-    setGalerija(data.gallery || [])
-  } catch (err) {}
-}
-
-async function uploadSliku(e) {
-  const file = e.target.files[0]
-  if (!file) return
-  setUploading(true)
-  const token = localStorage.getItem('token')
-  const businessId = localStorage.getItem('businessId')
-  const formData = new FormData()
-  formData.append('image', file)
-  try {
-    await fetch(`${API}/api/gallery/${businessId}`, {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${token}` },
-      body: formData
-    })
-    ucitajGaleriju()
-  } catch (err) {
-    setGreska('Greška pri uploadu slike.')
-  }
-  setUploading(false)
-}
-
-async function obrisiSliku(imageId) {
-  if (!window.confirm('Obrisati ovu sliku?')) return
-  const token = localStorage.getItem('token')
-  const businessId = localStorage.getItem('businessId')
-  try {
-    await fetch(`${API}/api/gallery/${businessId}/${imageId}`, {
-      method: 'DELETE',
-      headers: { Authorization: `Bearer ${token}` }
-    })
-    ucitajGaleriju()
-  } catch (err) {}
-}
     const token = localStorage.getItem('token');
     const businessId = localStorage.getItem('businessId');
     try {
@@ -115,6 +73,52 @@ async function obrisiSliku(imageId) {
       setGreska('Greška pri učitavanju podataka.');
     }
     setUcitava(false);
+  }
+
+  async function ucitajGaleriju() {
+    const token = localStorage.getItem('token');
+    const businessId = localStorage.getItem('businessId');
+    try {
+      const res = await fetch(`${API}/api/gallery/${businessId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const data = await res.json();
+      setGalerija(data.gallery || []);
+    } catch (err) {}
+  }
+
+  async function uploadSliku(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    setUploading(true);
+    const token = localStorage.getItem('token');
+    const businessId = localStorage.getItem('businessId');
+    const formData = new FormData();
+    formData.append('image', file);
+    try {
+      await fetch(`${API}/api/gallery/${businessId}`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}` },
+        body: formData
+      });
+      ucitajGaleriju();
+    } catch (err) {
+      setGreska('Greška pri uploadu slike.');
+    }
+    setUploading(false);
+  }
+
+  async function obrisiSliku(imageId) {
+    if (!window.confirm('Obrisati ovu sliku?')) return;
+    const token = localStorage.getItem('token');
+    const businessId = localStorage.getItem('businessId');
+    try {
+      await fetch(`${API}/api/gallery/${businessId}/${imageId}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      ucitajGaleriju();
+    } catch (err) {}
   }
 
   async function handleSave() {
@@ -335,64 +339,60 @@ async function obrisiSliku(imageId) {
             </div>
           )}
         </div>
-{/* Galerija radova */}
-<div style={karticaStyle}>
-  <h3 style={{ fontSize: '15px', fontWeight: '600', color: '#f0f4ff', marginBottom: '8px' }}>
-    🖼️ Galerija radova
-  </h3>
-  <p style={{ fontSize: '13px', color: '#6b7fa3', marginBottom: '16px' }}>
-    Dodajte slike vaših radova — prikazuju se klijentima na booking stranici.
-  </p>
 
-  {/* Upload dugme */}
-  <label style={{
-    display: 'inline-block', background: '#16a34a', color: 'white',
-    borderRadius: '10px', padding: '10px 18px', fontSize: '14px',
-    fontWeight: '600', cursor: 'pointer', marginBottom: '16px'
-  }}>
-    {uploading ? 'Uploading...' : '+ Dodaj sliku'}
-    <input
-      type="file"
-      accept="image/*"
-      onChange={uploadSliku}
-      style={{ display: 'none' }}
-      disabled={uploading}
-    />
-  </label>
-
-  {/* Grid slika */}
-  {galerija.length === 0 ? (
-    <p style={{ fontSize: '13px', color: '#4a5a7a', textAlign: 'center', padding: '16px' }}>
-      Nema slika još. Dodajte prve slike vaših radova!
-    </p>
-  ) : (
-    <div style={{
-      display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px'
-    }}>
-      {galerija.map((slika, i) => (
-        <div key={i} style={{ position: 'relative', borderRadius: '10px', overflow: 'hidden' }}>
-          <img
-            src={slika.image_url}
-            alt="Rad salona"
-            style={{ width: '100%', height: '100px', objectFit: 'cover', display: 'block' }}
-          />
-          <button
-            onClick={() => obrisiSliku(slika.id)}
-            style={{
-              position: 'absolute', top: '4px', right: '4px',
-              background: 'rgba(0,0,0,0.6)', border: 'none',
-              color: 'white', borderRadius: '50%',
-              width: '24px', height: '24px', cursor: 'pointer',
-              fontSize: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center'
-            }}
-          >
-            ×
-          </button>
+        {/* Galerija radova */}
+        <div style={karticaStyle}>
+          <h3 style={{ fontSize: '15px', fontWeight: '600', color: '#f0f4ff', marginBottom: '8px' }}>
+            🖼️ Galerija radova
+          </h3>
+          <p style={{ fontSize: '13px', color: '#6b7fa3', marginBottom: '16px' }}>
+            Dodajte slike vaših radova — prikazuju se klijentima na booking stranici.
+          </p>
+          <label style={{
+            display: 'inline-block', background: '#16a34a', color: 'white',
+            borderRadius: '10px', padding: '10px 18px', fontSize: '14px',
+            fontWeight: '600', cursor: 'pointer', marginBottom: '16px'
+          }}>
+            {uploading ? 'Uploading...' : '+ Dodaj sliku'}
+            <input
+              type="file"
+              accept="image/*"
+              onChange={uploadSliku}
+              style={{ display: 'none' }}
+              disabled={uploading}
+            />
+          </label>
+          {galerija.length === 0 ? (
+            <p style={{ fontSize: '13px', color: '#4a5a7a', textAlign: 'center', padding: '16px' }}>
+              Nema slika još. Dodajte prve slike vaših radova!
+            </p>
+          ) : (
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
+              {galerija.map((slika, i) => (
+                <div key={i} style={{ position: 'relative', borderRadius: '10px', overflow: 'hidden' }}>
+                  <img
+                    src={slika.image_url}
+                    alt="Rad salona"
+                    style={{ width: '100%', height: '100px', objectFit: 'cover', display: 'block' }}
+                  />
+                  <button
+                    onClick={() => obrisiSliku(slika.id)}
+                    style={{
+                      position: 'absolute', top: '4px', right: '4px',
+                      background: 'rgba(0,0,0,0.6)', border: 'none',
+                      color: 'white', borderRadius: '50%',
+                      width: '24px', height: '24px', cursor: 'pointer',
+                      fontSize: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center'
+                    }}
+                  >
+                    ×
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
-      ))}
-    </div>
-  )}
-</div>
+
         {/* Dugme */}
         <button
           onClick={handleSave}
