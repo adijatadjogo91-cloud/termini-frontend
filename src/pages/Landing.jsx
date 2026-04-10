@@ -198,23 +198,24 @@ export default function Landing() {
   ];
 
   const starterFeatures = [
-    'Neograničeni termini i klijenti',
-    'Email podsjetnici',
-    'Praćenje prihoda',
-    'AI asistent (20 upita/dan)',
-    'Booking mini-stranica',
-    'Mjesečni izvještaj',
-    'Podrška putem emaila',
-  ];
+  'Neograničeni termini i klijenti',
+  'Email podsjetnici',
+  'Praćenje prihoda',
+  'AI asistent (20 upita/dan)',
+  'Booking mini-stranica',
+  'Mjesečni izvještaj',
+  'Podrška putem emaila',
+];
 
   const premiumFeatures = [
-    'Sve iz Starter plana',
-    'WhatsApp podsjetnici',
-    'AI asistent (neograničeno)',
-    'Automatski ponovni dolazak',
-    'Recenzije nakon termina',
-    'Prioritetna podrška',
-  ];
+  'Sve iz Starter plana',
+  'SMS podsjetnici',
+  'WhatsApp podsjetnici',
+  'AI asistent (neograničeno)',
+  'Automatski ponovni dolazak',
+  'Recenzije nakon termina',
+  'Prioritetna podrška',
+];
 
   return (
     <div style={styles.land}>
@@ -303,7 +304,7 @@ export default function Landing() {
             <div style={styles.priceCard}>
               <p style={styles.planName}>Starter</p>
               <div style={styles.priceRow}>
-                <span style={styles.priceBig}>49</span>
+                <span style={styles.priceBig}>59</span>
                 <span style={styles.priceCurrency}>KM</span>
                 <span style={styles.pricePeriod}>/mj</span>
               </div>
@@ -329,7 +330,7 @@ export default function Landing() {
               <div style={styles.popularBadge}>NAJPOPULARNIJE</div>
               <p style={styles.planNameFeatured}>Premium</p>
               <div style={styles.priceRow}>
-                <span style={styles.priceBig}>99</span>
+                <span style={styles.priceBig}>119</span>
                 <span style={styles.priceCurrency}>KM</span>
                 <span style={styles.pricePeriod}>/mj</span>
               </div>
