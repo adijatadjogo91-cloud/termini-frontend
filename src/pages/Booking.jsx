@@ -27,6 +27,7 @@ function Booking() {
   useEffect(() => { ucitajSalon() }, [])
 
   async function ucitajSalon() {
+  console.log('Slug:', slug)
   try {
     const res = await axios.get(API + `/api/public/b/${slug}`)
     setSalon(res.data.business)
