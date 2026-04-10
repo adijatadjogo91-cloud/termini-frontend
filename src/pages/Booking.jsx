@@ -112,7 +112,7 @@ function Booking() {
   }
 
   if (ucitava) return (
-    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0a0f1e' }}>
+    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0d1628' }}>
       <div style={{ textAlign: 'center' }}>
         <div style={{ width: '40px', height: '40px', border: '3px solid #4ade80', borderTopColor: 'transparent', borderRadius: '50%', margin: '0 auto 12px', animation: 'spin 1s linear infinite' }} />
         <p style={{ color: '#6b7fa3', fontSize: '14px' }}>Učitavanje...</p>
@@ -122,7 +122,7 @@ function Booking() {
   )
 
   if (greska && !salon) return (
-    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0a0f1e' }}>
+    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0d1628' }}>
       <p style={{ color: '#f87171' }}>{greska}</p>
     </div>
   )
@@ -131,11 +131,11 @@ function Booking() {
   const progress = ((korak - 1) / (ukupnoKoraka - 1)) * 100
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0a0f1e', fontFamily: 'Inter, sans-serif' }}>
+    <div style={{ minHeight: '100vh', background: '#0d1628', fontFamily: 'Inter, sans-serif' }}>
 
       {/* Header */}
       <div style={{
-        background: 'linear-gradient(135deg, #0f2d1f 0%, #0a0f1e 100%)',
+        background: 'linear-gradient(135deg, #0f2d1f 0%, #0d1628 100%)',
         borderBottom: '1px solid rgba(74,222,128,0.15)',
         padding: '1.5rem 1.5rem 2rem',
         textAlign: 'center',
@@ -149,7 +149,7 @@ function Booking() {
         <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#f0f4ff', marginBottom: '4px', position: 'relative' }}>
           {salon?.name}
         </h2>
-        <p style={{ fontSize: '13px', color: '#4ade80', position: 'relative' }}>
+        <p style={{ fontSize: '13px', color: '#4ade80', position: 'relative', margin: 0 }}>
           📍 {salon?.city || 'Bosna i Hercegovina'}
         </p>
       </div>
@@ -161,7 +161,7 @@ function Booking() {
             {['Usluga', 'Uposlenik', 'Datum', 'Vrijeme', 'Podaci'].map((k, i) => (
               <span key={i} style={{
                 fontSize: '10px', fontWeight: i + 1 <= korak ? '600' : '400',
-                color: i + 1 <= korak ? '#4ade80' : '#4a5a7a'
+                color: i + 1 <= korak ? '#4ade80' : '#8b9ec7'
               }}>{k}</span>
             ))}
           </div>
@@ -190,7 +190,7 @@ function Booking() {
                 )}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                   {salon?.address && (
-                    <p style={{ fontSize: '13px', color: '#8b9ec7' }}>📍 {salon.address}{salon.city ? `, ${salon.city}` : ''}</p>
+                    <p style={{ fontSize: '13px', color: '#8b9ec7', margin: 0 }}>📍 {salon.address}{salon.city ? `, ${salon.city}` : ''}</p>
                   )}
                   {salon?.phone && (
                     <a href={`tel:${salon.phone}`} style={{ fontSize: '13px', color: '#4ade80', textDecoration: 'none', fontWeight: '500' }}>
@@ -204,13 +204,13 @@ function Booking() {
             {/* Galerija */}
             {galerija.length > 0 && (
               <div style={{ marginBottom: '1.25rem' }}>
-                <p style={{ fontSize: '12px', color: '#6b7fa3', fontWeight: '600', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                  Naši radovi
+                <p style={{ fontSize: '13px', color: '#4ade80', fontWeight: '700', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                  ✨ Naši radovi
                 </p>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px' }}>
                   {galerija.map((slika, i) => (
                     <img key={i} src={slika.image_url} alt="Rad salona"
-                      style={{ width: '100%', height: '90px', objectFit: 'cover', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.08)' }}
+                      style={{ width: '100%', height: '100px', objectFit: 'cover', borderRadius: '10px', border: '1px solid rgba(74,222,128,0.2)' }}
                     />
                   ))}
                 </div>
@@ -225,10 +225,10 @@ function Booking() {
                 ...karticaStyle,
                 cursor: 'pointer',
                 display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                transition: 'border-color 0.2s',
+                transition: 'all 0.2s',
               }}
-                onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(74,222,128,0.4)'}
-                onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(74,222,128,0.4)'; e.currentTarget.style.background = 'rgba(74,222,128,0.06)' }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.background = 'rgba(255,255,255,0.06)' }}
               >
                 <div>
                   <p style={{ fontSize: '15px', fontWeight: '600', color: '#e2e8f7', margin: 0 }}>{u.name}</p>
@@ -259,9 +259,11 @@ function Booking() {
             }}>
               <div style={{
                 width: '44px', height: '44px', borderRadius: '50%',
-                background: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center',
+                background: 'rgba(74,222,128,0.15)',
+                border: '2px solid rgba(74,222,128,0.3)',
+                display: 'flex', alignItems: 'center',
                 justifyContent: 'center', fontSize: '20px', flexShrink: 0
-              }}>👥</div>
+              }}>🙋</div>
               <div>
                 <p style={{ fontSize: '15px', fontWeight: '600', color: '#e2e8f7', margin: 0 }}>Bilo koji uposlenik</p>
                 <p style={{ fontSize: '13px', color: '#6b7fa3', marginTop: '2px' }}>Prvi slobodni termin</p>
@@ -304,8 +306,8 @@ function Booking() {
               const wh = typeof salon.working_hours === 'string' ? JSON.parse(salon.working_hours) : salon.working_hours
               return (
                 <div style={{ ...karticaStyle, marginBottom: '1rem' }}>
-                  <p style={{ fontSize: '12px', color: '#6b7fa3', fontWeight: '600', marginBottom: '10px', textTransform: 'uppercase' }}>
-                    Radno vrijeme
+                  <p style={{ fontSize: '12px', color: '#4ade80', fontWeight: '600', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                    🕐 Radno vrijeme
                   </p>
                   {daniRedoslijed.map(dan => (
                     <div key={dan} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
@@ -457,7 +459,7 @@ function Booking() {
 
               {/* Pregled */}
               <div style={{
-                background: 'rgba(74,222,128,0.06)', border: '1px solid rgba(74,222,128,0.15)',
+                background: 'rgba(74,222,128,0.06)', border: '1px solid rgba(74,222,128,0.2)',
                 borderRadius: '10px', padding: '1rem', marginBottom: '1.5rem', marginTop: '0.5rem'
               }}>
                 <p style={{ fontSize: '12px', color: '#4ade80', fontWeight: '600', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
