@@ -22,20 +22,27 @@ function Booking() {
   const [greska, setGreska] = useState('')
   const [uposlenici, setUposlenici] = useState([])
   const [odabraniUposlenik, setOdabraniUposlenik] = useState(null)
+  const [galerija, setGalerija] = useState([])
 
   useEffect(() => { ucitajSalon() }, [])
 
   async function ucitajSalon() {
+  try {
+    const res = await axios.get(API + `/api/public/b/${slug}`)
+    setSalon(res.data.business)
+    setUsluge(res.data.services || [])
+    setUposlenici(res.data.staff || [])
+    // Dohvati galeriju
     try {
-      const res = await axios.get(API + `/api/public/b/${slug}`)
-      setSalon(res.data.business)
-      setUsluge(res.data.services || [])
-      setUposlenici(res.data.staff || [])
-    } catch (err) {
-      setGreska('Salon nije pronađen.')
-    }
-    setUcitava(false)
+      const galRes = await axios.get(API + `/api/public/b/${slug}/gallery`)
+console.log('Galerija:', galRes.data.gallery)
+setGalerija(galRes.data.gallery || [])
+    } catch (e) {}
+  } catch (err) {
+    setGreska('Salon nije pronađen.')
   }
+  setUcitava(false)
+}
 
   async function ucitajSlobodnaVremena(datum) {
   setUcitavaVremena(true)
@@ -170,7 +177,23 @@ function Booking() {
                 </div>
               </div>
             )}
-
+{galerija.length > 0 && (
+  <div style={{ marginBottom: '1rem' }}>
+    <p style={{ fontSize: '13px', color: '#888', fontWeight: '600', marginBottom: '10px', textTransform: 'uppercase' }}>
+      Naši radovi
+    </p>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px' }}>
+      {galerija.map((slika, i) => (
+        <img
+          key={i}
+          src={slika.image_url}
+          alt="Rad salona"
+          style={{ width: '100%', height: '90px', objectFit: 'cover', borderRadius: '10px' }}
+        />
+      ))}
+    </div>
+  </div>
+)}
             <h3 style={{ fontSize: '17px', fontWeight: '700', marginBottom: '1rem', color: '#1a1a1a' }}>
               Odaberite uslugu
             </h3>
