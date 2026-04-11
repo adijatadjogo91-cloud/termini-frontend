@@ -16,6 +16,7 @@ function Booking() {
   const [ime, setIme] = useState('')
   const [telefon, setTelefon] = useState('')
   const [email, setEmail] = useState('')
+  const [napomena, setNapomena] = useState('')
   const [ucitava, setUcitava] = useState(true)
   const [ucitavaVremena, setUcitavaVremena] = useState(false)
   const [saljeZahtjev, setSaljeZahtjev] = useState(false)
@@ -23,12 +24,12 @@ function Booking() {
   const [uposlenici, setUposlenici] = useState([])
   const [odabraniUposlenik, setOdabraniUposlenik] = useState(null)
   const [galerija, setGalerija] = useState([])
+  const [recenzije, setRecenzije] = useState([])
+  const [avgOcjena, setAvgOcjena] = useState(null)
   const [waitlistIme, setWaitlistIme] = useState('')
   const [waitlistEmail, setWaitlistEmail] = useState('')
   const [waitlistUspjeh, setWaitlistUspjeh] = useState(false)
   const [waitlistGreska, setWaitlistGreska] = useState('')
-  const [recenzije, setRecenzije] = useState([])
-  const [avgOcjena, setAvgOcjena] = useState(null)
 
   useEffect(() => { ucitajSalon() }, [])
 
@@ -43,10 +44,10 @@ function Booking() {
         setGalerija(galRes.data.gallery || [])
       } catch (e) {}
       try {
-  const revRes = await axios.get(API + `/api/reviews/business/${slug}`)
-  setRecenzije(revRes.data.reviews || [])
-  setAvgOcjena(revRes.data.avg_rating)
-} catch (e) {}
+        const revRes = await axios.get(API + `/api/reviews/business/${slug}`)
+        setRecenzije(revRes.data.reviews || [])
+        setAvgOcjena(revRes.data.avg_rating)
+      } catch (e) {}
     } catch (err) {
       setGreska('Salon nije pronađen.')
     }
@@ -74,6 +75,7 @@ function Booking() {
         serviceId: odabranaUsluga.id,
         startsAt: `${odabranDatum}T${odabranoVrijeme}:00`,
         name: ime, phone: telefon, email: email,
+        notes: napomena || null,
       })
       setKorak(6)
     } catch (err) {
@@ -81,19 +83,21 @@ function Booking() {
     }
     setSaljeZahtjev(false)
   }
-async function dodajNaWaitlist() {
-  if (!waitlistIme || !waitlistEmail) { setWaitlistGreska('Unesite ime i email.'); return }
-  try {
-    await axios.post(API + `/api/waitlist/b/${slug}`, {
-      name: waitlistIme, email: waitlistEmail,
-      serviceId: odabranaUsluga.id,
-      date: odabranDatum, time: '00:00'
-    })
-    setWaitlistUspjeh(true)
-  } catch (err) {
-    setWaitlistGreska('Greška pri dodavanju na listu čekanja.')
+
+  async function dodajNaWaitlist() {
+    if (!waitlistIme || !waitlistEmail) { setWaitlistGreska('Unesite ime i email.'); return }
+    try {
+      await axios.post(API + `/api/waitlist/b/${slug}`, {
+        name: waitlistIme, email: waitlistEmail,
+        serviceId: odabranaUsluga.id,
+        date: odabranDatum, time: '00:00'
+      })
+      setWaitlistUspjeh(true)
+    } catch (err) {
+      setWaitlistGreska('Greška pri dodavanju na listu čekanja.')
+    }
   }
-}
+
   function minDatum() { return new Date().toISOString().split('T')[0] }
   function maxDatum() {
     const d = new Date()
@@ -161,8 +165,7 @@ async function dodajNaWaitlist() {
         background: 'linear-gradient(135deg, #0f2d1f 0%, #0d1628 100%)',
         borderBottom: '1px solid rgba(74,222,128,0.15)',
         padding: '1.5rem 1.5rem 2rem',
-        textAlign: 'center',
-        position: 'relative', overflow: 'hidden'
+        textAlign: 'center', position: 'relative', overflow: 'hidden'
       }}>
         <div style={{
           position: 'absolute', inset: 0,
@@ -203,7 +206,6 @@ async function dodajNaWaitlist() {
         {/* Korak 1 — Usluga */}
         {korak === 1 && (
           <div>
-            {/* O salonu */}
             {(salon?.description || salon?.address || salon?.phone) && (
               <div style={{ ...karticaStyle, marginBottom: '1rem' }}>
                 {salon?.description && (
@@ -224,7 +226,6 @@ async function dodajNaWaitlist() {
               </div>
             )}
 
-            {/* Galerija */}
             {galerija.length > 0 && (
               <div style={{ marginBottom: '1.25rem' }}>
                 <p style={{ fontSize: '13px', color: '#4ade80', fontWeight: '700', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '1px' }}>
@@ -239,42 +240,43 @@ async function dodajNaWaitlist() {
                 </div>
               </div>
             )}
+
             {recenzije.length > 0 && (
-  <div style={{ marginBottom: '1.25rem' }}>
-    <p style={{ fontSize: '13px', color: '#4ade80', fontWeight: '700', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '1px' }}>
-      ⭐ Recenzije klijenata
-    </p>
-    <div style={{ ...karticaStyle, marginBottom: '10px' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
-        <span style={{ fontSize: '32px', fontWeight: '700', color: '#fbbf24' }}>{avgOcjena}</span>
-        <div>
-          <div style={{ display: 'flex', gap: '2px' }}>
-            {[1,2,3,4,5].map(i => (
-              <span key={i} style={{ fontSize: '16px', opacity: i <= Math.round(avgOcjena) ? 1 : 0.3 }}>⭐</span>
-            ))}
-          </div>
-          <p style={{ fontSize: '12px', color: '#6b7fa3', margin: '2px 0 0' }}>{recenzije.length} recenzija</p>
-        </div>
-      </div>
-      {recenzije.slice(0, 3).map((r, i) => (
-        <div key={i} style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '10px', marginTop: '10px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-            <span style={{ fontSize: '13px', fontWeight: '600', color: '#e2e8f7' }}>{r.client_name}</span>
-            <span style={{ fontSize: '12px', color: '#fbbf24' }}>{'⭐'.repeat(r.rating)}</span>
-          </div>
-          {r.comment && <p style={{ fontSize: '13px', color: '#8b9ec7', margin: 0 }}>{r.comment}</p>}
-        </div>
-      ))}
-    </div>
-  </div>
-)}
+              <div style={{ marginBottom: '1.25rem' }}>
+                <p style={{ fontSize: '13px', color: '#4ade80', fontWeight: '700', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                  ⭐ Recenzije klijenata
+                </p>
+                <div style={{ ...karticaStyle, marginBottom: '10px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+                    <span style={{ fontSize: '32px', fontWeight: '700', color: '#fbbf24' }}>{avgOcjena}</span>
+                    <div>
+                      <div style={{ display: 'flex', gap: '2px' }}>
+                        {[1,2,3,4,5].map(i => (
+                          <span key={i} style={{ fontSize: '16px', opacity: i <= Math.round(avgOcjena) ? 1 : 0.3 }}>⭐</span>
+                        ))}
+                      </div>
+                      <p style={{ fontSize: '12px', color: '#6b7fa3', margin: '2px 0 0' }}>{recenzije.length} recenzija</p>
+                    </div>
+                  </div>
+                  {recenzije.slice(0, 3).map((r, i) => (
+                    <div key={i} style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '10px', marginTop: '10px' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                        <span style={{ fontSize: '13px', fontWeight: '600', color: '#e2e8f7' }}>{r.client_name}</span>
+                        <span style={{ fontSize: '12px', color: '#fbbf24' }}>{'⭐'.repeat(r.rating)}</span>
+                      </div>
+                      {r.comment && <p style={{ fontSize: '13px', color: '#8b9ec7', margin: 0 }}>{r.comment}</p>}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             <h3 style={{ fontSize: '17px', fontWeight: '700', marginBottom: '1rem', color: '#f0f4ff' }}>
               Odaberite uslugu
             </h3>
             {usluge.map((u, i) => (
               <div key={i} onClick={() => { setOdabranaUsluga(u); setKorak(2) }} style={{
-                ...karticaStyle,
-                cursor: 'pointer',
+                ...karticaStyle, cursor: 'pointer',
                 display: 'flex', justifyContent: 'space-between', alignItems: 'center',
                 transition: 'all 0.2s',
               }}
@@ -310,10 +312,9 @@ async function dodajNaWaitlist() {
             }}>
               <div style={{
                 width: '44px', height: '44px', borderRadius: '50%',
-                background: 'rgba(74,222,128,0.15)',
-                border: '2px solid rgba(74,222,128,0.3)',
-                display: 'flex', alignItems: 'center',
-                justifyContent: 'center', fontSize: '20px', flexShrink: 0
+                background: 'rgba(74,222,128,0.15)', border: '2px solid rgba(74,222,128,0.3)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: '20px', flexShrink: 0
               }}>🙋</div>
               <div>
                 <p style={{ fontSize: '15px', fontWeight: '600', color: '#e2e8f7', margin: 0 }}>Bilo koji uposlenik</p>
@@ -350,7 +351,6 @@ async function dodajNaWaitlist() {
             <h3 style={{ fontSize: '17px', fontWeight: '700', marginBottom: '1rem', color: '#f0f4ff' }}>
               Odaberite datum
             </h3>
-
             {salon?.working_hours && (() => {
               const daniRedoslijed = ['mon','tue','wed','thu','fri','sat','sun']
               const daniNazivi = { mon:'Pon', tue:'Uto', wed:'Sri', thu:'Čet', fri:'Pet', sat:'Sub', sun:'Ned' }
@@ -362,9 +362,7 @@ async function dodajNaWaitlist() {
                   </p>
                   {daniRedoslijed.map(dan => (
                     <div key={dan} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                      <span style={{ fontSize: '13px', color: wh[dan] ? '#c8d0e8' : '#4a5a7a', fontWeight: '500' }}>
-                        {daniNazivi[dan]}
-                      </span>
+                      <span style={{ fontSize: '13px', color: wh[dan] ? '#c8d0e8' : '#4a5a7a', fontWeight: '500' }}>{daniNazivi[dan]}</span>
                       <span style={{ fontSize: '13px', color: wh[dan] ? '#4ade80' : '#4a5a7a' }}>
                         {wh[dan] ? `${wh[dan].from} – ${wh[dan].to}` : 'Zatvoreno'}
                       </span>
@@ -373,7 +371,6 @@ async function dodajNaWaitlist() {
                 </div>
               )
             })()}
-
             <div style={{ ...karticaStyle }}>
               <input
                 type="date" min={minDatum()} max={maxDatum()} value={odabranDatum}
@@ -392,11 +389,9 @@ async function dodajNaWaitlist() {
                 }}
                 style={{
                   width: '100%', padding: '14px',
-                  background: 'rgba(255,255,255,0.07)',
-                  border: '1px solid rgba(255,255,255,0.12)',
-                  borderRadius: '10px', fontSize: '15px',
-                  boxSizing: 'border-box', color: '#f0f4ff', outline: 'none',
-                  fontFamily: 'Inter, sans-serif'
+                  background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)',
+                  borderRadius: '10px', fontSize: '15px', boxSizing: 'border-box',
+                  color: '#f0f4ff', outline: 'none', fontFamily: 'Inter, sans-serif'
                 }}
               />
               {odabranDatum && (() => {
@@ -446,60 +441,59 @@ async function dodajNaWaitlist() {
                 <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
               </div>
             ) : slobodnaVremena.length === 0 ? (
-  <div>
-    <div style={{ ...karticaStyle, textAlign: 'center', padding: '2rem', marginBottom: '1rem' }}>
-      <p style={{ fontSize: '32px', marginBottom: '12px' }}>{datumBlokiran ? '🚫' : '😔'}</p>
-      <p style={{ color: '#c8d0e8', fontWeight: '500' }}>
-        {datumBlokiran ? 'Salon ne radi ovaj dan.' : 'Nema slobodnih termina za ovaj dan.'}
-      </p>
-      <button onClick={() => setKorak(3)} style={{
-        marginTop: '1rem', background: '#16a34a', color: 'white',
-        border: 'none', borderRadius: '10px', padding: '12px 24px',
-        cursor: 'pointer', fontWeight: '600', fontFamily: 'Inter, sans-serif'
-      }}>
-        Odaberi drugi datum
-      </button>
-    </div>
-
-    {!datumBlokiran && (
-      <div style={{ ...karticaStyle, padding: '1.5rem' }}>
-        <p style={{ fontSize: '14px', fontWeight: '700', color: '#4ade80', marginBottom: '4px' }}>
-          📋 Lista čekanja
-        </p>
-        <p style={{ fontSize: '13px', color: '#6b7fa3', marginBottom: '1rem' }}>
-          Dodajte se na listu čekanja — obavijestit ćemo vas ako se termin oslobodi!
-        </p>
-        {waitlistUspjeh ? (
-          <div style={{ textAlign: 'center', padding: '1rem' }}>
-            <p style={{ fontSize: '32px', marginBottom: '8px' }}>🎉</p>
-            <p style={{ color: '#4ade80', fontWeight: '600' }}>Dodani ste na listu čekanja!</p>
-            <p style={{ fontSize: '13px', color: '#6b7fa3', marginTop: '4px' }}>Javit ćemo vam se čim se termin oslobodi.</p>
-          </div>
-        ) : (
-          <div>
-            {[
-              { label: 'Ime i prezime', type: 'text', placeholder: 'Ana Hodžić', value: waitlistIme, set: setWaitlistIme },
-              { label: 'Email', type: 'email', placeholder: 'ana@gmail.com', value: waitlistEmail, set: setWaitlistEmail },
-            ].map((f, i) => (
-              <div key={i} style={{ marginBottom: '10px' }}>
-                <label style={{ fontSize: '13px', color: '#8b9ec7', display: 'block', marginBottom: '5px' }}>{f.label}</label>
-                <input type={f.type} value={f.value} onChange={e => f.set(e.target.value)}
-                  placeholder={f.placeholder} style={inputStyle} />
+              <div>
+                <div style={{ ...karticaStyle, textAlign: 'center', padding: '2rem', marginBottom: '1rem' }}>
+                  <p style={{ fontSize: '32px', marginBottom: '12px' }}>{datumBlokiran ? '🚫' : '😔'}</p>
+                  <p style={{ color: '#c8d0e8', fontWeight: '500' }}>
+                    {datumBlokiran ? 'Salon ne radi ovaj dan.' : 'Nema slobodnih termina za ovaj dan.'}
+                  </p>
+                  <button onClick={() => setKorak(3)} style={{
+                    marginTop: '1rem', background: '#16a34a', color: 'white',
+                    border: 'none', borderRadius: '10px', padding: '12px 24px',
+                    cursor: 'pointer', fontWeight: '600', fontFamily: 'Inter, sans-serif'
+                  }}>
+                    Odaberi drugi datum
+                  </button>
+                </div>
+                {!datumBlokiran && (
+                  <div style={{ ...karticaStyle, padding: '1.5rem' }}>
+                    <p style={{ fontSize: '14px', fontWeight: '700', color: '#4ade80', marginBottom: '4px' }}>
+                      📋 Lista čekanja
+                    </p>
+                    <p style={{ fontSize: '13px', color: '#6b7fa3', marginBottom: '1rem' }}>
+                      Dodajte se na listu čekanja — obavijestit ćemo vas ako se termin oslobodi!
+                    </p>
+                    {waitlistUspjeh ? (
+                      <div style={{ textAlign: 'center', padding: '1rem' }}>
+                        <p style={{ fontSize: '32px', marginBottom: '8px' }}>🎉</p>
+                        <p style={{ color: '#4ade80', fontWeight: '600' }}>Dodani ste na listu čekanja!</p>
+                        <p style={{ fontSize: '13px', color: '#6b7fa3', marginTop: '4px' }}>Javit ćemo vam se čim se termin oslobodi.</p>
+                      </div>
+                    ) : (
+                      <div>
+                        {[
+                          { label: 'Ime i prezime', type: 'text', placeholder: 'Ana Hodžić', value: waitlistIme, set: setWaitlistIme },
+                          { label: 'Email', type: 'email', placeholder: 'ana@gmail.com', value: waitlistEmail, set: setWaitlistEmail },
+                        ].map((f, i) => (
+                          <div key={i} style={{ marginBottom: '10px' }}>
+                            <label style={{ fontSize: '13px', color: '#8b9ec7', display: 'block', marginBottom: '5px' }}>{f.label}</label>
+                            <input type={f.type} value={f.value} onChange={e => f.set(e.target.value)}
+                              placeholder={f.placeholder} style={inputStyle} />
+                          </div>
+                        ))}
+                        {waitlistGreska && <p style={{ color: '#f87171', fontSize: '13px', marginBottom: '8px' }}>{waitlistGreska}</p>}
+                        <button onClick={dodajNaWaitlist} style={{
+                          width: '100%', background: '#16a34a', color: 'white', border: 'none',
+                          borderRadius: '10px', padding: '12px', fontSize: '14px',
+                          fontWeight: '600', cursor: 'pointer', fontFamily: 'Inter, sans-serif', marginTop: '8px'
+                        }}>
+                          Dodaj me na listu čekanja
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
-            ))}
-            {waitlistGreska && <p style={{ color: '#f87171', fontSize: '13px', marginBottom: '8px' }}>{waitlistGreska}</p>}
-            <button onClick={dodajNaWaitlist} style={{
-              width: '100%', background: '#16a34a', color: 'white', border: 'none',
-              borderRadius: '10px', padding: '12px', fontSize: '14px',
-              fontWeight: '600', cursor: 'pointer', fontFamily: 'Inter, sans-serif', marginTop: '8px'
-            }}>
-              Dodaj me na listu čekanja
-            </button>
-          </div>
-        )}
-      </div>
-    )}
-  </div>
             ) : (
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
                 {slobodnaVremena.map((slot, i) => (
@@ -530,24 +524,47 @@ async function dodajNaWaitlist() {
               Vaši podaci
             </h3>
             <div style={{ ...karticaStyle, padding: '1.5rem' }}>
-              {[
-                { label: 'Ime i prezime', key: 'ime', type: 'text', placeholder: 'Ana Hodžić', value: ime, set: setIme },
-                { label: 'Broj telefona', key: 'tel', type: 'tel', placeholder: '061 123 456', value: telefon, set: setTelefon },
-                { label: 'Email', key: 'email', type: 'email', placeholder: 'ana@gmail.com', value: email, set: setEmail },
-              ].map((f, i) => (
-                <div key={i} style={{ marginBottom: '1rem' }}>
-                  <label style={{ fontSize: '13px', color: '#8b9ec7', fontWeight: '500', display: 'block', marginBottom: '6px' }}>
-                    {f.label}
-                    {f.key === 'email' && <span style={{ color: '#f87171' }}> *</span>}
-                  </label>
-                  <input
-                    type={f.type} value={f.value}
-                    onChange={e => f.set(e.target.value)}
-                    placeholder={f.placeholder}
-                    style={inputStyle}
-                  />
-                </div>
-              ))}
+
+              {/* Ime */}
+              <div style={{ marginBottom: '1rem' }}>
+                <label style={{ fontSize: '13px', color: '#8b9ec7', fontWeight: '500', display: 'block', marginBottom: '6px' }}>
+                  Ime i prezime
+                </label>
+                <input type="text" value={ime} onChange={e => setIme(e.target.value)}
+                  placeholder="Ana Hodžić" style={inputStyle} />
+              </div>
+
+              {/* Telefon */}
+              <div style={{ marginBottom: '1rem' }}>
+                <label style={{ fontSize: '13px', color: '#8b9ec7', fontWeight: '500', display: 'block', marginBottom: '6px' }}>
+                  Broj telefona
+                </label>
+                <input type="tel" value={telefon} onChange={e => setTelefon(e.target.value)}
+                  placeholder="061 123 456" style={inputStyle} />
+              </div>
+
+              {/* Email */}
+              <div style={{ marginBottom: '1rem' }}>
+                <label style={{ fontSize: '13px', color: '#8b9ec7', fontWeight: '500', display: 'block', marginBottom: '6px' }}>
+                  Email <span style={{ color: '#f87171' }}>*</span>
+                </label>
+                <input type="email" value={email} onChange={e => setEmail(e.target.value)}
+                  placeholder="ana@gmail.com" style={inputStyle} />
+              </div>
+
+              {/* Napomena */}
+              <div style={{ marginBottom: '1rem' }}>
+                <label style={{ fontSize: '13px', color: '#8b9ec7', fontWeight: '500', display: 'block', marginBottom: '6px' }}>
+                  Napomena (opciono)
+                </label>
+                <textarea
+                  value={napomena}
+                  onChange={e => setNapomena(e.target.value)}
+                  placeholder="Razlog posjete, alergije, posebni zahtjevi..."
+                  rows={3}
+                  style={{ ...inputStyle, resize: 'none', height: 'auto' }}
+                />
+              </div>
 
               {/* Pregled */}
               <div style={{
