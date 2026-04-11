@@ -341,7 +341,7 @@ export default function Landing() {
             Spremni za prvi termin? 🚀
           </h2>
           <p style={{ color: '#6b7fa3', fontSize: '16px', marginBottom: '32px', lineHeight: '1.7' }}>
-            Postavite vaš salon za 5 minuta.<br />
+            Postavite vaš biznis za 5 minuta.<br />
             14 dana besplatno — bez kartice, bez obaveza.
           </p>
           <button onClick={() => navigate('/register')} style={{ ...styles.btnPrimary, width: mob ? '100%' : 'auto', padding: '16px 40px', fontSize: '16px' }}>
