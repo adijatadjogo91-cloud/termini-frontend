@@ -23,6 +23,8 @@ function Booking() {
   const [uposlenici, setUposlenici] = useState([])
   const [odabraniUposlenik, setOdabraniUposlenik] = useState(null)
   const [galerija, setGalerija] = useState([])
+  const [recenzije, setRecenzije] = useState([])
+  const [avgOcjena, setAvgOcjena] = useState(null)
 
   useEffect(() => { ucitajSalon() }, [])
 
@@ -36,6 +38,11 @@ function Booking() {
         const galRes = await axios.get(API + `/api/public/b/${slug}/gallery`)
         setGalerija(galRes.data.gallery || [])
       } catch (e) {}
+      try {
+  const revRes = await axios.get(API + `/api/reviews/business/${slug}`)
+  setRecenzije(revRes.data.reviews || [])
+  setAvgOcjena(revRes.data.avg_rating)
+} catch (e) {}
     } catch (err) {
       setGreska('Salon nije pronađen.')
     }
@@ -216,7 +223,35 @@ function Booking() {
                 </div>
               </div>
             )}
-
+            {recenzije.length > 0 && (
+  <div style={{ marginBottom: '1.25rem' }}>
+    <p style={{ fontSize: '13px', color: '#4ade80', fontWeight: '700', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '1px' }}>
+      ⭐ Recenzije klijenata
+    </p>
+    <div style={{ ...karticaStyle, marginBottom: '10px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+        <span style={{ fontSize: '32px', fontWeight: '700', color: '#fbbf24' }}>{avgOcjena}</span>
+        <div>
+          <div style={{ display: 'flex', gap: '2px' }}>
+            {[1,2,3,4,5].map(i => (
+              <span key={i} style={{ fontSize: '16px', opacity: i <= Math.round(avgOcjena) ? 1 : 0.3 }}>⭐</span>
+            ))}
+          </div>
+          <p style={{ fontSize: '12px', color: '#6b7fa3', margin: '2px 0 0' }}>{recenzije.length} recenzija</p>
+        </div>
+      </div>
+      {recenzije.slice(0, 3).map((r, i) => (
+        <div key={i} style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '10px', marginTop: '10px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+            <span style={{ fontSize: '13px', fontWeight: '600', color: '#e2e8f7' }}>{r.client_name}</span>
+            <span style={{ fontSize: '12px', color: '#fbbf24' }}>{'⭐'.repeat(r.rating)}</span>
+          </div>
+          {r.comment && <p style={{ fontSize: '13px', color: '#8b9ec7', margin: 0 }}>{r.comment}</p>}
+        </div>
+      ))}
+    </div>
+  </div>
+)}
             <h3 style={{ fontSize: '17px', fontWeight: '700', marginBottom: '1rem', color: '#f0f4ff' }}>
               Odaberite uslugu
             </h3>
