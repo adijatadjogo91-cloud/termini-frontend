@@ -54,11 +54,11 @@ export default function Postavke() {
       const data = await res.json();
       const b = data.business;
       setForma({
-  name: b.name || '', type: b.type || '', address: b.address || '',
-  city: b.city || '', phone: b.phone || '', email: b.email || '',
-  description: b.description || '', slot_duration: b.slot_duration || 30,
-  logo_url: b.logo_url || '',
-});
+        name: b.name || '', type: b.type || '', address: b.address || '',
+        city: b.city || '', phone: b.phone || '', email: b.email || '',
+        description: b.description || '', slot_duration: b.slot_duration || 30,
+        logo_url: b.logo_url || '',
+      });
       if (b.blocked_dates) {
         const bd = typeof b.blocked_dates === 'string' ? JSON.parse(b.blocked_dates) : b.blocked_dates;
         setBlokiraniDani(bd || []);
@@ -123,42 +123,43 @@ export default function Postavke() {
       ucitajGaleriju();
     } catch (err) {}
   }
-async function uploadLogo(e) {
-  const file = e.target.files[0]
-  if (!file) return
-  setUploadingLogo(true)
-  const token = localStorage.getItem('token')
-  const formData = new FormData()
-  formData.append('logo', file)
-  try {
-    const res = await fetch(`${API}/api/gallery/${businessId}/logo`, {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${token}` },
-      body: formData
-    })
-    const data = await res.json()
-    console.log('Logo response:', data)
-    if (data.logo_url) {
-      setForma(prev => ({ ...prev, logo_url: data.logo_url }))
-    } else {
-      setGreska('Greška: ' + JSON.stringify(data))
+
+  async function uploadLogo(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    setUploadingLogo(true);
+    const token = localStorage.getItem('token');
+    const formData = new FormData();
+    formData.append('logo', file);
+    try {
+      const res = await fetch(`${API}/api/gallery/${businessId}/logo`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}` },
+        body: formData
+      });
+      const data = await res.json();
+      if (data.logo_url) {
+        setForma(prev => ({ ...prev, logo_url: data.logo_url }));
+      } else {
+        setGreska('Greška pri uploadu loga.');
+      }
+    } catch (err) {
+      setGreska('Greška pri uploadu loga: ' + err.message);
     }
-  } catch (err) {
-    console.log('Logo error:', err)
-    setGreska('Greška pri uploadu loga: ' + err.message)
+    setUploadingLogo(false);
   }
-  setUploadingLogo(false)
-}
-async function obrisiLogo() {
-  const token = localStorage.getItem('token')
-  try {
-    await fetch(`${API}/api/gallery/${businessId}/logo`, {
-      method: 'DELETE',
-      headers: { Authorization: `Bearer ${token}` }
-    })
-    setForma(prev => ({ ...prev, logo_url: '' }))
-  } catch (err) {}
-}
+
+  async function obrisiLogo() {
+    const token = localStorage.getItem('token');
+    try {
+      await fetch(`${API}/api/gallery/${businessId}/logo`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setForma(prev => ({ ...prev, logo_url: '' }));
+    } catch (err) {}
+  }
+
   async function handleSave() {
     setSprema(true); setUspjeh(''); setGreska('');
     const token = localStorage.getItem('token');
@@ -216,7 +217,7 @@ async function obrisiLogo() {
             fontSize: '16px', color: '#c8d0e8'
           }}>←</button>
           <h1 style={{ fontSize: '24px', fontWeight: '700', color: '#f0f4ff', margin: 0 }}>
-            ⚙️ Postavke salona
+            ⚙️ Postavke
           </h1>
         </div>
 
@@ -237,36 +238,38 @@ async function obrisiLogo() {
           <h3 style={{ fontSize: '15px', fontWeight: '600', color: '#f0f4ff', marginBottom: '16px' }}>
             📋 Osnovni podaci
           </h3>
+
           {/* Logo upload */}
-<div style={{ marginBottom: '20px', textAlign: 'center' }}>
-  <div style={{ marginBottom: '12px' }}>
-    {forma.logo_url ? (
-      <img src={forma.logo_url} alt="Logo"
-        style={{ width: '80px', height: '80px', objectFit: 'contain', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.05)' }}
-      />
-    ) : (
-      <div style={{ width: '80px', height: '80px', borderRadius: '12px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto', fontSize: '28px' }}>
-        🏪
-      </div>
-    )}
-  </div>
-  <label style={{ display: 'inline-block', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)', color: '#c8d0e8', borderRadius: '8px', padding: '8px 16px', fontSize: '13px', cursor: 'pointer' }}>
-    {uploadingLogo ? 'Uploading...' : '📷 Dodaj logo'}
-    <input type="file" accept="image/*" onChange={uploadLogo} style={{ display: 'none' }} disabled={uploadingLogo} />
-  </label>
-  {forma.logo_url && (
-    <button onClick={obrisiLogo} style={{ marginLeft: '8px', background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171', borderRadius: '8px', padding: '8px 16px', fontSize: '13px', cursor: 'pointer', fontFamily: 'Inter, sans-serif' }}>
-      Obriši
-    </button>
-  )}
-</div>
+          <div style={{ marginBottom: '20px', textAlign: 'center' }}>
+            <div style={{ marginBottom: '12px' }}>
+              {forma.logo_url ? (
+                <img src={forma.logo_url} alt="Logo"
+                  style={{ width: '80px', height: '80px', objectFit: 'contain', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.05)' }}
+                />
+              ) : (
+                <div style={{ width: '80px', height: '80px', borderRadius: '12px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto', fontSize: '28px' }}>
+                  🏢
+                </div>
+              )}
+            </div>
+            <label style={{ display: 'inline-block', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)', color: '#c8d0e8', borderRadius: '8px', padding: '8px 16px', fontSize: '13px', cursor: 'pointer' }}>
+              {uploadingLogo ? 'Uploading...' : '📷 Dodaj logo'}
+              <input type="file" accept="image/*" onChange={uploadLogo} style={{ display: 'none' }} disabled={uploadingLogo} />
+            </label>
+            {forma.logo_url && (
+              <button onClick={obrisiLogo} style={{ marginLeft: '8px', background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171', borderRadius: '8px', padding: '8px 16px', fontSize: '13px', cursor: 'pointer', fontFamily: 'Inter, sans-serif' }}>
+                Obriši
+              </button>
+            )}
+          </div>
+
           {[
-            { label: 'Naziv salona', key: 'name', placeholder: 'Salon Amra' },
-            { label: 'Tip biznisa', key: 'type', placeholder: 'frizer, kozmetičar...' },
+            { label: 'Naziv biznisa', key: 'name', placeholder: 'Dr. Amra Hodžić / Salon Amra' },
+            { label: 'Tip djelatnosti', key: 'type', placeholder: 'ginekolog, frizer, fizioterapeut...' },
             { label: 'Grad', key: 'city', placeholder: 'Sarajevo' },
             { label: 'Adresa', key: 'address', placeholder: 'Ulica bb' },
             { label: 'Telefon', key: 'phone', placeholder: '061 123 456' },
-            { label: 'Email (za obavijesti)', key: 'email', placeholder: 'salon@gmail.com' },
+            { label: 'Email (za obavijesti)', key: 'email', placeholder: 'ordinacija@gmail.com' },
           ].map(({ label, key, placeholder }) => (
             <div key={key} style={{ marginBottom: '12px' }}>
               <label style={{ fontSize: '13px', color: '#8b9ec7', display: 'block', marginBottom: '5px' }}>{label}</label>
@@ -280,11 +283,11 @@ async function obrisiLogo() {
             </div>
           ))}
           <div style={{ marginBottom: '12px' }}>
-            <label style={{ fontSize: '13px', color: '#8b9ec7', display: 'block', marginBottom: '5px' }}>Opis salona</label>
+            <label style={{ fontSize: '13px', color: '#8b9ec7', display: 'block', marginBottom: '5px' }}>Opis</label>
             <textarea
               value={forma.description}
               onChange={e => setForma({ ...forma, description: e.target.value })}
-              placeholder="Kratki opis vašeg salona..."
+              placeholder="Kratki opis vaše djelatnosti..."
               rows={3}
               style={{ ...inputStyle, resize: 'vertical', padding: '11px 14px' }}
             />
@@ -345,10 +348,10 @@ async function obrisiLogo() {
         {/* Blokirani dani */}
         <div style={karticaStyle}>
           <h3 style={{ fontSize: '15px', fontWeight: '600', color: '#f0f4ff', marginBottom: '8px' }}>
-            🚫 Blokirani dani
+            🚫 Neradni dani
           </h3>
           <p style={{ fontSize: '13px', color: '#6b7fa3', marginBottom: '16px' }}>
-            Dodajte datume kada salon ne radi (praznici, godišnji odmor...).
+            Dodajte datume kada ne radite (praznici, godišnji odmor, slobodni dani...).
           </p>
           <div style={{ display: 'flex', gap: '8px', marginBottom: '12px' }}>
             <input
@@ -376,7 +379,7 @@ async function obrisiLogo() {
           </div>
           {blokiraniDani.length === 0 ? (
             <p style={{ fontSize: '13px', color: '#4a5a7a', textAlign: 'center', padding: '12px' }}>
-              Nema blokiranih dana
+              Nema neradnih dana
             </p>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -401,13 +404,13 @@ async function obrisiLogo() {
           )}
         </div>
 
-        {/* Galerija radova */}
+        {/* Galerija */}
         <div style={karticaStyle}>
           <h3 style={{ fontSize: '15px', fontWeight: '600', color: '#f0f4ff', marginBottom: '8px' }}>
-            🖼️ Galerija radova
+            🖼️ Galerija
           </h3>
           <p style={{ fontSize: '13px', color: '#6b7fa3', marginBottom: '16px' }}>
-            Dodajte slike vaših radova — prikazuju se klijentima na booking stranici.
+            Dodajte slike — prikazuju se klijentima na booking stranici.
           </p>
           <label style={{
             display: 'inline-block', background: '#16a34a', color: 'white',
@@ -415,39 +418,25 @@ async function obrisiLogo() {
             fontWeight: '600', cursor: 'pointer', marginBottom: '16px'
           }}>
             {uploading ? 'Uploading...' : '+ Dodaj sliku'}
-            <input
-              type="file"
-              accept="image/*"
-              onChange={uploadSliku}
-              style={{ display: 'none' }}
-              disabled={uploading}
-            />
+            <input type="file" accept="image/*" onChange={uploadSliku} style={{ display: 'none' }} disabled={uploading} />
           </label>
           {galerija.length === 0 ? (
             <p style={{ fontSize: '13px', color: '#4a5a7a', textAlign: 'center', padding: '16px' }}>
-              Nema slika još. Dodajte prve slike vaših radova!
+              Nema slika još.
             </p>
           ) : (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
               {galerija.map((slika, i) => (
                 <div key={i} style={{ position: 'relative', borderRadius: '10px', overflow: 'hidden' }}>
-                  <img
-                    src={slika.image_url}
-                    alt="Rad salona"
+                  <img src={slika.image_url} alt="Slika"
                     style={{ width: '100%', height: '100px', objectFit: 'cover', display: 'block' }}
                   />
-                  <button
-                    onClick={() => obrisiSliku(slika.id)}
-                    style={{
-                      position: 'absolute', top: '4px', right: '4px',
-                      background: 'rgba(0,0,0,0.6)', border: 'none',
-                      color: 'white', borderRadius: '50%',
-                      width: '24px', height: '24px', cursor: 'pointer',
-                      fontSize: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center'
-                    }}
-                  >
-                    ×
-                  </button>
+                  <button onClick={() => obrisiSliku(slika.id)} style={{
+                    position: 'absolute', top: '4px', right: '4px',
+                    background: 'rgba(0,0,0,0.6)', border: 'none', color: 'white',
+                    borderRadius: '50%', width: '24px', height: '24px', cursor: 'pointer',
+                    fontSize: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center'
+                  }}>×</button>
                 </div>
               ))}
             </div>
@@ -455,18 +444,14 @@ async function obrisiLogo() {
         </div>
 
         {/* Dugme */}
-        <button
-          onClick={handleSave}
-          disabled={sprema}
-          style={{
-            width: '100%', background: sprema ? 'rgba(255,255,255,0.1)' : '#16a34a',
-            color: sprema ? '#6b7fa3' : 'white', border: 'none',
-            borderRadius: '12px', padding: '15px',
-            fontSize: '16px', fontWeight: '600', cursor: sprema ? 'not-allowed' : 'pointer',
-            fontFamily: 'Inter, sans-serif', marginBottom: '2rem'
-          }}
-        >
-          {sprema ? 'Čuvanje...' : 'Sačuvaj postavke →'}
+        <button onClick={handleSave} disabled={sprema} style={{
+          width: '100%', background: sprema ? 'rgba(255,255,255,0.1)' : '#16a34a',
+          color: sprema ? '#6b7fa3' : 'white', border: 'none',
+          borderRadius: '12px', padding: '15px', fontSize: '16px',
+          fontWeight: '600', cursor: sprema ? 'not-allowed' : 'pointer',
+          fontFamily: 'Inter, sans-serif', marginBottom: '2rem'
+        }}>
+          {sprema ? 'Čuvanje...' : 'Sačuvaj →'}
         </button>
 
       </div>

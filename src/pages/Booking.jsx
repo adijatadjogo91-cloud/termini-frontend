@@ -386,7 +386,7 @@ function Booking() {
                   const dayMap = { 0:'sun', 1:'mon', 2:'tue', 3:'wed', 4:'thu', 5:'fri', 6:'sat' }
                   const dayKey = dayMap[new Date(noviDatum + 'T00:00:00').getDay()]
                   if (!wh?.[dayKey]) {
-                    alert('Salon ne radi tog dana. Molimo odaberite drugi datum.')
+                   alert('Nema termina za ovaj dan. Molimo odaberite drugi datum.')
                     return
                   }
                   setOdabranDatum(noviDatum)
