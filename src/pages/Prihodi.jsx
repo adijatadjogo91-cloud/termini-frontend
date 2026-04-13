@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Navbar from '../components/Navbar'
+import jsPDF from 'jspdf'
+import autoTable from 'jspdf-autotable'
 
 const API = 'https://termini-pro.onrender.com'
 
@@ -13,7 +15,71 @@ export default function Prihodi() {
     if (!token) { window.location.href = '/login'; return }
     ucitajPodatke()
   }, [])
+function exportPDF() {
+  const doc = new jsPDF()
+  const datum = new Date()
+  const mjeseci = ['Januar','Februar','Mart','April','Maj','Juni','Juli','August','Septembar','Oktobar','Novembar','Decembar']
+  const mjesec = `${mjeseci[datum.getMonth()]} ${datum.getFullYear()}`
 
+  // Naslov
+  doc.setFontSize(20)
+  doc.setTextColor(26, 122, 74)
+  doc.text('termini.pro', 14, 20)
+
+  doc.setFontSize(14)
+  doc.setTextColor(0, 0, 0)
+  doc.text(`Izvještaj za ${mjesec}`, 14, 32)
+
+  doc.setFontSize(10)
+  doc.setTextColor(100, 100, 100)
+  doc.text(`Generisano: ${datum.toLocaleDateString('hr-HR')}`, 14, 40)
+
+  // Linija
+  doc.setDrawColor(200, 200, 200)
+  doc.line(14, 44, 196, 44)
+
+  // Pregled
+  doc.setFontSize(12)
+  doc.setTextColor(0, 0, 0)
+  doc.text('PREGLED MJESECA', 14, 54)
+
+  autoTable(doc, {
+    startY: 58,
+    head: [['Stavka', 'Vrijednost']],
+    body: [
+      ['Ukupno termina', podaci?.month?.appointments || '0'],
+      ['Ukupno prihoda', `${parseFloat(podaci?.month?.revenue || 0).toFixed(2)} KM`],
+      ['Ukupno klijenata', podaci?.total_clients || '0'],
+      ['Najpopularnija usluga', podaci?.top_services?.[0]?.name || 'N/A'],
+    ],
+    headStyles: { fillColor: [26, 122, 74] },
+    alternateRowStyles: { fillColor: [245, 255, 245] },
+  })
+
+  // Top usluge
+  if (podaci?.top_services?.length) {
+    doc.text('TOP USLUGE', 14, doc.lastAutoTable.finalY + 14)
+    autoTable(doc, {
+      startY: doc.lastAutoTable.finalY + 18,
+      head: [['#', 'Usluga', 'Cijena', 'Broj termina']],
+      body: podaci.top_services.map((u, i) => [
+        i + 1,
+        u.name,
+        `${parseFloat(u.price).toFixed(2)} KM`,
+        u.count
+      ]),
+      headStyles: { fillColor: [26, 122, 74] },
+      alternateRowStyles: { fillColor: [245, 255, 245] },
+    })
+  }
+
+  // Footer
+  doc.setFontSize(9)
+  doc.setTextColor(150, 150, 150)
+  doc.text('termini.pro — Napravljeno u Bosni i Hercegovini', 14, 285)
+
+  doc.save(`izvjestaj-${datum.getMonth() + 1}-${datum.getFullYear()}.pdf`)
+}
   async function ucitajPodatke() {
     try {
       const headers = { Authorization: `Bearer ${token}` }
@@ -59,13 +125,21 @@ export default function Prihodi() {
       <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '2rem' }}>
 
         {/* Naslov */}
-        <div style={{ marginBottom: '2rem' }}>
-          <h1 style={{ fontSize: '26px', fontWeight: '700', color: '#f0f4ff', marginBottom: '4px' }}>
-            💰 Prihodi
-          </h1>
-          <p style={{ color: '#6b7fa3', fontSize: '15px' }}>Pregled prihoda i statistika vašeg salona</p>
-        </div>
-
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2rem', flexWrap: 'wrap', gap: '12px' }}>
+  <div>
+    <h1 style={{ fontSize: '26px', fontWeight: '700', color: '#f0f4ff', marginBottom: '4px' }}>
+      💰 Prihodi
+    </h1>
+    <p style={{ color: '#6b7fa3', fontSize: '15px' }}>Pregled prihoda i statistika vašeg salona</p>
+  </div>
+  <button onClick={exportPDF} style={{
+    background: '#16a34a', color: 'white', border: 'none',
+    borderRadius: '10px', padding: '11px 22px', fontSize: '14px',
+    fontWeight: '600', cursor: 'pointer', fontFamily: 'Inter, sans-serif'
+  }}>
+    📄 Izvezi PDF
+  </button>
+</div>
         {/* Stat kartice */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginBottom: '1.5rem' }}>
           {kartice.map((k, i) => (
