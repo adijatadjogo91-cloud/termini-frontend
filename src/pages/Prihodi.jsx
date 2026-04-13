@@ -114,7 +114,7 @@ function exportPDF() {
     { naziv: 'Danas', vrijednost: `${parseFloat(podaci?.today?.revenue || 0).toFixed(2)} KM`, icon: '📅', boja: '#4ade80' },
     { naziv: 'Ovaj mjesec', vrijednost: `${parseFloat(podaci?.month?.revenue || 0).toFixed(2)} KM`, icon: '📆', boja: '#60a5fa' },
    { naziv: 'Termini danas', vrijednost: podaci?.today?.appointments || 0, icon: '📅', boja: '#fb923c' },
-    { naziv: 'Termini mjesec', vrijednost: podaci?.month?.appointments || 0, icon: '📋', boja: '#c084fc' },
+    { naziv: 'Termini ovaj mjesec', vrijednost: podaci?.month?.appointments || 0, icon: '📅', boja: '#c084fc' },
   ]
 
   const dani = ['Ned', 'Pon', 'Uto', 'Sri', 'Čet', 'Pet', 'Sub']
