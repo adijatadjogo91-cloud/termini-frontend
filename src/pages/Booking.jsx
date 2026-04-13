@@ -172,9 +172,14 @@ function Booking() {
           background: 'radial-gradient(ellipse 80% 80% at 50% 120%, rgba(74,222,128,0.12) 0%, transparent 70%)',
           pointerEvents: 'none'
         }} />
-        <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#f0f4ff', marginBottom: '4px', position: 'relative' }}>
-          {salon?.name}
-        </h2>
+       {salon?.logo_url && (
+  <img src={salon.logo_url} alt="Logo"
+    style={{ width: '64px', height: '64px', objectFit: 'contain', borderRadius: '12px', margin: '0 auto 12px', display: 'block', background: 'rgba(255,255,255,0.08)', padding: '4px' }}
+  />
+)}
+<h2 style={{ fontSize: '22px', fontWeight: '700', color: '#f0f4ff', marginBottom: '4px', position: 'relative' }}>
+  {salon?.name}
+</h2>
         <p style={{ fontSize: '13px', color: '#4ade80', position: 'relative', margin: 0 }}>
           📍 {salon?.city || 'Bosna i Hercegovina'}
         </p>
