@@ -36,6 +36,7 @@ export default function Postavke() {
   const [sprema, setSprema] = useState(false);
   const [uspjeh, setUspjeh] = useState('');
   const [greska, setGreska] = useState('');
+  const [uploadingLogo, setUploadingLogo] = useState(false);
 
   useEffect(() => {
     ucitajPodatke();
@@ -52,10 +53,11 @@ export default function Postavke() {
       const data = await res.json();
       const b = data.business;
       setForma({
-        name: b.name || '', type: b.type || '', address: b.address || '',
-        city: b.city || '', phone: b.phone || '', email: b.email || '',
-        description: b.description || '', slot_duration: b.slot_duration || 30,
-      });
+  name: b.name || '', type: b.type || '', address: b.address || '',
+  city: b.city || '', phone: b.phone || '', email: b.email || '',
+  description: b.description || '', slot_duration: b.slot_duration || 30,
+  logo_url: b.logo_url || '',
+});
       if (b.blocked_dates) {
         const bd = typeof b.blocked_dates === 'string' ? JSON.parse(b.blocked_dates) : b.blocked_dates;
         setBlokiraniDani(bd || []);
@@ -120,7 +122,37 @@ export default function Postavke() {
       ucitajGaleriju();
     } catch (err) {}
   }
+async function uploadLogo(e) {
+  const file = e.target.files[0]
+  if (!file) return
+  setUploadingLogo(true)
+  const token = localStorage.getItem('token')
+  const formData = new FormData()
+  formData.append('logo', file)
+  try {
+    const res = await fetch(`${API}/api/gallery/${businessId}/logo`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}` },
+      body: formData
+    })
+    const data = await res.json()
+    setForma(prev => ({ ...prev, logo_url: data.logo_url }))
+  } catch (err) {
+    setGreska('Greška pri uploadu loga.')
+  }
+  setUploadingLogo(false)
+}
 
+async function obrisiLogo() {
+  const token = localStorage.getItem('token')
+  try {
+    await fetch(`${API}/api/gallery/${businessId}/logo`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    setForma(prev => ({ ...prev, logo_url: '' }))
+  } catch (err) {}
+}
   async function handleSave() {
     setSprema(true); setUspjeh(''); setGreska('');
     const token = localStorage.getItem('token');
@@ -199,6 +231,29 @@ export default function Postavke() {
           <h3 style={{ fontSize: '15px', fontWeight: '600', color: '#f0f4ff', marginBottom: '16px' }}>
             📋 Osnovni podaci
           </h3>
+          {/* Logo upload */}
+<div style={{ marginBottom: '20px', textAlign: 'center' }}>
+  <div style={{ marginBottom: '12px' }}>
+    {forma.logo_url ? (
+      <img src={forma.logo_url} alt="Logo"
+        style={{ width: '80px', height: '80px', objectFit: 'contain', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.05)' }}
+      />
+    ) : (
+      <div style={{ width: '80px', height: '80px', borderRadius: '12px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto', fontSize: '28px' }}>
+        🏪
+      </div>
+    )}
+  </div>
+  <label style={{ display: 'inline-block', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)', color: '#c8d0e8', borderRadius: '8px', padding: '8px 16px', fontSize: '13px', cursor: 'pointer' }}>
+    {uploadingLogo ? 'Uploading...' : '📷 Dodaj logo'}
+    <input type="file" accept="image/*" onChange={uploadLogo} style={{ display: 'none' }} disabled={uploadingLogo} />
+  </label>
+  {forma.logo_url && (
+    <button onClick={obrisiLogo} style={{ marginLeft: '8px', background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171', borderRadius: '8px', padding: '8px 16px', fontSize: '13px', cursor: 'pointer', fontFamily: 'Inter, sans-serif' }}>
+      Obriši
+    </button>
+  )}
+</div>
           {[
             { label: 'Naziv salona', key: 'name', placeholder: 'Salon Amra' },
             { label: 'Tip biznisa', key: 'type', placeholder: 'frizer, kozmetičar...' },
