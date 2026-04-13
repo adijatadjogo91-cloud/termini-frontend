@@ -9,7 +9,7 @@ function Register() {
   const [prezime, setPrezime] = useState('')
   const [email, setEmail] = useState('')
   const [lozinka, setLozinka] = useState('')
-  const [salon, setSalon] = useState('')
+  const [biznis, setBiznis] = useState('')
   const [grad, setGrad] = useState('')
   const [plan, setPlan] = useState('starter')
   const [greska, setGreska] = useState('')
@@ -25,14 +25,14 @@ function Register() {
 
   async function handleRegistracija() {
     setGreska('')
-    if (!salon) { setGreska('Unesite naziv salona.'); return }
+    if (!biznis) { setGreska('Unesite naziv vašeg biznisa.'); return }
     setUcitava(true)
     try {
       await axios.post(API + '/api/auth/register', {
         name: ime + ' ' + prezime,
         email: email,
         password: lozinka,
-        businessName: salon,
+        businessName: biznis,
         businessType: 'salon',
         city: grad,
         plan: plan
@@ -144,7 +144,7 @@ function Register() {
             <div style={{ marginBottom: '1rem' }}>
               <label style={labelStyle}>Email adresa</label>
               <input style={inputStyle} type="email" value={email}
-                onChange={e => setEmail(e.target.value)} placeholder="salon@example.ba" />
+                onChange={e => setEmail(e.target.value)} placeholder="ordinacija@example.ba" />
             </div>
             <div style={{ marginBottom: '1.5rem' }}>
               <label style={labelStyle}>Lozinka</label>
@@ -173,9 +173,10 @@ function Register() {
         {korak === 2 && (
           <div>
             <div style={{ marginBottom: '1rem' }}>
-              <label style={labelStyle}>Naziv salona</label>
-              <input style={inputStyle} type="text" value={salon}
-                onChange={e => setSalon(e.target.value)} placeholder="Salon Amra" />
+              <label style={labelStyle}>Naziv ordinacije / biznisa</label>
+              <input style={inputStyle} type="text" value={biznis}
+                onChange={e => setBiznis(e.target.value)}
+                placeholder="Dr. Amra Hodžić / Studio Amra" />
             </div>
             <div style={{ marginBottom: '1.25rem' }}>
               <label style={labelStyle}>Grad</label>
