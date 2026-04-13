@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 
 export default function Landing() {
   const navigate = useNavigate();
-  const zanimanja = ['zubare', 'ginekologe', 'fizioterapeute', 'psihologe', 'tattoo studije', 'lične trenere', 'frizere', 'kozmetičare', 'terapeute'];
+  const zanimanja = ['stomatologe', 'ginekologe', 'fizioterapeute', 'psihologe', 'tattoo studije', 'lične trenere', 'frizere', 'kozmetičare', 'terapeute'];
   const [trenutnoZanimanje, setTrenutnoZanimanje] = useState(0);
   const [sirina, setSirina] = useState(window.innerWidth);
 
@@ -269,7 +269,7 @@ export default function Landing() {
             {[
               { icon: '🔒', title: 'Privatnost', opis: 'Vaša stranica — bez konkurencije pored vas. Idealno za medicinsku struku.' },
               { icon: '🎨', title: 'Vlastiti brend', opis: 'Logo, opis, galerija radova. Sve prilagođeno vašem biznisu.' },
-              { icon: '🤖', title: 'AI asistent', opis: 'Jedina booking platforma u BiH sa AI asistentom za vaše poslovanje.' },
+              { icon: '✨', title: 'AI asistent', opis: 'Jedina booking platforma u BiH sa AI asistentom za vaše poslovanje.' },
               { icon: '📊', title: 'Potpuna kontrola', opis: 'Dashboard, prihodi, klijenti — sve na jednom mjestu.' },
             ].map((k, i) => (
               <div key={i} style={{ ...styles.featCard, textAlign: 'left' }}>
