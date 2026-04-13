@@ -190,8 +190,13 @@ function Termini() {
                         {t.client_name || 'Nepoznat klijent'}
                       </p>
                       <p style={{ fontSize: '12px', color: '#6b7fa3', marginTop: '3px' }}>
-                        {t.service_name || 'Usluga'}
-                      </p>
+  {t.service_name || 'Usluga'}
+</p>
+{t.notes && (
+  <p style={{ fontSize: '12px', color: '#fbbf24', marginTop: '3px' }}>
+    📝 {t.notes}
+  </p>
+)}
                     </div>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
@@ -326,8 +331,13 @@ function Termini() {
                             {t.client_name || 'Nepoznat klijent'}
                           </p>
                           <p style={{ fontSize: '12px', color: '#6b7fa3', marginTop: '3px' }}>
-                            {t.service_name} — {new Date(t.starts_at).toLocaleTimeString('hr-HR', { hour: '2-digit', minute: '2-digit' })}
-                          </p>
+  {t.service_name} — {new Date(t.starts_at).toLocaleTimeString('hr-HR', { hour: '2-digit', minute: '2-digit' })}
+</p>
+{t.notes && (
+  <p style={{ fontSize: '12px', color: '#fbbf24', marginTop: '3px' }}>
+    📝 {t.notes}
+  </p>
+)}
                         </div>
                       </div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
