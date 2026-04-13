@@ -17,6 +17,7 @@ function Booking() {
   const [telefon, setTelefon] = useState('')
   const [email, setEmail] = useState('')
   const [napomena, setNapomena] = useState('')
+  const [gdprPristanak, setGdprPristanak] = useState(false)
   const [ucitava, setUcitava] = useState(true)
   const [ucitavaVremena, setUcitavaVremena] = useState(false)
   const [saljeZahtjev, setSaljeZahtjev] = useState(false)
@@ -587,17 +588,32 @@ function Booking() {
               </div>
 
               {greska && <p style={{ color: '#f87171', fontSize: '13px', marginBottom: '1rem' }}>{greska}</p>}
-
+{/* GDPR Checkbox */}
+<div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', marginBottom: '1rem' }}>
+  <input
+    type="checkbox"
+    id="gdpr"
+    checked={gdprPristanak}
+    onChange={e => setGdprPristanak(e.target.checked)}
+    style={{ accentColor: '#4ade80', width: '16px', height: '16px', marginTop: '2px', cursor: 'pointer', flexShrink: 0 }}
+  />
+  <label htmlFor="gdpr" style={{ fontSize: '12px', color: '#8b9ec7', lineHeight: '1.6', cursor: 'pointer' }}>
+    Slanjem ovih podataka pristajete na obradu vaših osobnih podataka u svrhu zakazivanja termina.{' '}
+    <a href="/privatnost" target="_blank" style={{ color: '#4ade80', textDecoration: 'underline' }}>
+      Politika privatnosti
+    </a>
+  </label>
+</div>
               <button
                 onClick={zakaziTermin}
-                disabled={!ime || (!telefon && !email) || saljeZahtjev}
+                disabled={!ime || (!telefon && !email) || !gdprPristanak || saljeZahtjev}
                 style={{
                   width: '100%',
-                  background: (!ime || (!telefon && !email)) ? 'rgba(255,255,255,0.1)' : '#16a34a',
-                  color: (!ime || (!telefon && !email)) ? '#6b7fa3' : 'white',
+                  background: (!ime || (!telefon && !email) || !gdprPristanak) ? 'rgba(255,255,255,0.1)' : '#16a34a',
+                  color: (!ime || (!telefon && !email) || !gdprPristanak) ? '#6b7fa3' : 'white',
                   border: 'none', borderRadius: '10px',
                   padding: '16px', fontSize: '16px', fontWeight: '700',
-                  cursor: (!ime || (!telefon && !email)) ? 'not-allowed' : 'pointer',
+                 cursor: (!ime || (!telefon && !email) || !gdprPristanak) ? 'not-allowed' : 'pointer',
                   fontFamily: 'Inter, sans-serif'
                 }}>
                 {saljeZahtjev ? 'Zakazivanje...' : '✅ Potvrdi termin'}
