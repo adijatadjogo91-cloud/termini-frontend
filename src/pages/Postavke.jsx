@@ -136,13 +136,18 @@ async function uploadLogo(e) {
       body: formData
     })
     const data = await res.json()
-    setForma(prev => ({ ...prev, logo_url: data.logo_url }))
+    console.log('Logo response:', data)
+    if (data.logo_url) {
+      setForma(prev => ({ ...prev, logo_url: data.logo_url }))
+    } else {
+      setGreska('Greška: ' + JSON.stringify(data))
+    }
   } catch (err) {
-    setGreska('Greška pri uploadu loga.')
+    console.log('Logo error:', err)
+    setGreska('Greška pri uploadu loga: ' + err.message)
   }
   setUploadingLogo(false)
 }
-
 async function obrisiLogo() {
   const token = localStorage.getItem('token')
   try {
