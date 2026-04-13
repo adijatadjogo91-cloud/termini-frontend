@@ -1,5 +1,6 @@
 import Recenzija from './pages/Recenzija'
 import Onboarding from './pages/Onboarding'
+import Privatnost from './pages/Privatnost'
 import Prihodi from './pages/Prihodi'
 import OtkaziTermin from './pages/OtkaziTermin'
 import Postavke from './pages/Postavke'
@@ -38,6 +39,7 @@ function App() {
         <Route path="/booking/:slug" element={<Booking />} />
         <Route path="/terms" element={<TermsAndConditions />} />
         <Route path="/uposlenici" element={<Uposlenici />} />
+        <Route path="/privatnost" element={<Privatnost />} />
       </Routes>
     </BrowserRouter>
   )
