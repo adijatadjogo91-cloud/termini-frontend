@@ -35,6 +35,7 @@ export default function Postavke() {
   const [ucitava, setUcitava] = useState(true);
   const [sprema, setSprema] = useState(false);
   const [uspjeh, setUspjeh] = useState('');
+  const businessId = localStorage.getItem('businessId');
   const [greska, setGreska] = useState('');
   const [uploadingLogo, setUploadingLogo] = useState(false);
 
