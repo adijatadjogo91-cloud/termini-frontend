@@ -87,7 +87,7 @@ function Dashboard() {
         <div style={{ background: 'rgba(220,38,38,0.15)', borderBottom: '1px solid rgba(220,38,38,0.3)', padding: '12px 2rem', textAlign: 'center' }}>
           <p style={{ color: '#f87171', fontSize: '14px', fontWeight: '500' }}>
             ⚠️ Vaš besplatni period je istekao.{' '}
-            <a href="https://termini-pro.lemonsqueezy.com/checkout/buy/8a033a28-cf56-428a-bd22-abca6bba37f9"
+           <a href="https://termini-pro.lemonsqueezy.com/checkout/buy/4e6c0887-b303-4daa-833f-9132a7c30625"
               style={{ color: '#f87171', fontWeight: '700', marginLeft: '4px' }}>
               Pretplatite se za 49 KM/mj →
             </a>
