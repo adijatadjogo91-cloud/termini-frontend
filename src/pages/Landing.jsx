@@ -304,9 +304,9 @@ export default function Landing() {
                 ))}
               </div>
              
-          <button onClick={() => window.open('https://termini-pro.lemonsqueezy.com/checkout/buy/4e6c0887-b303-4daa-833f-9132a7c30625', '_blank')} style={styles.btnPlanOutline}>
-          Počni besplatno →
-          </button>
+          <button onClick={() => navigate('/register')} style={styles.btnPlan}>
+  Počni besplatno →
+</button>
             </div>
 
             {/* Premium */}
