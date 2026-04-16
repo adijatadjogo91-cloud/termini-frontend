@@ -303,9 +303,10 @@ export default function Landing() {
                   <div key={i} style={styles.pf}><div style={styles.pfDot} />{s}</div>
                 ))}
               </div>
-              <button onClick={() => window.open('https://termini-pro.lemonsqueezy.com/checkout/buy/8a033a28-cf56-428a-bd22-abca6bba37f9', '_blank')} style={styles.btnPlanOutline}>
-                Počni besplatno →
-              </button>
+             
+          <button onClick={() => window.open('https://termini-pro.lemonsqueezy.com/checkout/buy/4e6c0887-b303-4daa-833f-9132a7c30625', '_blank')} style={styles.btnPlanOutline}>
+          Počni besplatno →
+          </button>
             </div>
 
             {/* Premium */}
@@ -325,9 +326,9 @@ export default function Landing() {
                   <div key={i} style={styles.pf}><div style={styles.pfDot} />{s}</div>
                 ))}
               </div>
-              <button onClick={() => navigate('/register')} style={styles.btnPlan}>
-                Počni besplatno →
-              </button>
+              <button onClick={() => window.open('https://termini-pro.lemonsqueezy.com/checkout/buy/7c88b221-a5fb-4308-b240-46fc4d3a3202', '_blank')} style={styles.btnPlan}>
+             Počni besplatno →
+            </button>
             </div>
 
           </div>
