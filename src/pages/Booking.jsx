@@ -22,6 +22,7 @@ function Booking() {
   const [ucitavaVremena, setUcitavaVremena] = useState(false)
   const [saljeZahtjev, setSaljeZahtjev] = useState(false)
   const [greska, setGreska] = useState('')
+  const [inactive, setInactive] = useState(false)
   const [uposlenici, setUposlenici] = useState([])
   const [odabraniUposlenik, setOdabraniUposlenik] = useState(null)
   const [galerija, setGalerija] = useState([])
@@ -34,9 +35,17 @@ function Booking() {
 
   useEffect(() => { ucitajSalon() }, [])
 
-  async function ucitajSalon() {
+async function ucitajSalon() {
     try {
       const res = await axios.get(API + `/api/public/b/${slug}`)
+      
+      if (res.data.inactive) {
+  setSalon(res.data.business)
+  setInactive(true)
+  setUcitava(false)
+  return
+}
+      
       setSalon(res.data.business)
       setUsluge(res.data.services || [])
       setUposlenici(res.data.staff || [])
@@ -148,7 +157,53 @@ function Booking() {
       <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </div>
   )
-
+if (inactive && salon) return (
+  <div style={{ minHeight: '100vh', background: '#0d1628', fontFamily: 'Inter, sans-serif' }}>
+    <div style={{
+      background: 'linear-gradient(135deg, #0f2d1f 0%, #0d1628 100%)',
+      borderBottom: '1px solid rgba(74,222,128,0.15)',
+      padding: '1.5rem 1.5rem 2rem',
+      textAlign: 'center'
+    }}>
+      {salon?.logo_url && (
+        <img src={salon.logo_url} alt="Logo"
+          style={{ width: '64px', height: '64px', objectFit: 'contain', borderRadius: '12px', margin: '0 auto 12px', display: 'block' }}
+        />
+      )}
+      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#f0f4ff', marginBottom: '4px' }}>
+        {salon?.name}
+      </h2>
+    </div>
+    <div style={{ maxWidth: '500px', margin: '3rem auto', padding: '0 1rem', textAlign: 'center' }}>
+      <div style={{
+        background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)',
+        borderRadius: '16px', padding: '2.5rem 2rem'
+      }}>
+        <p style={{ fontSize: '40px', marginBottom: '1rem' }}>📵</p>
+        <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#f0f4ff', marginBottom: '8px' }}>
+          Online zakazivanje trenutno nije dostupno
+        </h3>
+        <p style={{ fontSize: '14px', color: '#6b7fa3', marginBottom: '2rem', lineHeight: '1.6' }}>
+          {salon?.name} trenutno ne prima online rezervacije. Za zakazivanje termina kontaktirajte nas direktno.
+        </p>
+        {salon?.phone && (
+          <a href={`tel:${salon.phone}`} style={{
+            display: 'block', background: '#16a34a', color: 'white',
+            borderRadius: '10px', padding: '14px', fontSize: '16px',
+            fontWeight: '600', textDecoration: 'none', marginBottom: '12px'
+          }}>
+            📞 {salon.phone}
+          </a>
+        )}
+        {salon?.address && (
+          <p style={{ fontSize: '13px', color: '#6b7fa3' }}>
+            📍 {salon.address}{salon.city ? `, ${salon.city}` : ''}
+          </p>
+        )}
+      </div>
+    </div>
+  </div>
+)
   if (greska && !salon) return (
     <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0d1628' }}>
       <p style={{ color: '#f87171' }}>{greska}</p>
