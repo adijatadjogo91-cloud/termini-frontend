@@ -105,7 +105,7 @@ export default function Landing() {
     { icon: '📧', title: 'Automatski podsjetnici', opis: 'Email podsjetnici dan prije termina. Drastično manje otkaza!' },
     { icon: '💰', title: 'Praćenje prihoda', opis: 'Prihodi po danu, sedmici i mjesecu. Uvijek znate gdje stojite.' },
     { icon: '🔒', title: 'Vlastiti brend', opis: 'Vaša privatna booking stranica. Bez konkurencije pored vas.' },
-    { icon: '✨', title: 'AI asistent', opis: 'Pametni asistent koji analizira vaše poslovanje i daje konkretne savjete.' },
+    { icon: '✨', title: 'AI asistent za rast', opis: 'Svaki dan dobijete konkretan savjet — koji dan donosi najviše prihoda, kada popuniti kalendar, gdje gubite novac.' },
   ];
 
   const nise = [
@@ -320,7 +320,7 @@ export default function Landing() {
             {[
               { icon: '🔒', title: 'Privatnost', opis: 'Vaša stranica — bez konkurencije pored vas. Idealno za medicinsku struku.' },
               { icon: '🎨', title: 'Vlastiti brend', opis: 'Logo, opis, galerija radova. Sve prilagođeno vašem biznisu.' },
-              { icon: '✨', title: 'AI asistent', opis: 'Jedina booking platforma u BiH sa AI asistentom za vaše poslovanje.' },
+              { icon: '✨', title: 'AI savjetnik za prihode', opis: 'Ne samo zakazivanje — AI analizira vaše prihode i svaki dan predlaže konkretne akcije za rast.' },
               { icon: '📊', title: 'Potpuna kontrola', opis: 'Dashboard, prihodi, klijenti — sve na jednom mjestu.' },
             ].map((k, i) => (
               <div key={i} style={{ ...styles.featCard, textAlign: 'left' }}>
@@ -428,6 +428,66 @@ export default function Landing() {
           <p style={{ fontSize: '12px', color: '#4a5a7a', marginTop: '16px' }}>
             ✓ Bez kartice &nbsp;&nbsp; ✓ Bez ugovora &nbsp;&nbsp; ✓ Otkaži kad god želiš
           </p>
+
+          {/* Mock-up telefona */}
+          {!mob && (
+            <div style={{ marginTop: '48px', display: 'flex', justifyContent: 'center', gap: '20px', flexWrap: 'wrap' }}>
+
+              {/* Telefon — booking stranica */}
+              <div style={{
+                width: '200px', background: '#111827',
+                borderRadius: '24px', border: '2px solid rgba(74,222,128,0.3)',
+                padding: '12px', boxShadow: '0 0 40px rgba(74,222,128,0.1)',
+              }}>
+                <div style={{ background: '#0d1628', borderRadius: '16px', padding: '12px', fontSize: '11px' }}>
+                  <div style={{ textAlign: 'center', marginBottom: '10px' }}>
+                    <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'rgba(74,222,128,0.2)', margin: '0 auto 6px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px' }}>🦷</div>
+                    <p style={{ color: '#f0f4ff', fontWeight: '700', margin: 0, fontSize: '11px' }}>Dr. Amra Hodžić</p>
+                    <p style={{ color: '#4ade80', margin: '2px 0 0', fontSize: '10px' }}>📍 Sarajevo</p>
+                  </div>
+                  <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '8px', marginBottom: '8px' }}>
+                    {['Pregled — 30 KM', 'Plomba — 60 KM', 'Vađenje — 50 KM'].map((u, i) => (
+                      <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '5px 0', borderBottom: '1px solid rgba(255,255,255,0.05)', color: '#c8d0e8' }}>
+                        <span>{u.split('—')[0]}</span>
+                        <span style={{ color: '#4ade80' }}>{u.split('—')[1]}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div style={{ background: '#16a34a', borderRadius: '8px', padding: '7px', textAlign: 'center', color: 'white', fontWeight: '600', fontSize: '11px' }}>
+                    Zakaži termin →
+                  </div>
+                </div>
+              </div>
+
+              {/* Notifikacija */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', justifyContent: 'center' }}>
+                <div style={{
+                  background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.25)',
+                  borderRadius: '12px', padding: '12px 16px', textAlign: 'left', width: '200px'
+                }}>
+                  <p style={{ fontSize: '10px', color: '#4ade80', fontWeight: '600', margin: '0 0 4px' }}>✅ Novi termin!</p>
+                  <p style={{ fontSize: '11px', color: '#e2e8f7', margin: 0 }}>Ana H. — Pregled</p>
+                  <p style={{ fontSize: '10px', color: '#6b7fa3', margin: '2px 0 0' }}>Sutra u 10:00</p>
+                </div>
+                <div style={{
+                  background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.25)',
+                  borderRadius: '12px', padding: '12px 16px', textAlign: 'left', width: '200px'
+                }}>
+                  <p style={{ fontSize: '10px', color: '#818cf8', fontWeight: '600', margin: '0 0 4px' }}>✨ AI savjet</p>
+                  <p style={{ fontSize: '11px', color: '#e2e8f7', margin: 0 }}>Utorak ujutro je slobodan — dodajte akciju!</p>
+                </div>
+                <div style={{
+                  background: 'rgba(251,191,36,0.1)', border: '1px solid rgba(251,191,36,0.25)',
+                  borderRadius: '12px', padding: '12px 16px', textAlign: 'left', width: '200px'
+                }}>
+                  <p style={{ fontSize: '10px', color: '#fbbf24', fontWeight: '600', margin: '0 0 4px' }}>💰 Prihod danas</p>
+                  <p style={{ fontSize: '13px', color: '#f0f4ff', fontWeight: '700', margin: 0 }}>340 KM</p>
+                  <p style={{ fontSize: '10px', color: '#6b7fa3', margin: '2px 0 0' }}>↑ 12% vs jučer</p>
+                </div>
+              </div>
+
+            </div>
+          )}
         </div>
       </section>
 
