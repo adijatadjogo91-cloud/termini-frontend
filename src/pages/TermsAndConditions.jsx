@@ -37,8 +37,9 @@ text: 'Korištenjem platforme termini.pro prihvatate ove uslove korištenja...'
             text: 'termini.pro je SaaS platforma za upravljanje terminima, klijentima i uposlenicima namijenjena salonima, ordinacijama i sličnim poslovnim subjektima. Nudimo online zakazivanje, SMS podsjetnike i analitiku poslovanja.'
           },
           {
+            
             title: '3. Pretplata i plaćanje',
-            text: 'Usluga se naplaćuje mjesečno u iznosu od 49 KM. Novi korisnici imaju pravo na 14 dana besplatnog probnog perioda. Nakon isteka probnog perioda, pretplata se automatski aktivira. Otkaz pretplate je moguć u bilo kojem trenutku.'
+text: 'Usluga se naplaćuje mjesečno u iznosu od 59 KM (Starter plan) ili 119 KM (Premium plan). Novi korisnici imaju pravo na 14 dana besplatnog probnog perioda bez unosa kartice. Nakon isteka probnog perioda, korisnik sam bira i aktivira pretplatu. Otkaz pretplate je moguć u bilo kom trenutku bez penala.'
           },
           {
             title: '4. Privatnost podataka',

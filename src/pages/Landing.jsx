@@ -430,7 +430,7 @@ export default function Landing() {
           </p>
 
           {/* Mock-up telefona */}
-          {!mob && (
+         {(
             <div style={{ marginTop: '48px', display: 'flex', justifyContent: 'center', gap: '20px', flexWrap: 'wrap' }}>
 
               {/* Telefon — booking stranica */}
