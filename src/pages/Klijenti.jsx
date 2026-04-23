@@ -16,6 +16,18 @@ function Klijenti() {
   }, [])
 
   async function ucitajKlijente() {
+    async function blokirajKlijenta(klijentId, trenutnoBlokiran) {
+  try {
+    const headers = { Authorization: `Bearer ${token}` }
+    const bizRes = await axios.get(API + '/api/businesses', { headers })
+    const bizId = bizRes.data.businesses[0].id
+    await axios.patch(API + `/api/clients/${bizId}/${klijentId}/block`, 
+      { is_blocked: !trenutnoBlokiran }, { headers })
+    ucitajKlijente()
+  } catch (err) {
+    alert('Greška pri blokiranju klijenta.')
+  }
+}
     try {
       const headers = { Authorization: `Bearer ${token}` }
       const bizRes = await axios.get(API + '/api/businesses', { headers })
@@ -168,9 +180,9 @@ function Klijenti() {
                     {inicijali(k.name)}
                   </div>
                   <div>
-                    <p style={{ fontSize: '14px', fontWeight: '500', color: '#e2e8f7', margin: 0 }}>
-                      {k.name}
-                    </p>
+                    <p style={{ fontSize: '14px', fontWeight: '500', color: k.is_blocked ? '#f87171' : '#e2e8f7', margin: 0 }}>
+  {k.name} {k.is_blocked && <span style={{ fontSize: '11px', background: 'rgba(248,113,113,0.15)', color: '#f87171', padding: '2px 8px', borderRadius: '20px', marginLeft: '6px' }}>Blokiran</span>}
+</p>
                     <p style={{ fontSize: '12px', color: '#6b7fa3', marginTop: '3px' }}>
                       {k.phone && k.email
                         ? `${k.phone} · ${k.email}`
@@ -178,15 +190,29 @@ function Klijenti() {
                     </p>
                   </div>
                 </div>
-                <div style={{ textAlign: 'right', flexShrink: 0 }}>
-                  <span style={{
-                    background: 'rgba(74,222,128,0.1)', color: '#4ade80',
-                    fontSize: '12px', fontWeight: '600', padding: '4px 10px',
-                    borderRadius: '20px'
-                  }}>
-                    {k.total_appointments || 0} termina
-                  </span>
-                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
+  <span style={{
+    background: 'rgba(74,222,128,0.1)', color: '#4ade80',
+    fontSize: '12px', fontWeight: '600', padding: '4px 10px',
+    borderRadius: '20px'
+  }}>
+    {k.total_appointments || 0} termina
+  </span>
+  <button
+    onClick={() => blokirajKlijenta(k.id, k.is_blocked)}
+    title={k.is_blocked ? 'Odblokiraj klijenta' : 'Blokiraj klijenta'}
+    style={{
+      background: k.is_blocked ? 'rgba(74,222,128,0.1)' : 'rgba(248,113,113,0.1)',
+      border: k.is_blocked ? '1px solid rgba(74,222,128,0.2)' : '1px solid rgba(248,113,113,0.2)',
+      color: k.is_blocked ? '#4ade80' : '#f87171',
+      borderRadius: '8px', padding: '4px 10px',
+      fontSize: '12px', cursor: 'pointer',
+      fontFamily: 'Inter, sans-serif'
+    }}
+  >
+    {k.is_blocked ? '✓ Odblokiraj' : '🚫 Blokiraj'}
+  </button>
+</div>
               </div>
             ))
           )}
