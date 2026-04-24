@@ -681,11 +681,13 @@ if (inactive && salon) return (
         {korak === 6 && (
           <div style={{ textAlign: 'center', padding: '2rem 1rem' }}>
             <div style={{
-              width: '80px', height: '80px', borderRadius: '50%',
-              background: 'rgba(74,222,128,0.15)', border: '2px solid rgba(74,222,128,0.3)',
-              display: 'flex', alignItems: 'center',
-              justifyContent: 'center', fontSize: '40px', margin: '0 auto 1.5rem'
-            }}>🎉</div>
+  width: '80px', height: '80px', borderRadius: '50%',
+  background: 'linear-gradient(135deg, rgba(74,222,128,0.2), rgba(99,102,241,0.2))',
+  border: '2px solid rgba(74,222,128,0.3)',
+  boxShadow: '0 0 30px rgba(74,222,128,0.15)',
+  display: 'flex', alignItems: 'center',
+  justifyContent: 'center', fontSize: '40px', margin: '0 auto 1.5rem'
+}}>✅</div>
             <h3 style={{ fontSize: '24px', fontWeight: '700', color: '#f0f4ff', marginBottom: '8px' }}>
               Termin zakazan!
             </h3>
