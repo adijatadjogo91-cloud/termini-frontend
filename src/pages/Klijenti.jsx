@@ -193,12 +193,14 @@ function Klijenti() {
               >
                 {/* Lijeva strana — avatar + info */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                  <div style={{
-                    width: '42px', height: '42px', borderRadius: '50%',
-                    background: `rgba(${bojaPoBroju(i) === '#4ade80' ? '74,222,128' : bojaPoBroju(i) === '#60a5fa' ? '96,165,250' : bojaPoBroju(i) === '#c084fc' ? '192,132,252' : bojaPoBroju(i) === '#fb923c' ? '251,146,60' : bojaPoBroju(i) === '#f472b6' ? '244,114,182' : '52,211,153'},0.15)`,
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: '14px', fontWeight: '700', color: bojaPoBroju(i), flexShrink: 0
-                  }}>
+                 <div style={{
+  width: '42px', height: '42px', borderRadius: '50%',
+  background: `linear-gradient(135deg, ${bojaPoBroju(i)}33, ${bojaPoBroju(i)}11)`,
+  border: `2px solid ${bojaPoBroju(i)}44`,
+  boxShadow: `0 0 12px ${bojaPoBroju(i)}22`,
+  display: 'flex', alignItems: 'center', justifyContent: 'center',
+  fontSize: '14px', fontWeight: '700', color: bojaPoBroju(i), flexShrink: 0
+}}>
                     {inicijali(k.name)}
                   </div>
                   <div>
