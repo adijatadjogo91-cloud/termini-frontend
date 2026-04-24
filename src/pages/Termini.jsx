@@ -46,7 +46,19 @@ function Termini() {
       alert('Greška pri otkazivanju termina.')
     }
   }
-
+async function zavrsiTermin(terminId) {
+  if (!window.confirm('Označiti termin kao završen?')) return
+  try {
+    const headers = { Authorization: `Bearer ${token}` }
+    const bizRes = await axios.get(API + '/api/businesses', { headers })
+    const bizId = bizRes.data.businesses[0].id
+    await axios.patch(API + `/api/appointments/${bizId}/${terminId}/status`,
+      { status: 'completed' }, { headers })
+    ucitajTermine()
+  } catch (err) {
+    alert('Greška pri završavanju termina.')
+  }
+}
   function formatDatum(datum) {
     const d = new Date(datum)
     const dani = ['ned','pon','uto','sri','čet','pet','sub']
@@ -348,15 +360,35 @@ function Termini() {
                         }}>
                           {statusNaziv(t.status)}
                         </span>
-                        {t.status !== 'cancelled' && t.status !== 'completed' && (
-                          <button onClick={() => otkaziTermin(t.id)} style={{
-                            background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.3)',
-                            color: '#f87171', borderRadius: '8px', padding: '4px 10px',
-                            fontSize: '12px', cursor: 'pointer', fontFamily: 'Inter, sans-serif'
-                          }}>
-                            Otkaži
-                          </button>
-                        )}
+                       {t.status !== 'cancelled' && t.status !== 'completed' && (
+  <div style={{ display: 'flex', gap: '6px' }}>
+    <button onClick={() => zavrsiTermin(t.id)} style={{
+      background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.3)',
+      color: '#4ade80', borderRadius: '8px', padding: '6px 12px',
+      fontSize: '12px', cursor: 'pointer', fontFamily: 'Inter, sans-serif'
+    }}>
+      ✓ Završi
+    </button>
+    {t.status !== 'cancelled' && t.status !== 'completed' && (
+  <div style={{ display: 'flex', gap: '6px' }}>
+    <button onClick={() => zavrsiTermin(t.id)} style={{
+      background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.3)',
+      color: '#4ade80', borderRadius: '8px', padding: '4px 10px',
+      fontSize: '12px', cursor: 'pointer', fontFamily: 'Inter, sans-serif'
+    }}>
+      ✓ Završi
+    </button>
+    <button onClick={() => otkaziTermin(t.id)} style={{
+      background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.3)',
+      color: '#f87171', borderRadius: '8px', padding: '4px 10px',
+      fontSize: '12px', cursor: 'pointer', fontFamily: 'Inter, sans-serif'
+    }}>
+      Otkaži
+    </button>
+  </div>
+)}
+  </div>
+)}
                       </div>
                     </div>
                   ))
