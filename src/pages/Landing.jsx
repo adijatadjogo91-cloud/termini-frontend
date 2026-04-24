@@ -7,6 +7,7 @@ export default function Landing() {
   const [trenutnoZanimanje, setTrenutnoZanimanje] = useState(0);
   const [sirina, setSirina] = useState(window.innerWidth);
   const [otvorenFaq, setOtvorenFaq] = useState(null);
+  const [godisnji, setGodisnji] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -128,6 +129,7 @@ export default function Landing() {
 
   const starterFeatures = [
     'Neograničeni termini i klijenti',
+    'Neograničene usluge',
     'Email podsjetnici',
     'Praćenje prihoda',
     'AI asistent (20 upita/dan)',
@@ -171,6 +173,10 @@ export default function Landing() {
       pitanje: 'Šta se desi nakon 14 dana besplatnog triala?',
       odgovor: 'Dobijate obavijest da trial ističe. Možete odabrati plan koji vam odgovara. Nema automatskog naplaćivanja bez vaše potvrde. Ako ne nastavite — ne plaćate ništa.'
     },
+    {
+      pitanje: 'Postoje li limiti na broj termina ili klijenata?',
+      odgovor: 'Ne! termini.pro nema nikakvih limita — neograničeni termini, neograničeni klijenti, neograničene usluge. Plaćate fiksnu cijenu bez obzira na obim posla.'
+    },
   ];
 
   return (
@@ -211,8 +217,8 @@ export default function Landing() {
             </button>
           </div>
           <p style={{ fontSize: '12px', color: '#4a5a7a', marginTop: '16px' }}>
-  ✓ Bez kartice &nbsp;&nbsp; ✓ Bez limita &nbsp;&nbsp; ✓ Otkaži kad god želiš
-</p>
+            ✓ Bez kartice &nbsp;&nbsp; ✓ Bez limita &nbsp;&nbsp; ✓ Otkaži kad god želiš
+          </p>
         </div>
       </section>
 
@@ -221,7 +227,7 @@ export default function Landing() {
         {[
           { num: '24/7', label: 'Online booking' },
           { num: '14 dana', label: 'Besplatni trial' },
-          { num: '0 KM', label: 'Setup troškovi' },
+          { num: '∞', label: 'Bez limita' },
           { num: '5 min', label: 'Do prvog termina' },
         ].map((s, i) => (
           <div key={i} style={{ textAlign: 'center' }}>
@@ -311,8 +317,35 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* Bez limita sekcija */}
+      <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', background: 'rgba(74,222,128,0.03)', borderTop: '1px solid rgba(74,222,128,0.1)', borderBottom: '1px solid rgba(74,222,128,0.1)' }}>
+        <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
+          <h2 style={styles.sectionTitle}>Bez skrivenih limita. Ikad.</h2>
+          <p style={styles.sectionSub}>Fiksna cijena — neograničeno sve. Vaš biznis raste, cijena ostaje ista.</p>
+          <div style={{ display: 'grid', gridTemplateColumns: mob ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)', gap: '12px' }}>
+            {[
+              { icon: '📅', label: 'Neograničeni termini' },
+              { icon: '👥', label: 'Neograničeni klijenti' },
+              { icon: '📋', label: 'Neograničene usluge' },
+              { icon: '🧑‍💼', label: 'Neograničeni uposlenici' },
+            ].map((item, i) => (
+              <div key={i} style={{
+                background: 'rgba(74,222,128,0.08)', border: '1px solid rgba(74,222,128,0.2)',
+                borderRadius: '12px', padding: '20px 16px', textAlign: 'center'
+              }}>
+                <p style={{ fontSize: '28px', marginBottom: '8px' }}>{item.icon}</p>
+                <p style={{ fontSize: '13px', fontWeight: '600', color: '#4ade80', margin: 0 }}>{item.label}</p>
+              </div>
+            ))}
+          </div>
+          <p style={{ fontSize: '14px', color: '#6b7fa3', marginTop: '24px' }}>
+            Za razliku od platformi sa limitima na termine i uposlenike — termini.pro nema ograničenja.
+          </p>
+        </div>
+      </section>
+
       {/* Zašto termini.pro */}
-      <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', background: 'rgba(255,255,255,0.02)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+      <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ maxWidth: '700px', margin: '0 auto', textAlign: 'center' }}>
           <h2 style={styles.sectionTitle}>Zašto termini.pro?</h2>
           <p style={styles.sectionSub}>Za razliku od javnih platformi — ovo je vaš prostor.</p>
@@ -334,20 +367,49 @@ export default function Landing() {
       </section>
 
       {/* Cijene */}
-      <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+      <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', background: 'rgba(255,255,255,0.02)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ maxWidth: '860px', margin: '0 auto' }}>
           <h2 style={styles.sectionTitle}>Jednostavne cijene</h2>
           <p style={styles.sectionSub}>Bez skrivenih troškova. Otkaži kad god želiš.</p>
-          <div style={{ display: 'grid', gridTemplateColumns: mob ? '1fr' : '1fr 1fr', gap: '20px', marginTop: '40px' }}>
+
+          {/* Toggle mjesečno/godišnje */}
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '12px', marginBottom: '32px' }}>
+            <span style={{ fontSize: '14px', color: !godisnji ? '#f0f4ff' : '#6b7fa3', fontWeight: !godisnji ? '600' : '400' }}>Mjesečno</span>
+            <div
+              onClick={() => setGodisnji(!godisnji)}
+              style={{
+                width: '48px', height: '26px', borderRadius: '13px',
+                background: godisnji ? '#16a34a' : 'rgba(255,255,255,0.15)',
+                cursor: 'pointer', position: 'relative', transition: 'background 0.2s'
+              }}
+            >
+              <div style={{
+                width: '20px', height: '20px', borderRadius: '50%', background: 'white',
+                position: 'absolute', top: '3px',
+                left: godisnji ? '25px' : '3px', transition: 'left 0.2s'
+              }} />
+            </div>
+            <span style={{ fontSize: '14px', color: godisnji ? '#f0f4ff' : '#6b7fa3', fontWeight: godisnji ? '600' : '400' }}>
+              Godišnje
+              <span style={{ marginLeft: '6px', fontSize: '11px', background: 'rgba(74,222,128,0.15)', color: '#4ade80', padding: '2px 8px', borderRadius: '20px', fontWeight: '600' }}>
+                -2 mjeseca gratis
+              </span>
+            </span>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: mob ? '1fr' : '1fr 1fr', gap: '20px' }}>
 
             {/* Starter */}
             <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '16px', padding: mob ? '28px' : '36px 32px', textAlign: 'left', position: 'relative' }}>
               <p style={{ fontSize: '12px', fontWeight: '600', color: '#6b7fa3', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '8px' }}>Starter</p>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '4px' }}>
-                <span style={{ fontSize: '40px', fontWeight: '700', color: '#f0f4ff' }}>59</span>
+                <span style={{ fontSize: '40px', fontWeight: '700', color: '#f0f4ff' }}>{godisnji ? '499' : '59'}</span>
                 <span style={{ fontSize: '20px', fontWeight: '600', color: '#c8d0e8' }}>KM</span>
-                <span style={{ fontSize: '13px', color: '#6b7fa3' }}>/mj</span>
+                <span style={{ fontSize: '13px', color: '#6b7fa3' }}>{godisnji ? '/god' : '/mj'}</span>
               </div>
+              {godisnji && (
+                <p style={{ fontSize: '12px', color: '#4ade80', marginBottom: '4px' }}>Uštedite 209 KM godišnje!</p>
+              )}
               <p style={{ fontSize: '12px', color: '#6b7fa3', marginBottom: '24px' }}>14 dana besplatno, bez kartice</p>
               <div style={{ marginBottom: '28px' }}>
                 {starterFeatures.map((s, i) => (
@@ -366,10 +428,13 @@ export default function Landing() {
               </div>
               <p style={{ fontSize: '12px', fontWeight: '600', color: '#4ade80', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '8px' }}>Premium</p>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '4px' }}>
-                <span style={{ fontSize: '40px', fontWeight: '700', color: '#f0f4ff' }}>119</span>
+                <span style={{ fontSize: '40px', fontWeight: '700', color: '#f0f4ff' }}>{godisnji ? '999' : '119'}</span>
                 <span style={{ fontSize: '20px', fontWeight: '600', color: '#c8d0e8' }}>KM</span>
-                <span style={{ fontSize: '13px', color: '#6b7fa3' }}>/mj</span>
+                <span style={{ fontSize: '13px', color: '#6b7fa3' }}>{godisnji ? '/god' : '/mj'}</span>
               </div>
+              {godisnji && (
+                <p style={{ fontSize: '12px', color: '#4ade80', marginBottom: '4px' }}>Uštedite 429 KM godišnje!</p>
+              )}
               <p style={{ fontSize: '12px', color: '#6b7fa3', marginBottom: '24px' }}>14 dana besplatno, bez kartice</p>
               <div style={{ marginBottom: '28px' }}>
                 {premiumFeatures.map((s, i) => (
@@ -386,7 +451,7 @@ export default function Landing() {
       </section>
 
       {/* FAQ */}
-      <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', background: 'rgba(255,255,255,0.02)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+      <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ maxWidth: '700px', margin: '0 auto' }}>
           <h2 style={styles.sectionTitle}>Često postavljana pitanja</h2>
           <p style={styles.sectionSub}>Sve što trebate znati prije nego počnete.</p>
@@ -412,7 +477,7 @@ export default function Landing() {
       </section>
 
       {/* CTA */}
-      <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', textAlign: 'center', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+      <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', textAlign: 'center', background: 'rgba(255,255,255,0.02)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ maxWidth: '600px', margin: '0 auto' }}>
           <div style={{ fontSize: '48px', marginBottom: '16px' }}>🚀</div>
           <h2 style={{ ...styles.sectionTitle, marginBottom: '16px' }}>
@@ -426,68 +491,49 @@ export default function Landing() {
             Počni besplatno — bez kartice →
           </button>
           <p style={{ fontSize: '12px', color: '#4a5a7a', marginTop: '16px' }}>
-            ✓ Bez kartice &nbsp;&nbsp; ✓ Bez ugovora &nbsp;&nbsp; ✓ Otkaži kad god želiš
+            ✓ Bez kartice &nbsp;&nbsp; ✓ Bez limita &nbsp;&nbsp; ✓ Otkaži kad god želiš
           </p>
 
           {/* Mock-up telefona */}
-         {(
-            <div style={{ marginTop: '48px', display: 'flex', justifyContent: 'center', gap: '20px', flexWrap: 'wrap' }}>
-
-              {/* Telefon — booking stranica */}
-              <div style={{
-                width: '200px', background: '#111827',
-                borderRadius: '24px', border: '2px solid rgba(74,222,128,0.3)',
-                padding: '12px', boxShadow: '0 0 40px rgba(74,222,128,0.1)',
-              }}>
-                <div style={{ background: '#0d1628', borderRadius: '16px', padding: '12px', fontSize: '11px' }}>
-                  <div style={{ textAlign: 'center', marginBottom: '10px' }}>
-                    <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'rgba(74,222,128,0.2)', margin: '0 auto 6px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px' }}>🦷</div>
-                    <p style={{ color: '#f0f4ff', fontWeight: '700', margin: 0, fontSize: '11px' }}>Dr. Amra Hodžić</p>
-                    <p style={{ color: '#4ade80', margin: '2px 0 0', fontSize: '10px' }}>📍 Sarajevo</p>
-                  </div>
-                  <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '8px', marginBottom: '8px' }}>
-                    {['Pregled — 30 KM', 'Plomba — 60 KM', 'Vađenje — 50 KM'].map((u, i) => (
-                      <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '5px 0', borderBottom: '1px solid rgba(255,255,255,0.05)', color: '#c8d0e8' }}>
-                        <span>{u.split('—')[0]}</span>
-                        <span style={{ color: '#4ade80' }}>{u.split('—')[1]}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div style={{ background: '#16a34a', borderRadius: '8px', padding: '7px', textAlign: 'center', color: 'white', fontWeight: '600', fontSize: '11px' }}>
-                    Zakaži termin →
-                  </div>
+          <div style={{ marginTop: '48px', display: 'flex', justifyContent: 'center', gap: '20px', flexWrap: 'wrap' }}>
+            <div style={{ width: '200px', background: '#111827', borderRadius: '24px', border: '2px solid rgba(74,222,128,0.3)', padding: '12px', boxShadow: '0 0 40px rgba(74,222,128,0.1)' }}>
+              <div style={{ background: '#0d1628', borderRadius: '16px', padding: '12px', fontSize: '11px' }}>
+                <div style={{ textAlign: 'center', marginBottom: '10px' }}>
+                  <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'rgba(74,222,128,0.2)', margin: '0 auto 6px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px' }}>🦷</div>
+                  <p style={{ color: '#f0f4ff', fontWeight: '700', margin: 0, fontSize: '11px' }}>Dr. Amra Hodžić</p>
+                  <p style={{ color: '#4ade80', margin: '2px 0 0', fontSize: '10px' }}>📍 Sarajevo</p>
+                </div>
+                <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '8px', marginBottom: '8px' }}>
+                  {['Pregled — 30 KM', 'Plomba — 60 KM', 'Vađenje — 50 KM'].map((u, i) => (
+                    <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '5px 0', borderBottom: '1px solid rgba(255,255,255,0.05)', color: '#c8d0e8' }}>
+                      <span>{u.split('—')[0]}</span>
+                      <span style={{ color: '#4ade80' }}>{u.split('—')[1]}</span>
+                    </div>
+                  ))}
+                </div>
+                <div style={{ background: '#16a34a', borderRadius: '8px', padding: '7px', textAlign: 'center', color: 'white', fontWeight: '600', fontSize: '11px' }}>
+                  Zakaži termin →
                 </div>
               </div>
-
-              {/* Notifikacija */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', justifyContent: 'center' }}>
-                <div style={{
-                  background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.25)',
-                  borderRadius: '12px', padding: '12px 16px', textAlign: 'left', width: '200px'
-                }}>
-                  <p style={{ fontSize: '10px', color: '#4ade80', fontWeight: '600', margin: '0 0 4px' }}>✅ Novi termin!</p>
-                  <p style={{ fontSize: '11px', color: '#e2e8f7', margin: 0 }}>Ana H. — Pregled</p>
-                  <p style={{ fontSize: '10px', color: '#6b7fa3', margin: '2px 0 0' }}>Sutra u 10:00</p>
-                </div>
-                <div style={{
-                  background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.25)',
-                  borderRadius: '12px', padding: '12px 16px', textAlign: 'left', width: '200px'
-                }}>
-                  <p style={{ fontSize: '10px', color: '#818cf8', fontWeight: '600', margin: '0 0 4px' }}>✨ AI savjet</p>
-                  <p style={{ fontSize: '11px', color: '#e2e8f7', margin: 0 }}>Utorak ujutro je slobodan — dodajte akciju!</p>
-                </div>
-                <div style={{
-                  background: 'rgba(251,191,36,0.1)', border: '1px solid rgba(251,191,36,0.25)',
-                  borderRadius: '12px', padding: '12px 16px', textAlign: 'left', width: '200px'
-                }}>
-                  <p style={{ fontSize: '10px', color: '#fbbf24', fontWeight: '600', margin: '0 0 4px' }}>💰 Prihod danas</p>
-                  <p style={{ fontSize: '13px', color: '#f0f4ff', fontWeight: '700', margin: 0 }}>340 KM</p>
-                  <p style={{ fontSize: '10px', color: '#6b7fa3', margin: '2px 0 0' }}>↑ 12% vs jučer</p>
-                </div>
-              </div>
-
             </div>
-          )}
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', justifyContent: 'center' }}>
+              <div style={{ background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.25)', borderRadius: '12px', padding: '12px 16px', textAlign: 'left', width: '200px' }}>
+                <p style={{ fontSize: '10px', color: '#4ade80', fontWeight: '600', margin: '0 0 4px' }}>✅ Novi termin!</p>
+                <p style={{ fontSize: '11px', color: '#e2e8f7', margin: 0 }}>Ana H. — Pregled</p>
+                <p style={{ fontSize: '10px', color: '#6b7fa3', margin: '2px 0 0' }}>Sutra u 10:00</p>
+              </div>
+              <div style={{ background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.25)', borderRadius: '12px', padding: '12px 16px', textAlign: 'left', width: '200px' }}>
+                <p style={{ fontSize: '10px', color: '#818cf8', fontWeight: '600', margin: '0 0 4px' }}>✨ AI savjet</p>
+                <p style={{ fontSize: '11px', color: '#e2e8f7', margin: 0 }}>Utorak ujutro je slobodan — dodajte akciju!</p>
+              </div>
+              <div style={{ background: 'rgba(251,191,36,0.1)', border: '1px solid rgba(251,191,36,0.25)', borderRadius: '12px', padding: '12px 16px', textAlign: 'left', width: '200px' }}>
+                <p style={{ fontSize: '10px', color: '#fbbf24', fontWeight: '600', margin: '0 0 4px' }}>💰 Prihod danas</p>
+                <p style={{ fontSize: '13px', color: '#f0f4ff', fontWeight: '700', margin: 0 }}>340 KM</p>
+                <p style={{ fontSize: '10px', color: '#6b7fa3', margin: '2px 0 0' }}>↑ 12% vs jučer</p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -495,7 +541,6 @@ export default function Landing() {
       <footer style={{ padding: '40px 2rem', borderTop: '1px solid rgba(255,255,255,0.07)', background: 'rgba(255,255,255,0.02)' }}>
         <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
           <div style={{ display: 'grid', gridTemplateColumns: mob ? '1fr' : 'repeat(3, 1fr)', gap: '32px', marginBottom: '32px' }}>
-
             <div>
               <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#f0f4ff', marginBottom: '12px' }}>
                 termini<span style={{ color: '#4ade80' }}>.pro</span>
@@ -504,7 +549,6 @@ export default function Landing() {
                 Online booking platforma za sve uslužne djelatnosti u Bosni i Hercegovini.
               </p>
             </div>
-
             <div>
               <h3 style={{ fontSize: '14px', fontWeight: '600', color: '#8b9ec7', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Platforma</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -518,7 +562,6 @@ export default function Landing() {
                 ))}
               </div>
             </div>
-
             <div>
               <h3 style={{ fontSize: '14px', fontWeight: '600', color: '#8b9ec7', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Kontakt</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -527,9 +570,7 @@ export default function Landing() {
                 <p style={{ fontSize: '13px', color: '#6b7fa3', margin: 0 }}>📍 Sarajevo, Bosna i Hercegovina</p>
               </div>
             </div>
-
           </div>
-
           <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
             <p style={{ fontSize: '13px', color: '#4a5a7a', margin: 0 }}>© 2026 termini.pro — Napravljeno s ❤️ u Bosni i Hercegovini</p>
             <p style={{ fontSize: '13px', color: '#4a5a7a', margin: 0 }}>🇧🇦 Made in BiH</p>
