@@ -184,10 +184,15 @@ function Klijenti() {
   {k.name} {k.is_blocked && <span style={{ fontSize: '11px', background: 'rgba(248,113,113,0.15)', color: '#f87171', padding: '2px 8px', borderRadius: '20px', marginLeft: '6px' }}>Blokiran</span>}
 </p>
                     <p style={{ fontSize: '12px', color: '#6b7fa3', marginTop: '3px' }}>
-                      {k.phone && k.email
-                        ? `${k.phone} · ${k.email}`
-                        : k.phone || k.email || 'Nema kontakta'}
-                    </p>
+  {k.phone && k.email
+    ? `${k.phone} · ${k.email}`
+    : k.phone || k.email || 'Nema kontakta'}
+</p>
+{k.loyalty_points > 0 && (
+  <span style={{ fontSize: '11px', background: 'rgba(251,191,36,0.15)', color: '#fbbf24', padding: '2px 8px', borderRadius: '20px', marginTop: '4px', display: 'inline-block' }}>
+    ⭐ {k.loyalty_points} bodova
+  </span>
+)}
                   </div>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
