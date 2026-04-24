@@ -101,8 +101,8 @@ function Klijenti() {
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2rem', flexWrap: 'wrap', gap: '12px' }}>
           <div>
             <h1 style={{ fontSize: '26px', fontWeight: '700', color: '#f0f4ff', marginBottom: '4px' }}>
-              👥 Klijenti
-            </h1>
+  🧑‍🤝‍🧑 Klijenti
+</h1>
             <p style={{ color: '#6b7fa3', fontSize: '15px' }}>
               {klijenti.length} klijenata ukupno
             </p>
@@ -145,7 +145,7 @@ function Klijenti() {
           gap: '12px', marginBottom: '1.5rem'
         }}>
           {[
-            { label: 'Ukupno klijenata', vrijednost: klijenti.length, boja: '#4ade80', icon: '👥' },
+            { label: 'Ukupno klijenata', vrijednost: klijenti.length, boja: '#4ade80', icon: '🧑‍🤝‍🧑' },
             { label: 'Rezultati pretrage', vrijednost: filtrirani.length, boja: '#60a5fa', icon: '🔍' },
           ].map((k, i) => (
             <div key={i} style={{
@@ -171,7 +171,7 @@ function Klijenti() {
         }}>
           {filtrirani.length === 0 ? (
             <div style={{ padding: '4rem', textAlign: 'center' }}>
-              <p style={{ fontSize: '40px', marginBottom: '12px' }}>👥</p>
+              <p style={{ fontSize: '40px', marginBottom: '12px' }}>🧑‍🤝‍🧑</p>
               <p style={{ color: '#c8d0e8', fontSize: '15px', fontWeight: '500' }}>
                 {pretraga ? 'Nema rezultata pretrage.' : 'Nema klijenata još.'}
               </p>

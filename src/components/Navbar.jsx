@@ -23,7 +23,7 @@ function Navbar() {
   const linkovi = [
     { putanja: '/dashboard', naziv: 'Dashboard', icon: '🏠' },
     { putanja: '/termini', naziv: 'Termini', icon: '📅' },
-    { putanja: '/klijenti', naziv: 'Klijenti', icon: '👥' },
+   { putanja: '/klijenti', naziv: 'Klijenti', icon: '🧑‍🤝‍🧑' },
     { putanja: '/usluge', naziv: 'Usluge', icon: '📋' },
     { putanja: '/uposlenici', naziv: 'Uposlenici', icon: '🧑‍💼' },
     { putanja: '/prihodi', naziv: 'Prihodi', icon: '💰' },
