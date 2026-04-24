@@ -105,7 +105,7 @@ export default function Landing() {
     { icon: '📧', title: 'Automatski podsjetnici', opis: 'Email podsjetnici dan prije termina. Drastično manje otkaza!' },
     { icon: '💰', title: 'Praćenje prihoda', opis: 'Prihodi po danu, sedmici i mjesecu. Uvijek znate gdje stojite.' },
     { icon: '🔒', title: 'Vlastiti brend', opis: 'Vaša privatna booking stranica. Bez konkurencije pored vas.' },
-    { icon: '✨', title: 'AI asistent za rast', opis: 'Svaki dan dobijete konkretan savjet — koji dan donosi najviše prihoda, kada popuniti kalendar, gdje gubite novac.' },
+    { icon: '✨', title: 'AI asistent za rast', opis: 'Svaki dan dobijete konkretan savjet za rast prihoda. Plus AI chatbot na vašoj booking stranici prima rezervacije automatski.' },
   ];
 
   const nise = [
@@ -211,8 +211,8 @@ export default function Landing() {
             </button>
           </div>
           <p style={{ fontSize: '12px', color: '#4a5a7a', marginTop: '16px' }}>
-            ✓ Bez kartice &nbsp;&nbsp; ✓ Bez ugovora &nbsp;&nbsp; ✓ Otkaži kad god želiš
-          </p>
+  ✓ Bez kartice &nbsp;&nbsp; ✓ Bez limita &nbsp;&nbsp; ✓ Otkaži kad god želiš
+</p>
         </div>
       </section>
 
