@@ -90,7 +90,7 @@ function Uposlenici() {
         {/* Naslov */}
         <div style={{ marginBottom: '2rem' }}>
           <h1 style={{ fontSize: '26px', fontWeight: '700', color: '#f0f4ff', marginBottom: '4px' }}>
-            👤 Uposlenici
+           🧑‍💼 Uposlenici
           </h1>
           <p style={{ color: '#6b7fa3', fontSize: '15px' }}>
             {uposlenici.length} uposlenika ukupno
@@ -147,7 +147,7 @@ function Uposlenici() {
         }}>
           {uposlenici.length === 0 ? (
             <div style={{ padding: '4rem', textAlign: 'center' }}>
-              <p style={{ fontSize: '40px', marginBottom: '12px' }}>👤</p>
+              <p style={{ fontSize: '40px', marginBottom: '12px' }}>🧑‍💼</p>
               <p style={{ color: '#c8d0e8', fontSize: '15px', fontWeight: '500' }}>Nema uposlenika još.</p>
               <p style={{ color: '#6b7fa3', fontSize: '13px', marginTop: '8px' }}>
                 Dodajte prvog uposlenika gore.
@@ -166,12 +166,14 @@ function Uposlenici() {
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                   <div style={{
-                    width: '44px', height: '44px', borderRadius: '50%',
-                    background: bojaPoBroju(i) + '22',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: '15px', fontWeight: '700', color: bojaPoBroju(i),
-                    flexShrink: 0
-                  }}>
+  width: '44px', height: '44px', borderRadius: '50%',
+  background: `linear-gradient(135deg, ${bojaPoBroju(i)}33, ${bojaPoBroju(i)}11)`,
+  border: `2px solid ${bojaPoBroju(i)}44`,
+  boxShadow: `0 0 12px ${bojaPoBroju(i)}22`,
+  display: 'flex', alignItems: 'center', justifyContent: 'center',
+  fontSize: '15px', fontWeight: '700', color: bojaPoBroju(i),
+  flexShrink: 0
+}}>
                     {inicijali(u.name)}
                   </div>
                   <div>
