@@ -19,37 +19,26 @@ function BookingChat({ salon, usluge }) {
     setUcitava(true)
 
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'claude-haiku-4-5-20251001',
-          max_tokens: 300,
-          system: `Ti si AI asistent za ${salon?.name}. Odgovaraj kratko i prijateljski na bosanskom jeziku.
-          
-Informacije o salonu/ordinaciji:
-- Naziv: ${salon?.name}
-- Adresa: ${salon?.address || 'nije navedeno'}, ${salon?.city || ''}
-- Telefon: ${salon?.phone || 'nije naveden'}
-- Opis: ${salon?.description || 'nije naveden'}
-
-Usluge:
-${usluge?.map(u => `- ${u.name}: ${u.price} KM, trajanje ${u.duration} min`).join('\n')}
-
-Pomozi klijentu da odabere uslugu i zakaže termin. Ako pita za termin, reci mu da odabere uslugu na stranici iznad.`,
-          messages: [...poruke.filter((p, idx) => !(p.od === 'ai' && idx === 0)).map(p => ({
-            role: p.od === 'user' ? 'user' : 'assistant',
-            content: p.tekst
-          })), { role: 'user', content: unos }]
-        })
-      })
-      const data = await res.json()
-      const odgovor = data.content?.[0]?.text || 'Žao mi je, pokušajte ponovo.'
-      setPoruke(prev => [...prev, { od: 'ai', tekst: odgovor }])
-    } catch (err) {
-      setPoruke(prev => [...prev, { od: 'ai', tekst: 'Žao mi je, trenutno ne mogu odgovoriti.' }])
-    }
-    setUcitava(false)
+  const res = await fetch(`${API}/api/ai/public/chat`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      message: unos,
+      history: poruke.filter((p, idx) => idx > 0).map(p => ({
+        role: p.od === 'user' ? 'user' : 'assistant',
+        content: p.tekst
+      })),
+      salonInfo: salon,
+      usluge: usluge
+    })
+  })
+  const data = await res.json()
+  const odgovor = data.reply || 'Žao mi je, pokušajte ponovo.'
+  setPoruke(prev => [...prev, { od: 'ai', tekst: odgovor }])
+} catch (err) {
+  setPoruke(prev => [...prev, { od: 'ai', tekst: 'Žao mi je, trenutno ne mogu odgovoriti.' }])
+}
+setUcitava(false)
   }
 
   return (
