@@ -3,6 +3,141 @@ import axios from 'axios'
 
 const API = 'https://termini-pro.onrender.com'
 
+function BookingChat({ salon, usluge }) {
+  const [otvoren, setOtvoren] = useState(false)
+  const [poruke, setPoruke] = useState([
+    { od: 'ai', tekst: `Hej! 👋 Mogu li vam pomoći sa zakazivanjem u ${salon?.name}?` }
+  ])
+  const [unos, setUnos] = useState('')
+  const [ucitava, setUcitava] = useState(false)
+
+  async function posaljiPoruku() {
+    if (!unos.trim() || ucitava) return
+    const novaPoruka = { od: 'user', tekst: unos }
+    setPoruke(prev => [...prev, novaPoruka])
+    setUnos('')
+    setUcitava(true)
+
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-haiku-4-5-20251001',
+          max_tokens: 300,
+          system: `Ti si AI asistent za ${salon?.name}. Odgovaraj kratko i prijateljski na bosanskom jeziku.
+          
+Informacije o salonu/ordinaciji:
+- Naziv: ${salon?.name}
+- Adresa: ${salon?.address || 'nije navedeno'}, ${salon?.city || ''}
+- Telefon: ${salon?.phone || 'nije naveden'}
+- Opis: ${salon?.description || 'nije naveden'}
+
+Usluge:
+${usluge?.map(u => `- ${u.name}: ${u.price} KM, trajanje ${u.duration} min`).join('\n')}
+
+Pomozi klijentu da odabere uslugu i zakaže termin. Ako pita za termin, reci mu da odabere uslugu na stranici iznad.`,
+          messages: [...poruke.filter((p, idx) => !(p.od === 'ai' && idx === 0)).map(p => ({
+            role: p.od === 'user' ? 'user' : 'assistant',
+            content: p.tekst
+          })), { role: 'user', content: unos }]
+        })
+      })
+      const data = await res.json()
+      const odgovor = data.content?.[0]?.text || 'Žao mi je, pokušajte ponovo.'
+      setPoruke(prev => [...prev, { od: 'ai', tekst: odgovor }])
+    } catch (err) {
+      setPoruke(prev => [...prev, { od: 'ai', tekst: 'Žao mi je, trenutno ne mogu odgovoriti.' }])
+    }
+    setUcitava(false)
+  }
+
+  return (
+    <div style={{ position: 'fixed', bottom: '20px', right: '20px', zIndex: 1000 }}>
+      {otvoren && (
+        <div style={{
+          width: '300px', height: '400px',
+          background: '#0d1628', border: '1px solid rgba(74,222,128,0.3)',
+          borderRadius: '16px', display: 'flex', flexDirection: 'column',
+          marginBottom: '12px', boxShadow: '0 8px 32px rgba(0,0,0,0.4)'
+        }}>
+          <div style={{
+            padding: '14px 16px', borderBottom: '1px solid rgba(255,255,255,0.08)',
+            display: 'flex', justifyContent: 'space-between', alignItems: 'center'
+          }}>
+            <div>
+              <p style={{ fontSize: '14px', fontWeight: '600', color: '#f0f4ff', margin: 0 }}>✨ AI Asistent</p>
+              <p style={{ fontSize: '11px', color: '#4ade80', margin: 0 }}>{salon?.name}</p>
+            </div>
+            <button onClick={() => setOtvoren(false)} style={{
+              background: 'none', border: 'none', color: '#6b7fa3', cursor: 'pointer', fontSize: '18px'
+            }}>✕</button>
+          </div>
+
+          <div style={{
+            flex: 1, overflowY: 'auto', padding: '12px',
+            display: 'flex', flexDirection: 'column', gap: '8px'
+          }}>
+            {poruke.map((p, i) => (
+              <div key={i} style={{ display: 'flex', justifyContent: p.od === 'user' ? 'flex-end' : 'flex-start' }}>
+                <div style={{
+                  maxWidth: '80%', padding: '8px 12px', borderRadius: '12px',
+                  fontSize: '13px', lineHeight: '1.5',
+                  background: p.od === 'user' ? '#16a34a' : 'rgba(255,255,255,0.08)',
+                  color: '#f0f4ff'
+                }}>
+                  {p.tekst}
+                </div>
+              </div>
+            ))}
+            {ucitava && (
+              <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
+                <div style={{
+                  padding: '8px 12px', borderRadius: '12px',
+                  background: 'rgba(255,255,255,0.08)', fontSize: '13px', color: '#6b7fa3'
+                }}>
+                  Tipkam...
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div style={{ padding: '12px', borderTop: '1px solid rgba(255,255,255,0.08)', display: 'flex', gap: '8px' }}>
+            <input
+              value={unos}
+              onChange={e => setUnos(e.target.value)}
+              onKeyDown={e => e.key === 'Enter' && posaljiPoruku()}
+              placeholder="Postavite pitanje..."
+              style={{
+                flex: 1, padding: '8px 12px',
+                background: 'rgba(255,255,255,0.07)',
+                border: '1px solid rgba(255,255,255,0.12)',
+                borderRadius: '8px', fontSize: '13px',
+                color: '#f0f4ff', outline: 'none', fontFamily: 'Inter, sans-serif'
+              }}
+            />
+            <button onClick={posaljiPoruku} style={{
+              background: '#16a34a', border: 'none', borderRadius: '8px',
+              padding: '8px 12px', cursor: 'pointer', fontSize: '16px'
+            }}>→</button>
+          </div>
+        </div>
+      )}
+
+      <button onClick={() => setOtvoren(!otvoren)} style={{
+        width: '52px', height: '52px', borderRadius: '50%',
+        background: otvoren ? '#dc2626' : '#16a34a',
+        border: 'none', cursor: 'pointer', fontSize: '22px',
+        boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        float: 'right'
+      }}>
+        {otvoren ? '✕' : '✨'}
+      </button>
+    </div>
+  )
+}
+
 function Booking() {
   const slug = window.location.pathname.split('/booking/')[1]
   const [datumBlokiran, setDatumBlokiran] = useState(false)
@@ -35,17 +170,15 @@ function Booking() {
 
   useEffect(() => { ucitajSalon() }, [])
 
-async function ucitajSalon() {
+  async function ucitajSalon() {
     try {
       const res = await axios.get(API + `/api/public/b/${slug}`)
-      
       if (res.data.inactive) {
-  setSalon(res.data.business)
-  setInactive(true)
-  setUcitava(false)
-  return
-}
-      
+        setSalon(res.data.business)
+        setInactive(true)
+        setUcitava(false)
+        return
+      }
       setSalon(res.data.business)
       setUsluge(res.data.services || [])
       setUposlenici(res.data.staff || [])
@@ -157,53 +290,49 @@ async function ucitajSalon() {
       <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </div>
   )
-if (inactive && salon) return (
-  <div style={{ minHeight: '100vh', background: '#0d1628', fontFamily: 'Inter, sans-serif' }}>
-    <div style={{
-      background: 'linear-gradient(135deg, #0f2d1f 0%, #0d1628 100%)',
-      borderBottom: '1px solid rgba(74,222,128,0.15)',
-      padding: '1.5rem 1.5rem 2rem',
-      textAlign: 'center'
-    }}>
-      {salon?.logo_url && (
-        <img src={salon.logo_url} alt="Logo"
-          style={{ width: '64px', height: '64px', objectFit: 'contain', borderRadius: '12px', margin: '0 auto 12px', display: 'block' }}
-        />
-      )}
-      <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#f0f4ff', marginBottom: '4px' }}>
-        {salon?.name}
-      </h2>
-    </div>
-    <div style={{ maxWidth: '500px', margin: '3rem auto', padding: '0 1rem', textAlign: 'center' }}>
+
+  if (inactive && salon) return (
+    <div style={{ minHeight: '100vh', background: '#0d1628', fontFamily: 'Inter, sans-serif' }}>
       <div style={{
-        background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)',
-        borderRadius: '16px', padding: '2.5rem 2rem'
+        background: 'linear-gradient(135deg, #0f2d1f 0%, #0d1628 100%)',
+        borderBottom: '1px solid rgba(74,222,128,0.15)',
+        padding: '1.5rem 1.5rem 2rem', textAlign: 'center'
       }}>
-        <p style={{ fontSize: '40px', marginBottom: '1rem' }}>📵</p>
-        <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#f0f4ff', marginBottom: '8px' }}>
-          Online zakazivanje trenutno nije dostupno
-        </h3>
-        <p style={{ fontSize: '14px', color: '#6b7fa3', marginBottom: '2rem', lineHeight: '1.6' }}>
-          {salon?.name} trenutno ne prima online rezervacije. Za zakazivanje termina kontaktirajte nas direktno.
-        </p>
-        {salon?.phone && (
-          <a href={`tel:${salon.phone}`} style={{
-            display: 'block', background: '#16a34a', color: 'white',
-            borderRadius: '10px', padding: '14px', fontSize: '16px',
-            fontWeight: '600', textDecoration: 'none', marginBottom: '12px'
-          }}>
-            📞 {salon.phone}
-          </a>
+        {salon?.logo_url && (
+          <img src={salon.logo_url} alt="Logo"
+            style={{ width: '64px', height: '64px', objectFit: 'contain', borderRadius: '12px', margin: '0 auto 12px', display: 'block' }}
+          />
         )}
-        {salon?.address && (
-          <p style={{ fontSize: '13px', color: '#6b7fa3' }}>
-            📍 {salon.address}{salon.city ? `, ${salon.city}` : ''}
+        <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#f0f4ff', marginBottom: '4px' }}>{salon?.name}</h2>
+      </div>
+      <div style={{ maxWidth: '500px', margin: '3rem auto', padding: '0 1rem', textAlign: 'center' }}>
+        <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px', padding: '2.5rem 2rem' }}>
+          <p style={{ fontSize: '40px', marginBottom: '1rem' }}>📵</p>
+          <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#f0f4ff', marginBottom: '8px' }}>
+            Online zakazivanje trenutno nije dostupno
+          </h3>
+          <p style={{ fontSize: '14px', color: '#6b7fa3', marginBottom: '2rem', lineHeight: '1.6' }}>
+            {salon?.name} trenutno ne prima online rezervacije. Za zakazivanje termina kontaktirajte nas direktno.
           </p>
-        )}
+          {salon?.phone && (
+            <a href={`tel:${salon.phone}`} style={{
+              display: 'block', background: '#16a34a', color: 'white',
+              borderRadius: '10px', padding: '14px', fontSize: '16px',
+              fontWeight: '600', textDecoration: 'none', marginBottom: '12px'
+            }}>
+              📞 {salon.phone}
+            </a>
+          )}
+          {salon?.address && (
+            <p style={{ fontSize: '13px', color: '#6b7fa3' }}>
+              📍 {salon.address}{salon.city ? `, ${salon.city}` : ''}
+            </p>
+          )}
+        </div>
       </div>
     </div>
-  </div>
-)
+  )
+
   if (greska && !salon) return (
     <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0d1628' }}>
       <p style={{ color: '#f87171' }}>{greska}</p>
@@ -228,14 +357,14 @@ if (inactive && salon) return (
           background: 'radial-gradient(ellipse 80% 80% at 50% 120%, rgba(74,222,128,0.12) 0%, transparent 70%)',
           pointerEvents: 'none'
         }} />
-       {salon?.logo_url && (
-  <img src={salon.logo_url} alt="Logo"
-    style={{ width: '64px', height: '64px', objectFit: 'contain', borderRadius: '12px', margin: '0 auto 12px', display: 'block', background: 'rgba(255,255,255,0.08)', padding: '4px' }}
-  />
-)}
-<h2 style={{ fontSize: '22px', fontWeight: '700', color: '#f0f4ff', marginBottom: '4px', position: 'relative' }}>
-  {salon?.name}
-</h2>
+        {salon?.logo_url && (
+          <img src={salon.logo_url} alt="Logo"
+            style={{ width: '64px', height: '64px', objectFit: 'contain', borderRadius: '12px', margin: '0 auto 12px', display: 'block', background: 'rgba(255,255,255,0.08)', padding: '4px' }}
+          />
+        )}
+        <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#f0f4ff', marginBottom: '4px', position: 'relative' }}>
+          {salon?.name}
+        </h2>
         <p style={{ fontSize: '13px', color: '#4ade80', position: 'relative', margin: 0 }}>
           📍 {salon?.city || 'Bosna i Hercegovina'}
         </p>
@@ -441,7 +570,7 @@ if (inactive && salon) return (
                   const dayMap = { 0:'sun', 1:'mon', 2:'tue', 3:'wed', 4:'thu', 5:'fri', 6:'sat' }
                   const dayKey = dayMap[new Date(noviDatum + 'T00:00:00').getDay()]
                   if (!wh?.[dayKey]) {
-                   alert('Nema termina za ovaj dan. Molimo odaberite drugi datum.')
+                    alert('Nema termina za ovaj dan. Molimo odaberite drugi datum.')
                     return
                   }
                   setOdabranDatum(noviDatum)
@@ -586,48 +715,30 @@ if (inactive && salon) return (
             </h3>
             <div style={{ ...karticaStyle, padding: '1.5rem' }}>
 
-              {/* Ime */}
               <div style={{ marginBottom: '1rem' }}>
-                <label style={{ fontSize: '13px', color: '#8b9ec7', fontWeight: '500', display: 'block', marginBottom: '6px' }}>
-                  Ime i prezime
-                </label>
-                <input type="text" value={ime} onChange={e => setIme(e.target.value)}
-                  placeholder="Ana Hodžić" style={inputStyle} />
+                <label style={{ fontSize: '13px', color: '#8b9ec7', fontWeight: '500', display: 'block', marginBottom: '6px' }}>Ime i prezime</label>
+                <input type="text" value={ime} onChange={e => setIme(e.target.value)} placeholder="Ana Hodžić" style={inputStyle} />
               </div>
 
-              {/* Telefon */}
               <div style={{ marginBottom: '1rem' }}>
-                <label style={{ fontSize: '13px', color: '#8b9ec7', fontWeight: '500', display: 'block', marginBottom: '6px' }}>
-                  Broj telefona
-                </label>
-                <input type="tel" value={telefon} onChange={e => setTelefon(e.target.value)}
-                  placeholder="061 123 456" style={inputStyle} />
+                <label style={{ fontSize: '13px', color: '#8b9ec7', fontWeight: '500', display: 'block', marginBottom: '6px' }}>Broj telefona</label>
+                <input type="tel" value={telefon} onChange={e => setTelefon(e.target.value)} placeholder="061 123 456" style={inputStyle} />
               </div>
 
-              {/* Email */}
               <div style={{ marginBottom: '1rem' }}>
                 <label style={{ fontSize: '13px', color: '#8b9ec7', fontWeight: '500', display: 'block', marginBottom: '6px' }}>
                   Email <span style={{ color: '#f87171' }}>*</span>
                 </label>
-                <input type="email" value={email} onChange={e => setEmail(e.target.value)}
-                  placeholder="ana@gmail.com" style={inputStyle} />
+                <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="ana@gmail.com" style={inputStyle} />
               </div>
 
-              {/* Napomena */}
               <div style={{ marginBottom: '1rem' }}>
-                <label style={{ fontSize: '13px', color: '#8b9ec7', fontWeight: '500', display: 'block', marginBottom: '6px' }}>
-                  Napomena (opciono)
-                </label>
-                <textarea
-                  value={napomena}
-                  onChange={e => setNapomena(e.target.value)}
+                <label style={{ fontSize: '13px', color: '#8b9ec7', fontWeight: '500', display: 'block', marginBottom: '6px' }}>Napomena (opciono)</label>
+                <textarea value={napomena} onChange={e => setNapomena(e.target.value)}
                   placeholder="Razlog posjete, alergije, posebni zahtjevi..."
-                  rows={3}
-                  style={{ ...inputStyle, resize: 'none', height: 'auto' }}
-                />
+                  rows={3} style={{ ...inputStyle, resize: 'none', height: 'auto' }} />
               </div>
 
-              {/* Pregled */}
               <div style={{
                 background: 'rgba(74,222,128,0.06)', border: '1px solid rgba(74,222,128,0.2)',
                 borderRadius: '10px', padding: '1rem', marginBottom: '1.5rem', marginTop: '0.5rem'
@@ -643,32 +754,24 @@ if (inactive && salon) return (
               </div>
 
               {greska && <p style={{ color: '#f87171', fontSize: '13px', marginBottom: '1rem' }}>{greska}</p>}
-{/* GDPR Checkbox */}
-<div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', marginBottom: '1rem' }}>
-  <input
-    type="checkbox"
-    id="gdpr"
-    checked={gdprPristanak}
-    onChange={e => setGdprPristanak(e.target.checked)}
-    style={{ accentColor: '#4ade80', width: '16px', height: '16px', marginTop: '2px', cursor: 'pointer', flexShrink: 0 }}
-  />
-  <label htmlFor="gdpr" style={{ fontSize: '12px', color: '#8b9ec7', lineHeight: '1.6', cursor: 'pointer' }}>
-    Slanjem ovih podataka pristajete na obradu vaših osobnih podataka u svrhu zakazivanja termina.{' '}
-    <a href="/privatnost" target="_blank" style={{ color: '#4ade80', textDecoration: 'underline' }}>
-      Politika privatnosti
-    </a>
-  </label>
-</div>
-              <button
-                onClick={zakaziTermin}
+
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', marginBottom: '1rem' }}>
+                <input type="checkbox" id="gdpr" checked={gdprPristanak} onChange={e => setGdprPristanak(e.target.checked)}
+                  style={{ accentColor: '#4ade80', width: '16px', height: '16px', marginTop: '2px', cursor: 'pointer', flexShrink: 0 }} />
+                <label htmlFor="gdpr" style={{ fontSize: '12px', color: '#8b9ec7', lineHeight: '1.6', cursor: 'pointer' }}>
+                  Slanjem ovih podataka pristajete na obradu vaših osobnih podataka u svrhu zakazivanja termina.{' '}
+                  <a href="/privatnost" target="_blank" style={{ color: '#4ade80', textDecoration: 'underline' }}>Politika privatnosti</a>
+                </label>
+              </div>
+
+              <button onClick={zakaziTermin}
                 disabled={!ime || (!telefon && !email) || !gdprPristanak || saljeZahtjev}
                 style={{
                   width: '100%',
                   background: (!ime || (!telefon && !email) || !gdprPristanak) ? 'rgba(255,255,255,0.1)' : '#16a34a',
                   color: (!ime || (!telefon && !email) || !gdprPristanak) ? '#6b7fa3' : 'white',
-                  border: 'none', borderRadius: '10px',
-                  padding: '16px', fontSize: '16px', fontWeight: '700',
-                 cursor: (!ime || (!telefon && !email) || !gdprPristanak) ? 'not-allowed' : 'pointer',
+                  border: 'none', borderRadius: '10px', padding: '16px', fontSize: '16px', fontWeight: '700',
+                  cursor: (!ime || (!telefon && !email) || !gdprPristanak) ? 'not-allowed' : 'pointer',
                   fontFamily: 'Inter, sans-serif'
                 }}>
                 {saljeZahtjev ? 'Zakazivanje...' : '✅ Potvrdi termin'}
@@ -681,13 +784,13 @@ if (inactive && salon) return (
         {korak === 6 && (
           <div style={{ textAlign: 'center', padding: '2rem 1rem' }}>
             <div style={{
-  width: '80px', height: '80px', borderRadius: '50%',
-  background: 'linear-gradient(135deg, rgba(74,222,128,0.2), rgba(99,102,241,0.2))',
-  border: '2px solid rgba(74,222,128,0.3)',
-  boxShadow: '0 0 30px rgba(74,222,128,0.15)',
-  display: 'flex', alignItems: 'center',
-  justifyContent: 'center', fontSize: '40px', margin: '0 auto 1.5rem'
-}}>✅</div>
+              width: '80px', height: '80px', borderRadius: '50%',
+              background: 'linear-gradient(135deg, rgba(74,222,128,0.2), rgba(99,102,241,0.2))',
+              border: '2px solid rgba(74,222,128,0.3)',
+              boxShadow: '0 0 30px rgba(74,222,128,0.15)',
+              display: 'flex', alignItems: 'center',
+              justifyContent: 'center', fontSize: '40px', margin: '0 auto 1.5rem'
+            }}>✅</div>
             <h3 style={{ fontSize: '24px', fontWeight: '700', color: '#f0f4ff', marginBottom: '8px' }}>
               Termin zakazan!
             </h3>
@@ -710,6 +813,10 @@ if (inactive && salon) return (
         )}
 
       </div>
+
+      {/* AI Chatbot */}
+      <BookingChat salon={salon} usluge={usluge} />
+
     </div>
   )
 }
