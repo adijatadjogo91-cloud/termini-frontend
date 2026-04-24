@@ -6,12 +6,14 @@ const API = 'https://termini-pro.onrender.com';
 export default function NovaUsluga() {
   const navigate = useNavigate();
   const [forma, setForma] = useState({
-    name: '',
-    price: '',
-    duration: '',
-    description: '',
-    color: '#4ade80'
-  });
+  name: '',
+  price: '',
+  duration: '',
+  description: '',
+  color: '#4ade80',
+  break_after: '',
+  break_duration: ''
+});
   const [greska, setGreska] = useState('');
   const [uspjeh, setUspjeh] = useState('');
 
@@ -29,13 +31,15 @@ export default function NovaUsluga() {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`
       },
-      body: JSON.stringify({
-        name: forma.name,
-        price: parseFloat(forma.price),
-        duration: parseInt(forma.duration),
-        description: forma.description,
-        color: forma.color
-      })
+     body: JSON.stringify({
+  name: forma.name,
+  price: parseFloat(forma.price),
+  duration: parseInt(forma.duration),
+  description: forma.description,
+  color: forma.color,
+  break_after: forma.break_after ? parseInt(forma.break_after) : null,
+  break_duration: forma.break_duration ? parseInt(forma.break_duration) : null,
+})
     });
 
     const data = await res.json();
@@ -88,7 +92,39 @@ export default function NovaUsluga() {
         {/* Forma */}
         <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px', padding: '24px' }}>
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-
+{/* Pauza unutar termina */}
+<div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '10px', padding: '14px', marginBottom: '4px' }}>
+  <label style={{ fontSize: '13px', color: '#8b9ec7', display: 'block', marginBottom: '4px' }}>
+    Pauza unutar termina (opciono)
+  </label>
+  <p style={{ fontSize: '12px', color: '#4a5a7a', marginBottom: '12px' }}>
+    Npr. bojanje kose — 30 min rada, 60 min čekanja, 30 min završetak
+  </p>
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+    <div>
+      <label style={{ fontSize: '12px', color: '#6b7fa3', display: 'block', marginBottom: '5px' }}>
+        Pauza počinje nakon (min)
+      </label>
+      <input
+        type="number" value={forma.break_after}
+        onChange={e => setForma({ ...forma, break_after: e.target.value })}
+        placeholder="npr. 30" min="0" step="5"
+        style={inputStyle}
+      />
+    </div>
+    <div>
+      <label style={{ fontSize: '12px', color: '#6b7fa3', display: 'block', marginBottom: '5px' }}>
+        Trajanje pauze (min)
+      </label>
+      <input
+        type="number" value={forma.break_duration}
+        onChange={e => setForma({ ...forma, break_duration: e.target.value })}
+        placeholder="npr. 60" min="0" step="5"
+        style={inputStyle}
+      />
+    </div>
+  </div>
+</div>
             <div>
               <label style={{ fontSize: '13px', color: '#8b9ec7', display: 'block', marginBottom: '6px' }}>
                 Naziv usluge / tretmana
