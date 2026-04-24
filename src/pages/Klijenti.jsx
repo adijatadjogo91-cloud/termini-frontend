@@ -16,18 +16,6 @@ function Klijenti() {
   }, [])
 
   async function ucitajKlijente() {
-    async function blokirajKlijenta(klijentId, trenutnoBlokiran) {
-  try {
-    const headers = { Authorization: `Bearer ${token}` }
-    const bizRes = await axios.get(API + '/api/businesses', { headers })
-    const bizId = bizRes.data.businesses[0].id
-    await axios.patch(API + `/api/clients/${bizId}/${klijentId}/block`, 
-      { is_blocked: !trenutnoBlokiran }, { headers })
-    ucitajKlijente()
-  } catch (err) {
-    alert('Greška pri blokiranju klijenta.')
-  }
-}
     try {
       const headers = { Authorization: `Bearer ${token}` }
       const bizRes = await axios.get(API + '/api/businesses', { headers })
@@ -41,6 +29,39 @@ function Klijenti() {
       }
     }
     setUcitava(false)
+  }
+
+  async function blokirajKlijenta(klijentId, trenutnoBlokiran) {
+    try {
+      const headers = { Authorization: `Bearer ${token}` }
+      const bizRes = await axios.get(API + '/api/businesses', { headers })
+      const bizId = bizRes.data.businesses[0].id
+      await axios.patch(API + `/api/clients/${bizId}/${klijentId}/block`,
+        { is_blocked: !trenutnoBlokiran }, { headers })
+      ucitajKlijente()
+    } catch (err) {
+      alert('Greška pri blokiranju klijenta.')
+    }
+  }
+
+  async function iskoristiBodove(klijentId, trenutniBodovi) {
+    const bodovi = prompt(`Klijent ima ${trenutniBodovi} bodova (${trenutniBodovi} KM popusta). Koliko bodova iskoristiti?`)
+    if (!bodovi || isNaN(bodovi) || parseInt(bodovi) <= 0) return
+    if (parseInt(bodovi) > trenutniBodovi) {
+      alert('Klijent nema dovoljno bodova!')
+      return
+    }
+    try {
+      const headers = { Authorization: `Bearer ${token}` }
+      const bizRes = await axios.get(API + '/api/businesses', { headers })
+      const bizId = bizRes.data.businesses[0].id
+      const res = await axios.post(API + `/api/clients/${bizId}/${klijentId}/redeem`,
+        { points: parseInt(bodovi) }, { headers })
+      alert(res.data.message)
+      ucitajKlijente()
+    } catch (err) {
+      alert(err.response?.data?.error || 'Greška pri iskorištavanju bodova.')
+    }
   }
 
   const filtrirani = klijenti.filter(k =>
@@ -118,7 +139,7 @@ function Klijenti() {
           />
         </div>
 
-        {/* Stat kartica */}
+        {/* Stat kartice */}
         <div style={{
           display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
           gap: '12px', marginBottom: '1.5rem'
@@ -164,60 +185,83 @@ function Klijenti() {
                 display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                 padding: '1rem 1.5rem',
                 borderBottom: i < filtrirani.length - 1 ? '1px solid rgba(255,255,255,0.06)' : 'none',
-                transition: 'background 0.15s'
+                transition: 'background 0.15s',
+                flexWrap: 'wrap', gap: '8px'
               }}
                 onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.03)'}
                 onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
               >
+                {/* Lijeva strana — avatar + info */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                   <div style={{
                     width: '42px', height: '42px', borderRadius: '50%',
                     background: `rgba(${bojaPoBroju(i) === '#4ade80' ? '74,222,128' : bojaPoBroju(i) === '#60a5fa' ? '96,165,250' : bojaPoBroju(i) === '#c084fc' ? '192,132,252' : bojaPoBroju(i) === '#fb923c' ? '251,146,60' : bojaPoBroju(i) === '#f472b6' ? '244,114,182' : '52,211,153'},0.15)`,
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: '14px', fontWeight: '700', color: bojaPoBroju(i),
-                    flexShrink: 0
+                    fontSize: '14px', fontWeight: '700', color: bojaPoBroju(i), flexShrink: 0
                   }}>
                     {inicijali(k.name)}
                   </div>
                   <div>
                     <p style={{ fontSize: '14px', fontWeight: '500', color: k.is_blocked ? '#f87171' : '#e2e8f7', margin: 0 }}>
-  {k.name} {k.is_blocked && <span style={{ fontSize: '11px', background: 'rgba(248,113,113,0.15)', color: '#f87171', padding: '2px 8px', borderRadius: '20px', marginLeft: '6px' }}>Blokiran</span>}
-</p>
+                      {k.name}
+                      {k.is_blocked && (
+                        <span style={{ fontSize: '11px', background: 'rgba(248,113,113,0.15)', color: '#f87171', padding: '2px 8px', borderRadius: '20px', marginLeft: '6px' }}>
+                          Blokiran
+                        </span>
+                      )}
+                    </p>
                     <p style={{ fontSize: '12px', color: '#6b7fa3', marginTop: '3px' }}>
-  {k.phone && k.email
-    ? `${k.phone} · ${k.email}`
-    : k.phone || k.email || 'Nema kontakta'}
-</p>
-{k.loyalty_points > 0 && (
-  <span style={{ fontSize: '11px', background: 'rgba(251,191,36,0.15)', color: '#fbbf24', padding: '2px 8px', borderRadius: '20px', marginTop: '4px', display: 'inline-block' }}>
-    ⭐ {k.loyalty_points} bodova
-  </span>
-)}
+                      {k.phone && k.email
+                        ? `${k.phone} · ${k.email}`
+                        : k.phone || k.email || 'Nema kontakta'}
+                    </p>
+                    {k.loyalty_points > 0 && (
+                      <span style={{ fontSize: '11px', background: 'rgba(251,191,36,0.15)', color: '#fbbf24', padding: '2px 8px', borderRadius: '20px', marginTop: '4px', display: 'inline-block' }}>
+                        ⭐ {k.loyalty_points} bodova
+                      </span>
+                    )}
                   </div>
                 </div>
+
+                {/* Desna strana — dugmad */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
-  <span style={{
-    background: 'rgba(74,222,128,0.1)', color: '#4ade80',
-    fontSize: '12px', fontWeight: '600', padding: '4px 10px',
-    borderRadius: '20px'
-  }}>
-    {k.total_appointments || 0} termina
-  </span>
-  <button
-    onClick={() => blokirajKlijenta(k.id, k.is_blocked)}
-    title={k.is_blocked ? 'Odblokiraj klijenta' : 'Blokiraj klijenta'}
-    style={{
-      background: k.is_blocked ? 'rgba(74,222,128,0.1)' : 'rgba(248,113,113,0.1)',
-      border: k.is_blocked ? '1px solid rgba(74,222,128,0.2)' : '1px solid rgba(248,113,113,0.2)',
-      color: k.is_blocked ? '#4ade80' : '#f87171',
-      borderRadius: '8px', padding: '4px 10px',
-      fontSize: '12px', cursor: 'pointer',
-      fontFamily: 'Inter, sans-serif'
-    }}
-  >
-    {k.is_blocked ? '✓ Odblokiraj' : '🚫 Blokiraj'}
-  </button>
-</div>
+                  <span style={{
+                    background: 'rgba(74,222,128,0.1)', color: '#4ade80',
+                    fontSize: '12px', fontWeight: '600', padding: '4px 10px', borderRadius: '20px'
+                  }}>
+                    {k.total_appointments || 0} termina
+                  </span>
+
+                  {k.loyalty_points > 0 && (
+                    <button
+                      onClick={() => iskoristiBodove(k.id, k.loyalty_points)}
+                      title="Iskoristi loyalty bodove"
+                      style={{
+                        background: 'rgba(251,191,36,0.1)',
+                        border: '1px solid rgba(251,191,36,0.2)',
+                        color: '#fbbf24', borderRadius: '8px', padding: '4px 10px',
+                        fontSize: '12px', cursor: 'pointer', fontFamily: 'Inter, sans-serif'
+                      }}
+                    >
+                      ⭐ {k.loyalty_points} bod.
+                    </button>
+                  )}
+
+                  <button
+                    onClick={() => blokirajKlijenta(k.id, k.is_blocked)}
+                    title={k.is_blocked ? 'Odblokiraj klijenta' : 'Blokiraj klijenta'}
+                    style={{
+                      background: k.is_blocked ? 'rgba(74,222,128,0.1)' : 'rgba(248,113,113,0.1)',
+                      border: k.is_blocked ? '1px solid rgba(74,222,128,0.2)' : '1px solid rgba(248,113,113,0.2)',
+                      color: k.is_blocked ? '#4ade80' : '#f87171',
+                      borderRadius: '8px', padding: '4px 10px',
+                      fontSize: '12px', cursor: 'pointer', fontFamily: 'Inter, sans-serif'
+                    }}
+                  >
+                    {k.is_blocked ? '✓ Odblokiraj' : '🚫 Blokiraj'}
+                  </button>
+                </div>
+
               </div>
             ))
           )}
