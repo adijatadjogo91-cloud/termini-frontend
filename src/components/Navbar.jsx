@@ -25,7 +25,7 @@ function Navbar() {
     { putanja: '/termini', naziv: 'Termini', icon: '📅' },
     { putanja: '/klijenti', naziv: 'Klijenti', icon: '👥' },
     { putanja: '/usluge', naziv: 'Usluge', icon: '📋' },
-    { putanja: '/uposlenici', naziv: 'Uposlenici', icon: '👤' },
+    { putanja: '/uposlenici', naziv: 'Uposlenici', icon: '🧑‍💼' },
     { putanja: '/prihodi', naziv: 'Prihodi', icon: '💰' },
     { putanja: '/postavke', naziv: 'Postavke', icon: '⚙️' },
   ]
