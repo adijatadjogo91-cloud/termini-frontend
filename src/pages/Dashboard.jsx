@@ -89,7 +89,7 @@ function Dashboard() {
             ⚠️ Vaš besplatni period je istekao.{' '}
            <a href="https://termini-pro.lemonsqueezy.com/checkout/buy/4e6c0887-b303-4daa-833f-9132a7c30625"
               style={{ color: '#f87171', fontWeight: '700', marginLeft: '4px' }}>
-              Pretplatite se za 49 KM/mj →
+              Pretplatite se za 59 KM/mj →
             </a>
           </p>
         </div>
@@ -107,11 +107,11 @@ function Dashboard() {
         {/* Pozdrav */}
         <div style={{ marginBottom: '2rem' }}>
           <h1 style={{ fontSize: '26px', fontWeight: '700', color: '#f0f4ff', marginBottom: '4px' }}>
-            Dobrodošli 👋
-          </h1>
-          <p style={{ color: '#6b7fa3', fontSize: '15px' }}>
-            {biznis?.name || 'Vaš salon'} — danas je {datum()}
-          </p>
+  Sve je pod kontrolom. 🌿
+</h1>
+<p style={{ color: '#6b7fa3', fontSize: '15px' }}>
+  {biznis?.name} — {datum()}
+</p>
         </div>
 
         {/* Booking link kartica */}
@@ -209,9 +209,10 @@ function Dashboard() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                   <div style={{
                     width: '38px', height: '38px', borderRadius: '50%',
-                    background: 'rgba(74,222,128,0.15)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: '16px', fontWeight: '700', color: '#4ade80', flexShrink: 0
+                    background: 'linear-gradient(135deg, rgba(74,222,128,0.2), rgba(99,102,241,0.2))',
+display: 'flex', alignItems: 'center', justifyContent: 'center',
+fontSize: '16px', fontWeight: '700', color: '#4ade80', flexShrink: 0,
+border: '1px solid rgba(74,222,128,0.2)'
                   }}>
                     {t.client_name?.charAt(0) || '?'}
                   </div>
