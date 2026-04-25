@@ -615,7 +615,9 @@ export default function Landing() {
                   { label: 'Blog', href: '/blog' },
                   { label: 'Politika privatnosti', href: '/privatnost' },
                   { label: 'Uslovi korištenja', href: '/terms' },
-                ].map((l, i) => <a key={i} href={l.href} style={{ fontSize: '13px', color: '#6b7fa3', textDecoration: 'none' }}>{l.label}</a>)}
+                ].map((l, i) => (
+             <span key={i} onClick={() => navigate(l.href)} style={{ fontSize: '13px', color: '#6b7fa3', textDecoration: 'none', cursor: 'pointer' }}>{l.label}</span>
+          ))}
               </div>
             </div>
             <div>
