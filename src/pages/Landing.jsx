@@ -437,7 +437,48 @@ export default function Landing() {
           </div>
         </div>
       </section>
-
+{/* Value Stack */}
+<section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', background: 'rgba(255,255,255,0.02)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+  <div style={{ maxWidth: '700px', margin: '0 auto', textAlign: 'center' }}>
+    <h2 style={styles.sectionTitle}>Šta stvarno dobijate za 59 KM/mj?</h2>
+    <p style={styles.sectionSub}>Sve što bi vas inače koštalo 10x više — na jednom mjestu.</p>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '32px' }}>
+      {[
+        { stavka: 'Online booking sistem 24/7', vrijednost: '150 KM/mj' },
+        { stavka: 'Automatski email podsjetnici', vrijednost: '80 KM/mj' },
+        { stavka: 'CRM — baza klijenata sa historijom', vrijednost: '100 KM/mj' },
+        { stavka: 'AI asistent za rast prihoda', vrijednost: '200 KM/mj' },
+        { stavka: 'Loyalty program za vjerne klijente', vrijednost: '80 KM/mj' },
+        { stavka: 'PDF izvještaji i praćenje prihoda', vrijednost: '60 KM/mj' },
+        { stavka: 'GDPR zaštita podataka pacijenata', vrijednost: 'Neprocjenjivo' },
+      ].map((v, i) => (
+        <div key={i} style={{
+          display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+          background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)',
+          borderRadius: '10px', padding: '14px 20px'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span style={{ color: '#4ade80', fontSize: '16px' }}>✓</span>
+            <span style={{ fontSize: '14px', color: '#c8d0e8' }}>{v.stavka}</span>
+          </div>
+          <span style={{ fontSize: '13px', fontWeight: '600', color: '#6b7fa3', textDecoration: 'line-through', whiteSpace: 'nowrap' }}>
+            {v.vrijednost}
+          </span>
+        </div>
+      ))}
+    </div>
+    <div style={{
+      background: 'rgba(74,222,128,0.08)', border: '2px solid rgba(74,222,128,0.3)',
+      borderRadius: '16px', padding: '24px'
+    }}>
+      <p style={{ fontSize: '14px', color: '#6b7fa3', marginBottom: '8px' }}>Ukupna vrijednost:</p>
+      <p style={{ fontSize: '32px', fontWeight: '700', color: '#6b7fa3', textDecoration: 'line-through', margin: '0 0 8px' }}>670+ KM/mj</p>
+      <p style={{ fontSize: '14px', color: '#6b7fa3', marginBottom: '16px' }}>Vi plaćate samo:</p>
+      <p style={{ fontSize: '48px', fontWeight: '700', color: '#4ade80', margin: '0 0 4px' }}>59 KM<span style={{ fontSize: '20px', color: '#6b7fa3' }}>/mj</span></p>
+      <p style={{ fontSize: '13px', color: '#6b7fa3', marginTop: '8px' }}>✓ Bez kartice &nbsp;&nbsp; ✓ 14 dana besplatno &nbsp;&nbsp; ✓ Bez limita</p>
+    </div>
+  </div>
+</section>
       {/* Cijene */}
       <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ maxWidth: '860px', margin: '0 auto' }}>
