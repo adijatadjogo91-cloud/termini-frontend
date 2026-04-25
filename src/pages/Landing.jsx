@@ -91,7 +91,6 @@ export default function Landing() {
     sectionTitle: { textAlign: 'center', fontSize: mob ? '22px' : '28px', fontWeight: '700', color: '#f0f4ff', margin: '0 0 8px' },
     sectionSub: { textAlign: 'center', color: '#6b7fa3', fontSize: '15px', marginBottom: '40px' },
     featCard: { background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '14px', padding: '24px' },
-    featIcon: { width: '40px', height: '40px', borderRadius: '10px', background: 'rgba(74,222,128,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '14px', fontSize: '18px' },
     featH3: { fontSize: '15px', fontWeight: '600', color: '#e2e8f7', marginBottom: '6px' },
     featP: { fontSize: '13px', color: '#6b7fa3', lineHeight: '1.6', margin: 0 },
     pf: { padding: '7px 0', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: '13px', color: '#8b9ec7', display: 'flex', alignItems: 'center', gap: '8px' },
@@ -128,34 +127,10 @@ export default function Landing() {
   ];
 
   const testimonijali = [
-    {
-      ime: 'Dr. Amra H.',
-      biznis: 'Stomatološka ordinacija',
-      grad: 'Sarajevo',
-      ikona: '🦷',
-      tekst: 'Pacijenti zakazuju sami dok ja radim. Nema više telefoniranja između pacijenata. Ordinacija je popunjena, a ja sam mirnija.'
-    },
-    {
-      ime: 'Lejla Č.',
-      biznis: 'Kozmetički salon',
-      grad: 'Mostar',
-      ikona: '💅',
-      tekst: 'Za 5 minuta sam postavila sve i odmah dobila prve online rezervacije. Klijentice cijene što mogu zakazati u ponoć.'
-    },
-    {
-      ime: 'Haris B.',
-      biznis: 'Lični trener',
-      grad: 'Sarajevo',
-      ikona: '💪',
-      tekst: 'Loyalty program je genijalan — klijenti dolaze redovnije jer skupljaju bodove. Prihodi su mi porasli za 30% u prvom mjesecu.'
-    },
-    {
-      ime: 'Elvir G.',
-      biznis: 'Frizerski salon',
-      grad: 'Ilidža',
-      ikona: '✂️',
-      tekst: 'Konačno prestao da gubim klijente koji ne mogu dočekati da im odgovorim na poruku. Sada zakazuju sami i dolaze. Jednostavno.'
-    },
+    { ime: 'Dr. Amra H.', biznis: 'Stomatološka ordinacija', grad: 'Sarajevo', ikona: '🦷', tekst: 'Pacijenti zakazuju sami dok ja radim. Nema više telefoniranja između pacijenata. Ordinacija je popunjena, a ja sam mirnija.' },
+    { ime: 'Lejla Č.', biznis: 'Kozmetički salon', grad: 'Mostar', ikona: '💅', tekst: 'Za 5 minuta sam postavila sve i odmah dobila prve online rezervacije. Klijentice cijene što mogu zakazati u ponoć.' },
+    { ime: 'Haris B.', biznis: 'Lični trener', grad: 'Sarajevo', ikona: '💪', tekst: 'Loyalty program je genijalan — klijenti dolaze redovnije jer skupljaju bodove. Prihodi su mi porasli za 30% u prvom mjesecu.' },
+    { ime: 'Elvir G.', biznis: 'Frizerski salon', grad: 'Ilidža', ikona: '✂️', tekst: 'Konačno prestao da gubim klijente koji ne mogu dočekati da im odgovorim na poruku. Sada zakazuju sami i dolaze. Jednostavno.' },
   ];
 
   const starterFeatures = [
@@ -180,33 +155,52 @@ export default function Landing() {
   ];
 
   const faqs = [
+    { pitanje: 'Moraju li klijenti preuzeti aplikaciju?', odgovor: 'Ne! Klijenti zakazuju direktno u browseru — kliknu na vaš link i za 30 sekundi su gotovi. Nema preuzimanja, nema registracije, nema komplikacija. Mogu čak dodati booking stranicu na početni ekran telefona kao aplikaciju.' },
+    { pitanje: 'Koliko traje postavljanje?', odgovor: 'Većina korisnika je spremna za primanje termina za manje od 5 minuta. Dodajte usluge, postavite radno vrijeme i podijelite link — to je sve!' },
+    { pitanje: 'Mogu li otkazati pretplatu?', odgovor: 'Da, u bilo kom trenutku, bez penala i bez pitanja. Nema ugovornih obaveza. Ako odustanete, vaši podaci ostaju sačuvani 30 dana.' },
+    { pitanje: 'Radi li termini.pro na mobitelu?', odgovor: 'Da, savršeno! I vaš dashboard i booking stranica za klijente su potpuno prilagođeni mobilnim uređajima. Upravljajte terminima sa telefona gdje god se nalazili.' },
+    { pitanje: 'Je li sigurno za medicinske ordinacije?', odgovor: 'Da. termini.pro je GDPR usklađen — podaci pacijenata su zaštićeni i dostupni samo vama. Svaki klijent daje pisani pristanak pri zakazivanju. Niko drugi ne vidi podatke vaših pacijenata.' },
+    { pitanje: 'Šta se desi nakon 14 dana besplatnog triala?', odgovor: 'Dobijate obavijest da trial ističe. Možete odabrati plan koji vam odgovara. Nema automatskog naplaćivanja bez vaše potvrde. Ako ne nastavite — ne plaćate ništa.' },
+    { pitanje: 'Postoje li limiti na broj termina ili klijenata?', odgovor: 'Ne! termini.pro nema nikakvih limita — neograničeni termini, neograničeni klijenti, neograničene usluge. Plaćate fiksnu cijenu bez obzira na obim posla.' },
+  ];
+
+  const kakoRadiKoraci = [
     {
-      pitanje: 'Moraju li klijenti preuzeti aplikaciju?',
-      odgovor: 'Ne! Klijenti zakazuju direktno u browseru — kliknu na vaš link i za 30 sekundi su gotovi. Nema preuzimanja, nema registracije, nema komplikacija. Mogu čak dodati booking stranicu na početni ekran telefona kao aplikaciju.'
+      broj: '01',
+      svg: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4ade80" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M19 8v6M22 11h-6"/>
+        </svg>
+      ),
+      title: 'Registrujte se',
+      opis: 'Kreirajte nalog za 2 minute. Dodajte naziv, usluge, cijene i radno vrijeme. Bez tehničkog znanja.',
     },
     {
-      pitanje: 'Koliko traje postavljanje?',
-      odgovor: 'Većina korisnika je spremna za primanje termina za manje od 5 minuta. Dodajte usluge, postavite radno vrijeme i podijelite link — to je sve!'
+      broj: '02',
+      svg: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4ade80" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+        </svg>
+      ),
+      title: 'Podijelite link',
+      opis: 'Dobijete vlastiti booking link i QR kod. Stavite ga u Instagram bio, na web stranicu ili odštampajte za ulaz.',
     },
     {
-      pitanje: 'Mogu li otkazati pretplatu?',
-      odgovor: 'Da, u bilo kom trenutku, bez penala i bez pitanja. Nema ugovornih obaveza. Ako odustanete, vaši podaci ostaju sačuvani 30 dana.'
-    },
-    {
-      pitanje: 'Radi li termini.pro na mobitelu?',
-      odgovor: 'Da, savršeno! I vaš dashboard i booking stranica za klijente su potpuno prilagođeni mobilnim uređajima. Upravljajte terminima sa telefona gdje god se nalazili.'
-    },
-    {
-      pitanje: 'Je li sigurno za medicinske ordinacije?',
-      odgovor: 'Da. termini.pro je GDPR usklađen — podaci pacijenata su zaštićeni i dostupni samo vama. Svaki klijent daje pisani pristanak pri zakazivanju. Niko drugi ne vidi podatke vaših pacijenata.'
-    },
-    {
-      pitanje: 'Šta se desi nakon 14 dana besplatnog triala?',
-      odgovor: 'Dobijate obavijest da trial ističe. Možete odabrati plan koji vam odgovara. Nema automatskog naplaćivanja bez vaše potvrde. Ako ne nastavite — ne plaćate ništa.'
-    },
-    {
-      pitanje: 'Postoje li limiti na broj termina ili klijenata?',
-      odgovor: 'Ne! termini.pro nema nikakvih limita — neograničeni termini, neograničeni klijenti, neograničene usluge. Plaćate fiksnu cijenu bez obzira na obim posla.'
+      broj: '03',
+      svg: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4ade80" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/>
+          <line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+          <path d="m9 16 2 2 4-4"/>
+        </svg>
+      ),
+      title: 'Primajte termine',
+      opis: 'Klijenti zakazuju sami 24/7. Vi dobijete obavijest, oni dobiju automatski podsjetnik. Bez telefoniranja.',
     },
   ];
 
@@ -275,10 +269,23 @@ export default function Landing() {
           <p style={styles.sectionSub}>Medicinska struka, wellness, ljepota — termini.pro se prilagođava vašem biznisu.</p>
           <div style={{ display: 'grid', gridTemplateColumns: mob ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)', gap: '12px' }}>
             {nise.map((n, i) => (
-              <div key={i} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '16px', textAlign: 'center' }}>
-                <p style={{ fontSize: '28px', marginBottom: '8px' }}>{n.icon}</p>
-                <p style={{ fontSize: '14px', fontWeight: '600', color: '#e2e8f7', marginBottom: '4px' }}>{n.naziv}</p>
-                <p style={{ fontSize: '12px', color: '#6b7fa3' }}>{n.opis}</p>
+              <div key={i} style={{
+                background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)',
+                borderRadius: '14px', padding: '20px 16px', textAlign: 'center', transition: 'all 0.2s'
+              }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(74,222,128,0.2)'; e.currentTarget.style.background = 'rgba(74,222,128,0.04)' }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'; e.currentTarget.style.background = 'rgba(255,255,255,0.03)' }}
+              >
+                <div style={{
+                  width: '44px', height: '44px', borderRadius: '12px',
+                  background: 'rgba(74,222,128,0.08)', border: '1px solid rgba(74,222,128,0.12)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  margin: '0 auto 12px', fontSize: '20px'
+                }}>
+                  {n.icon}
+                </div>
+                <p style={{ fontSize: '13px', fontWeight: '600', color: '#e2e8f7', marginBottom: '4px', letterSpacing: '-0.01em' }}>{n.naziv}</p>
+                <p style={{ fontSize: '11px', color: '#4a5a7a', lineHeight: '1.5' }}>{n.opis}</p>
               </div>
             ))}
           </div>
@@ -291,56 +298,29 @@ export default function Landing() {
           <h2 style={styles.sectionTitle}>Kako radi?</h2>
           <p style={styles.sectionSub}>Od registracije do prvog termina — za manje od 5 minuta.</p>
           <div style={{ display: 'grid', gridTemplateColumns: mob ? '1fr' : 'repeat(3, 1fr)', gap: '20px' }}>
-            {[
-  {
-    broj: '01',
-    svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4ade80" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>,
-    title: 'Registrujte se',
-    opis: 'Kreirajte nalog za 2 minute. Dodajte naziv, usluge, cijene i radno vrijeme. Bez tehničkog znanja.'
-  },
-  {
-    broj: '02',
-    svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4ade80" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>,
-    title: 'Podijelite link',
-    opis: 'Dobijete vlastiti booking link i QR kod. Stavite ga u Instagram bio, na web stranicu ili odštampajte za ulaz.'
-  },
-  {
-    broj: '03',
-    svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4ade80" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="m9 16 2 2 4-4"/></svg>,
-    title: 'Primajte termine',
-    opis: 'Klijenti zakazuju sami 24/7. Vi dobijete obavijest, oni dobiju automatski podsjetnik. Bez telefoniranja.'
-  },
-].map((k, i) => (
-  <div key={i} style={{
-    background: 'rgba(255,255,255,0.03)',
-    border: '1px solid rgba(255,255,255,0.07)',
-    borderRadius: '20px', padding: '32px 28px',
-    position: 'relative',
-    transition: 'border-color 0.2s'
-  }}
-    onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(74,222,128,0.25)'}
-    onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'}
-  >
-    <div style={{
-      width: '48px', height: '48px', borderRadius: '14px',
-      background: 'rgba(74,222,128,0.08)',
-      border: '1px solid rgba(74,222,128,0.15)',
-      display: 'flex', alignItems: 'center', justifyContent: 'center',
-      marginBottom: '20px'
-    }}>
-      {k.svg}
-    </div>
-    <div style={{
-      position: 'absolute', top: '24px', right: '24px',
-      fontSize: '11px', fontWeight: '700', color: 'rgba(74,222,128,0.5)',
-      letterSpacing: '0.1em'
-    }}>
-      {k.broj}
-    </div>
-    <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#f0f4ff', marginBottom: '10px', letterSpacing: '-0.01em' }}>{k.title}</h3>
-    <p style={{ fontSize: '14px', color: '#5a6a8a', lineHeight: '1.75', margin: 0 }}>{k.opis}</p>
-  </div>
-))}
+            {kakoRadiKoraci.map((k, i) => (
+              <div key={i} style={{
+                background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)',
+                borderRadius: '20px', padding: '32px 28px', position: 'relative', transition: 'border-color 0.2s'
+              }}
+                onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(74,222,128,0.25)'}
+                onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'}
+              >
+                <div style={{
+                  width: '48px', height: '48px', borderRadius: '14px',
+                  background: 'rgba(74,222,128,0.08)', border: '1px solid rgba(74,222,128,0.15)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px'
+                }}>
+                  {k.svg}
+                </div>
+                <div style={{ position: 'absolute', top: '24px', right: '24px', fontSize: '11px', fontWeight: '700', color: 'rgba(74,222,128,0.5)', letterSpacing: '0.1em' }}>
+                  {k.broj}
+                </div>
+                <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#f0f4ff', marginBottom: '10px', letterSpacing: '-0.01em' }}>{k.title}</h3>
+                <p style={{ fontSize: '14px', color: '#5a6a8a', lineHeight: '1.75', margin: 0 }}>{k.opis}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -374,7 +354,7 @@ export default function Landing() {
           <div style={{ display: 'grid', gridTemplateColumns: mob ? '1fr' : 'repeat(3, 1fr)', gap: '16px' }}>
             {features.map((f, i) => (
               <div key={i} style={styles.featCard}>
-                <div style={styles.featIcon}>{f.icon}</div>
+                <div style={{ fontSize: '28px', marginBottom: '14px' }}>{f.icon}</div>
                 <h3 style={styles.featH3}>{f.title}</h3>
                 <p style={styles.featP}>{f.opis}</p>
               </div>
@@ -383,7 +363,7 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Bez limita sekcija */}
+      {/* Bez limita */}
       <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', background: 'rgba(74,222,128,0.03)', borderTop: '1px solid rgba(74,222,128,0.1)', borderBottom: '1px solid rgba(74,222,128,0.1)' }}>
         <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
           <h2 style={styles.sectionTitle}>Bez skrivenih limita. Ikad.</h2>
@@ -395,10 +375,7 @@ export default function Landing() {
               { icon: '📋', label: 'Neograničene usluge' },
               { icon: '🧑‍💼', label: 'Neograničeni uposlenici' },
             ].map((item, i) => (
-              <div key={i} style={{
-                background: 'rgba(74,222,128,0.08)', border: '1px solid rgba(74,222,128,0.2)',
-                borderRadius: '12px', padding: '20px 16px', textAlign: 'center'
-              }}>
+              <div key={i} style={{ background: 'rgba(74,222,128,0.08)', border: '1px solid rgba(74,222,128,0.2)', borderRadius: '12px', padding: '20px 16px', textAlign: 'center' }}>
                 <p style={{ fontSize: '28px', marginBottom: '8px' }}>{item.icon}</p>
                 <p style={{ fontSize: '13px', fontWeight: '600', color: '#4ade80', margin: 0 }}>{item.label}</p>
               </div>
@@ -432,34 +409,20 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Social proof — Testimonijali */}
+      {/* Testimonijali */}
       <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', background: 'rgba(255,255,255,0.02)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
           <h2 style={styles.sectionTitle}>Šta kažu naši korisnici</h2>
           <p style={styles.sectionSub}>Stvarni biznisi. Stvarni rezultati.</p>
           <div style={{ display: 'grid', gridTemplateColumns: mob ? '1fr' : 'repeat(2, 1fr)', gap: '20px' }}>
             {testimonijali.map((r, i) => (
-              <div key={i} style={{
-                background: 'rgba(255,255,255,0.04)',
-                border: '1px solid rgba(255,255,255,0.08)',
-                borderRadius: '16px', padding: '24px',
-                display: 'flex', flexDirection: 'column', gap: '16px'
-              }}>
+              <div key={i} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <div style={{ display: 'flex', gap: '4px' }}>
-                  {[1,2,3,4,5].map(s => (
-                    <span key={s} style={{ fontSize: '14px', color: '#fbbf24' }}>⭐</span>
-                  ))}
+                  {[1,2,3,4,5].map(s => <span key={s} style={{ fontSize: '14px', color: '#fbbf24' }}>⭐</span>)}
                 </div>
-                <p style={{ fontSize: '14px', color: '#c8d0e8', lineHeight: '1.7', margin: 0, fontStyle: 'italic' }}>
-                  "{r.tekst}"
-                </p>
+                <p style={{ fontSize: '14px', color: '#c8d0e8', lineHeight: '1.7', margin: 0, fontStyle: 'italic' }}>"{r.tekst}"</p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: 'auto' }}>
-                  <div style={{
-                    width: '40px', height: '40px', borderRadius: '50%',
-                    background: 'linear-gradient(135deg, rgba(74,222,128,0.3), rgba(99,102,241,0.3))',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: '18px', flexShrink: 0
-                  }}>
+                  <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'linear-gradient(135deg, rgba(74,222,128,0.3), rgba(99,102,241,0.3))', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px', flexShrink: 0 }}>
                     {r.ikona}
                   </div>
                   <div>
@@ -472,79 +435,57 @@ export default function Landing() {
           </div>
         </div>
       </section>
-{/* Value Stack */}
-<section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', background: 'rgba(255,255,255,0.02)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-  <div style={{ maxWidth: '700px', margin: '0 auto', textAlign: 'center' }}>
-    <h2 style={styles.sectionTitle}>Šta stvarno dobijate za 59 KM/mj?</h2>
-    <p style={styles.sectionSub}>Sve što bi vas inače koštalo 10x više — na jednom mjestu.</p>
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '32px' }}>
-      {[
-        { stavka: 'Online booking sistem 24/7', vrijednost: '150 KM/mj' },
-        { stavka: 'Automatski email podsjetnici', vrijednost: '80 KM/mj' },
-        { stavka: 'CRM — baza klijenata sa historijom', vrijednost: '100 KM/mj' },
-        { stavka: 'AI asistent za rast prihoda', vrijednost: '200 KM/mj' },
-        { stavka: 'Loyalty program za vjerne klijente', vrijednost: '80 KM/mj' },
-        { stavka: 'PDF izvještaji i praćenje prihoda', vrijednost: '60 KM/mj' },
-        { stavka: 'GDPR zaštita podataka pacijenata', vrijednost: 'Neprocjenjivo' },
-      ].map((v, i) => (
-        <div key={i} style={{
-          display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-          background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)',
-          borderRadius: '10px', padding: '14px 20px'
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <span style={{ color: '#4ade80', fontSize: '16px' }}>✓</span>
-            <span style={{ fontSize: '14px', color: '#c8d0e8' }}>{v.stavka}</span>
-          </div>
-          <span style={{ fontSize: '13px', fontWeight: '600', color: '#6b7fa3', textDecoration: 'line-through', whiteSpace: 'nowrap' }}>
-            {v.vrijednost}
-          </span>
-        </div>
-      ))}
-    </div>
-    <div style={{
-      background: 'rgba(74,222,128,0.08)', border: '2px solid rgba(74,222,128,0.3)',
-      borderRadius: '16px', padding: '24px'
-    }}>
-      <p style={{ fontSize: '14px', color: '#6b7fa3', marginBottom: '8px' }}>Ukupna vrijednost:</p>
-      <p style={{ fontSize: '32px', fontWeight: '700', color: '#6b7fa3', textDecoration: 'line-through', margin: '0 0 8px' }}>670+ KM/mj</p>
-      <p style={{ fontSize: '14px', color: '#6b7fa3', marginBottom: '16px' }}>Vi plaćate samo:</p>
-      <p style={{ fontSize: '48px', fontWeight: '700', color: '#4ade80', margin: '0 0 4px' }}>59 KM<span style={{ fontSize: '20px', color: '#6b7fa3' }}>/mj</span></p>
-      <p style={{ fontSize: '13px', color: '#6b7fa3', marginTop: '8px' }}>✓ Bez kartice &nbsp;&nbsp; ✓ 14 dana besplatno &nbsp;&nbsp; ✓ Bez limita</p>
-    </div>
-  </div>
-</section>
-      {/* Cijene */}
+
+      {/* Value Stack */}
       <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+        <div style={{ maxWidth: '700px', margin: '0 auto', textAlign: 'center' }}>
+          <h2 style={styles.sectionTitle}>Šta stvarno dobijate za 59 KM/mj?</h2>
+          <p style={styles.sectionSub}>Sve što bi vas inače koštalo 10x više — na jednom mjestu.</p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '32px' }}>
+            {[
+              { stavka: 'Online booking sistem 24/7', vrijednost: '150 KM/mj' },
+              { stavka: 'Automatski email podsjetnici', vrijednost: '80 KM/mj' },
+              { stavka: 'CRM — baza klijenata sa historijom', vrijednost: '100 KM/mj' },
+              { stavka: 'AI asistent za rast prihoda', vrijednost: '200 KM/mj' },
+              { stavka: 'Loyalty program za vjerne klijente', vrijednost: '80 KM/mj' },
+              { stavka: 'PDF izvještaji i praćenje prihoda', vrijednost: '60 KM/mj' },
+              { stavka: 'GDPR zaštita podataka pacijenata', vrijednost: 'Neprocjenjivo' },
+            ].map((v, i) => (
+              <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '10px', padding: '14px 20px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <span style={{ color: '#4ade80', fontSize: '16px' }}>✓</span>
+                  <span style={{ fontSize: '14px', color: '#c8d0e8' }}>{v.stavka}</span>
+                </div>
+                <span style={{ fontSize: '13px', fontWeight: '600', color: '#6b7fa3', textDecoration: 'line-through', whiteSpace: 'nowrap' }}>{v.vrijednost}</span>
+              </div>
+            ))}
+          </div>
+          <div style={{ background: 'rgba(74,222,128,0.08)', border: '2px solid rgba(74,222,128,0.3)', borderRadius: '16px', padding: '24px' }}>
+            <p style={{ fontSize: '14px', color: '#6b7fa3', marginBottom: '8px' }}>Ukupna vrijednost:</p>
+            <p style={{ fontSize: '32px', fontWeight: '700', color: '#6b7fa3', textDecoration: 'line-through', margin: '0 0 8px' }}>670+ KM/mj</p>
+            <p style={{ fontSize: '14px', color: '#6b7fa3', marginBottom: '16px' }}>Vi plaćate samo:</p>
+            <p style={{ fontSize: '48px', fontWeight: '700', color: '#4ade80', margin: '0 0 4px' }}>59 KM<span style={{ fontSize: '20px', color: '#6b7fa3' }}>/mj</span></p>
+            <p style={{ fontSize: '13px', color: '#6b7fa3', marginTop: '8px' }}>✓ Bez kartice &nbsp;&nbsp; ✓ 14 dana besplatno &nbsp;&nbsp; ✓ Bez limita</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Cijene */}
+      <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', background: 'rgba(255,255,255,0.02)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ maxWidth: '860px', margin: '0 auto' }}>
           <h2 style={styles.sectionTitle}>Jednostavne cijene</h2>
           <p style={styles.sectionSub}>Bez skrivenih troškova. Otkaži kad god želiš.</p>
-
-          {/* Toggle mjesečno/godišnje */}
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '12px', marginBottom: '32px' }}>
             <span style={{ fontSize: '14px', color: !godisnji ? '#f0f4ff' : '#6b7fa3', fontWeight: !godisnji ? '600' : '400' }}>Mjesečno</span>
-            <div onClick={() => setGodisnji(!godisnji)} style={{
-              width: '48px', height: '26px', borderRadius: '13px',
-              background: godisnji ? '#16a34a' : 'rgba(255,255,255,0.15)',
-              cursor: 'pointer', position: 'relative', transition: 'background 0.2s'
-            }}>
-              <div style={{
-                width: '20px', height: '20px', borderRadius: '50%', background: 'white',
-                position: 'absolute', top: '3px',
-                left: godisnji ? '25px' : '3px', transition: 'left 0.2s'
-              }} />
+            <div onClick={() => setGodisnji(!godisnji)} style={{ width: '48px', height: '26px', borderRadius: '13px', background: godisnji ? '#16a34a' : 'rgba(255,255,255,0.15)', cursor: 'pointer', position: 'relative', transition: 'background 0.2s' }}>
+              <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: 'white', position: 'absolute', top: '3px', left: godisnji ? '25px' : '3px', transition: 'left 0.2s' }} />
             </div>
             <span style={{ fontSize: '14px', color: godisnji ? '#f0f4ff' : '#6b7fa3', fontWeight: godisnji ? '600' : '400' }}>
               Godišnje
-              <span style={{ marginLeft: '6px', fontSize: '11px', background: 'rgba(74,222,128,0.15)', color: '#4ade80', padding: '2px 8px', borderRadius: '20px', fontWeight: '600' }}>
-                -2 mjeseca gratis
-              </span>
+              <span style={{ marginLeft: '6px', fontSize: '11px', background: 'rgba(74,222,128,0.15)', color: '#4ade80', padding: '2px 8px', borderRadius: '20px', fontWeight: '600' }}>-2 mjeseca gratis</span>
             </span>
           </div>
-
           <div style={{ display: 'grid', gridTemplateColumns: mob ? '1fr' : '1fr 1fr', gap: '20px' }}>
-
-            {/* Starter */}
             <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '16px', padding: mob ? '28px' : '36px 32px', textAlign: 'left', position: 'relative' }}>
               <p style={{ fontSize: '12px', fontWeight: '600', color: '#6b7fa3', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '8px' }}>Starter</p>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '4px' }}>
@@ -555,20 +496,12 @@ export default function Landing() {
               {godisnji && <p style={{ fontSize: '12px', color: '#4ade80', marginBottom: '4px' }}>Uštedite 209 KM godišnje!</p>}
               <p style={{ fontSize: '12px', color: '#6b7fa3', marginBottom: '24px' }}>14 dana besplatno, bez kartice</p>
               <div style={{ marginBottom: '28px' }}>
-                {starterFeatures.map((s, i) => (
-                  <div key={i} style={styles.pf}><div style={styles.pfDot} />{s}</div>
-                ))}
+                {starterFeatures.map((s, i) => <div key={i} style={styles.pf}><div style={styles.pfDot} />{s}</div>)}
               </div>
-              <button onClick={() => navigate('/register')} style={styles.btnPlanOutline}>
-                Počni besplatno →
-              </button>
+              <button onClick={() => navigate('/register')} style={styles.btnPlanOutline}>Počni besplatno →</button>
             </div>
-
-            {/* Premium */}
             <div style={{ background: 'rgba(74,222,128,0.05)', border: '1px solid rgba(74,222,128,0.4)', borderRadius: '16px', padding: mob ? '28px' : '36px 32px', textAlign: 'left', position: 'relative' }}>
-              <div style={{ position: 'absolute', top: '-12px', left: '50%', transform: 'translateX(-50%)', background: '#16a34a', color: 'white', fontSize: '11px', fontWeight: '600', padding: '3px 14px', borderRadius: '20px', whiteSpace: 'nowrap' }}>
-                NAJPOPULARNIJE
-              </div>
+              <div style={{ position: 'absolute', top: '-12px', left: '50%', transform: 'translateX(-50%)', background: '#16a34a', color: 'white', fontSize: '11px', fontWeight: '600', padding: '3px 14px', borderRadius: '20px', whiteSpace: 'nowrap' }}>NAJPOPULARNIJE</div>
               <p style={{ fontSize: '12px', fontWeight: '600', color: '#4ade80', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '8px' }}>Premium</p>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '4px' }}>
                 <span style={{ fontSize: '40px', fontWeight: '700', color: '#f0f4ff' }}>{godisnji ? '999' : '119'}</span>
@@ -578,31 +511,23 @@ export default function Landing() {
               {godisnji && <p style={{ fontSize: '12px', color: '#4ade80', marginBottom: '4px' }}>Uštedite 429 KM godišnje!</p>}
               <p style={{ fontSize: '12px', color: '#6b7fa3', marginBottom: '24px' }}>14 dana besplatno, bez kartice</p>
               <div style={{ marginBottom: '28px' }}>
-                {premiumFeatures.map((s, i) => (
-                  <div key={i} style={styles.pf}><div style={styles.pfDot} />{s}</div>
-                ))}
+                {premiumFeatures.map((s, i) => <div key={i} style={styles.pf}><div style={styles.pfDot} />{s}</div>)}
               </div>
-              <button onClick={() => navigate('/register')} style={styles.btnPlan}>
-                Počni besplatno →
-              </button>
+              <button onClick={() => navigate('/register')} style={styles.btnPlan}>Počni besplatno →</button>
             </div>
-
           </div>
         </div>
       </section>
 
       {/* FAQ */}
-      <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', background: 'rgba(255,255,255,0.02)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+      <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ maxWidth: '700px', margin: '0 auto' }}>
           <h2 style={styles.sectionTitle}>Često postavljana pitanja</h2>
           <p style={styles.sectionSub}>Sve što trebate znati prije nego počnete.</p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             {faqs.map((f, i) => (
               <div key={i} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', overflow: 'hidden' }}>
-                <button
-                  onClick={() => setOtvorenFaq(otvorenFaq === i ? null : i)}
-                  style={{ width: '100%', padding: '18px 20px', background: 'none', border: 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', textAlign: 'left', gap: '12px' }}
-                >
+                <button onClick={() => setOtvorenFaq(otvorenFaq === i ? null : i)} style={{ width: '100%', padding: '18px 20px', background: 'none', border: 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', textAlign: 'left', gap: '12px' }}>
                   <span style={{ fontSize: '15px', fontWeight: '600', color: '#e2e8f7' }}>{f.pitanje}</span>
                   <span style={{ fontSize: '20px', color: '#4ade80', flexShrink: 0, transition: 'transform 0.2s', transform: otvorenFaq === i ? 'rotate(45deg)' : 'rotate(0deg)' }}>+</span>
                 </button>
@@ -618,12 +543,10 @@ export default function Landing() {
       </section>
 
       {/* CTA */}
-      <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', textAlign: 'center', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+      <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', textAlign: 'center', background: 'rgba(255,255,255,0.02)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ maxWidth: '600px', margin: '0 auto' }}>
           <div style={{ fontSize: '48px', marginBottom: '16px' }}>🚀</div>
-          <h2 style={{ ...styles.sectionTitle, marginBottom: '16px' }}>
-            Postavite vaš biznis danas
-          </h2>
+          <h2 style={{ ...styles.sectionTitle, marginBottom: '16px' }}>Postavite vaš biznis danas</h2>
           <p style={{ color: '#6b7fa3', fontSize: '16px', marginBottom: '32px', lineHeight: '1.7' }}>
             Za manje od 5 minuta vaši klijenti mogu zakazivati online.<br />
             14 dana besplatno — bez kartice, bez obaveza.
@@ -634,8 +557,6 @@ export default function Landing() {
           <p style={{ fontSize: '12px', color: '#4a5a7a', marginTop: '16px' }}>
             ✓ Bez kartice &nbsp;&nbsp; ✓ Bez limita &nbsp;&nbsp; ✓ Otkaži kad god želiš
           </p>
-
-          {/* Mock-up telefona */}
           <div style={{ marginTop: '48px', display: 'flex', justifyContent: 'center', gap: '20px', flexWrap: 'wrap' }}>
             <div style={{ width: '200px', background: '#111827', borderRadius: '24px', border: '2px solid rgba(74,222,128,0.3)', padding: '12px', boxShadow: '0 0 40px rgba(74,222,128,0.1)' }}>
               <div style={{ background: '#0d1628', borderRadius: '16px', padding: '12px', fontSize: '11px' }}>
@@ -652,12 +573,9 @@ export default function Landing() {
                     </div>
                   ))}
                 </div>
-                <div style={{ background: '#16a34a', borderRadius: '8px', padding: '7px', textAlign: 'center', color: 'white', fontWeight: '600', fontSize: '11px' }}>
-                  Zakaži termin →
-                </div>
+                <div style={{ background: '#16a34a', borderRadius: '8px', padding: '7px', textAlign: 'center', color: 'white', fontWeight: '600', fontSize: '11px' }}>Zakaži termin →</div>
               </div>
             </div>
-
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', justifyContent: 'center' }}>
               <div style={{ background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.25)', borderRadius: '12px', padding: '12px 16px', textAlign: 'left', width: '200px' }}>
                 <p style={{ fontSize: '10px', color: '#4ade80', fontWeight: '600', margin: '0 0 4px' }}>✅ Novi termin!</p>
@@ -686,9 +604,7 @@ export default function Landing() {
               <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#f0f4ff', marginBottom: '12px' }}>
                 termini<span style={{ color: '#4ade80' }}>.pro</span>
               </h3>
-              <p style={{ fontSize: '13px', color: '#6b7fa3', lineHeight: '1.7' }}>
-                Online booking platforma za sve uslužne djelatnosti u Bosni i Hercegovini.
-              </p>
+              <p style={{ fontSize: '13px', color: '#6b7fa3', lineHeight: '1.7' }}>Online booking platforma za sve uslužne djelatnosti u Bosni i Hercegovini.</p>
             </div>
             <div>
               <h3 style={{ fontSize: '14px', fontWeight: '600', color: '#8b9ec7', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Platforma</h3>
@@ -698,9 +614,7 @@ export default function Landing() {
                   { label: 'Prijava', href: '/login' },
                   { label: 'Politika privatnosti', href: '/privatnost' },
                   { label: 'Uslovi korištenja', href: '/terms' },
-                ].map((l, i) => (
-                  <a key={i} href={l.href} style={{ fontSize: '13px', color: '#6b7fa3', textDecoration: 'none' }}>{l.label}</a>
-                ))}
+                ].map((l, i) => <a key={i} href={l.href} style={{ fontSize: '13px', color: '#6b7fa3', textDecoration: 'none' }}>{l.label}</a>)}
               </div>
             </div>
             <div>
