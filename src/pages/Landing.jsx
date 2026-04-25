@@ -292,20 +292,55 @@ export default function Landing() {
           <p style={styles.sectionSub}>Od registracije do prvog termina — za manje od 5 minuta.</p>
           <div style={{ display: 'grid', gridTemplateColumns: mob ? '1fr' : 'repeat(3, 1fr)', gap: '20px' }}>
             {[
-              { broj: '01', icon: '📝', title: 'Registrujte se', opis: 'Kreirajte nalog za 2 minute. Dodajte naziv, usluge, cijene i radno vrijeme. Bez tehničkog znanja.' },
-              { broj: '02', icon: '🔗', title: 'Podijelite link', opis: 'Dobijete vlastiti booking link i QR kod. Stavite ga u Instagram bio, na web stranicu ili odštampajte za ulaz.' },
-              { broj: '03', icon: '🎉', title: 'Primajte termine', opis: 'Klijenti zakazuju sami 24/7. Vi dobijete obavijest, oni dobiju automatski podsjetnik. Bez telefoniranja.' },
-            ].map((k, i) => (
-              <div key={i} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px', padding: '28px', position: 'relative' }}>
-                <div style={{ fontSize: '36px', marginBottom: '16px' }}>{k.icon}</div>
-                <div style={{ position: 'absolute', top: '20px', right: '20px', fontSize: '13px', fontWeight: '700', color: '#4ade80', background: 'rgba(74,222,128,0.1)', padding: '4px 10px', borderRadius: '20px' }}>
-                  {k.broj}
-                </div>
-                <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#f0f4ff', marginBottom: '10px' }}>{k.title}</h3>
-                <p style={{ fontSize: '14px', color: '#6b7fa3', lineHeight: '1.7', margin: 0 }}>{k.opis}</p>
-              </div>
-            ))}
-          </div>
+  {
+    broj: '01',
+    svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4ade80" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>,
+    title: 'Registrujte se',
+    opis: 'Kreirajte nalog za 2 minute. Dodajte naziv, usluge, cijene i radno vrijeme. Bez tehničkog znanja.'
+  },
+  {
+    broj: '02',
+    svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4ade80" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>,
+    title: 'Podijelite link',
+    opis: 'Dobijete vlastiti booking link i QR kod. Stavite ga u Instagram bio, na web stranicu ili odštampajte za ulaz.'
+  },
+  {
+    broj: '03',
+    svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4ade80" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="m9 16 2 2 4-4"/></svg>,
+    title: 'Primajte termine',
+    opis: 'Klijenti zakazuju sami 24/7. Vi dobijete obavijest, oni dobiju automatski podsjetnik. Bez telefoniranja.'
+  },
+].map((k, i) => (
+  <div key={i} style={{
+    background: 'rgba(255,255,255,0.03)',
+    border: '1px solid rgba(255,255,255,0.07)',
+    borderRadius: '20px', padding: '32px 28px',
+    position: 'relative',
+    transition: 'border-color 0.2s'
+  }}
+    onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(74,222,128,0.25)'}
+    onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'}
+  >
+    <div style={{
+      width: '48px', height: '48px', borderRadius: '14px',
+      background: 'rgba(74,222,128,0.08)',
+      border: '1px solid rgba(74,222,128,0.15)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      marginBottom: '20px'
+    }}>
+      {k.svg}
+    </div>
+    <div style={{
+      position: 'absolute', top: '24px', right: '24px',
+      fontSize: '11px', fontWeight: '700', color: 'rgba(74,222,128,0.5)',
+      letterSpacing: '0.1em'
+    }}>
+      {k.broj}
+    </div>
+    <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#f0f4ff', marginBottom: '10px', letterSpacing: '-0.01em' }}>{k.title}</h3>
+    <p style={{ fontSize: '14px', color: '#5a6a8a', lineHeight: '1.75', margin: 0 }}>{k.opis}</p>
+  </div>
+))}
         </div>
       </section>
 
