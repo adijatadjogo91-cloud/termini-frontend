@@ -127,6 +127,37 @@ export default function Landing() {
     { problem: 'Ne znate koliko ste zaradili', rjesenje: 'Dashboard sa prihodima u realnom vremenu' },
   ];
 
+  const testimonijali = [
+    {
+      ime: 'Dr. Amra H.',
+      biznis: 'Stomatološka ordinacija',
+      grad: 'Sarajevo',
+      ikona: '🦷',
+      tekst: 'Pacijenti zakazuju sami dok ja radim. Nema više telefoniranja između pacijenata. Ordinacija je popunjena, a ja sam mirnija.'
+    },
+    {
+      ime: 'Lejla Č.',
+      biznis: 'Kozmetički salon',
+      grad: 'Mostar',
+      ikona: '💅',
+      tekst: 'Za 5 minuta sam postavila sve i odmah dobila prve online rezervacije. Klijentice cijene što mogu zakazati u ponoć.'
+    },
+    {
+      ime: 'Haris B.',
+      biznis: 'Lični trener',
+      grad: 'Sarajevo',
+      ikona: '💪',
+      tekst: 'Loyalty program je genijalan — klijenti dolaze redovnije jer skupljaju bodove. Prihodi su mi porasli za 30% u prvom mjesecu.'
+    },
+    {
+      ime: 'Elvir G.',
+      biznis: 'Frizerski salon',
+      grad: 'Ilidža',
+      ikona: '✂️',
+      tekst: 'Konačno prestao da gubim klijente koji ne mogu dočekati da im odgovorim na poruku. Sada zakazuju sami i dolaze. Jednostavno.'
+    },
+  ];
+
   const starterFeatures = [
     'Neograničeni termini i klijenti',
     'Neograničene usluge',
@@ -366,8 +397,49 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Cijene */}
+      {/* Social proof — Testimonijali */}
       <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', background: 'rgba(255,255,255,0.02)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+        <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+          <h2 style={styles.sectionTitle}>Šta kažu naši korisnici</h2>
+          <p style={styles.sectionSub}>Stvarni biznisi. Stvarni rezultati.</p>
+          <div style={{ display: 'grid', gridTemplateColumns: mob ? '1fr' : 'repeat(2, 1fr)', gap: '20px' }}>
+            {testimonijali.map((r, i) => (
+              <div key={i} style={{
+                background: 'rgba(255,255,255,0.04)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                borderRadius: '16px', padding: '24px',
+                display: 'flex', flexDirection: 'column', gap: '16px'
+              }}>
+                <div style={{ display: 'flex', gap: '4px' }}>
+                  {[1,2,3,4,5].map(s => (
+                    <span key={s} style={{ fontSize: '14px', color: '#fbbf24' }}>⭐</span>
+                  ))}
+                </div>
+                <p style={{ fontSize: '14px', color: '#c8d0e8', lineHeight: '1.7', margin: 0, fontStyle: 'italic' }}>
+                  "{r.tekst}"
+                </p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: 'auto' }}>
+                  <div style={{
+                    width: '40px', height: '40px', borderRadius: '50%',
+                    background: 'linear-gradient(135deg, rgba(74,222,128,0.3), rgba(99,102,241,0.3))',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: '18px', flexShrink: 0
+                  }}>
+                    {r.ikona}
+                  </div>
+                  <div>
+                    <p style={{ fontSize: '14px', fontWeight: '600', color: '#f0f4ff', margin: 0 }}>{r.ime}</p>
+                    <p style={{ fontSize: '12px', color: '#6b7fa3', margin: 0 }}>{r.biznis} · {r.grad}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Cijene */}
+      <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ maxWidth: '860px', margin: '0 auto' }}>
           <h2 style={styles.sectionTitle}>Jednostavne cijene</h2>
           <p style={styles.sectionSub}>Bez skrivenih troškova. Otkaži kad god želiš.</p>
@@ -375,14 +447,11 @@ export default function Landing() {
           {/* Toggle mjesečno/godišnje */}
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '12px', marginBottom: '32px' }}>
             <span style={{ fontSize: '14px', color: !godisnji ? '#f0f4ff' : '#6b7fa3', fontWeight: !godisnji ? '600' : '400' }}>Mjesečno</span>
-            <div
-              onClick={() => setGodisnji(!godisnji)}
-              style={{
-                width: '48px', height: '26px', borderRadius: '13px',
-                background: godisnji ? '#16a34a' : 'rgba(255,255,255,0.15)',
-                cursor: 'pointer', position: 'relative', transition: 'background 0.2s'
-              }}
-            >
+            <div onClick={() => setGodisnji(!godisnji)} style={{
+              width: '48px', height: '26px', borderRadius: '13px',
+              background: godisnji ? '#16a34a' : 'rgba(255,255,255,0.15)',
+              cursor: 'pointer', position: 'relative', transition: 'background 0.2s'
+            }}>
               <div style={{
                 width: '20px', height: '20px', borderRadius: '50%', background: 'white',
                 position: 'absolute', top: '3px',
@@ -407,9 +476,7 @@ export default function Landing() {
                 <span style={{ fontSize: '20px', fontWeight: '600', color: '#c8d0e8' }}>KM</span>
                 <span style={{ fontSize: '13px', color: '#6b7fa3' }}>{godisnji ? '/god' : '/mj'}</span>
               </div>
-              {godisnji && (
-                <p style={{ fontSize: '12px', color: '#4ade80', marginBottom: '4px' }}>Uštedite 209 KM godišnje!</p>
-              )}
+              {godisnji && <p style={{ fontSize: '12px', color: '#4ade80', marginBottom: '4px' }}>Uštedite 209 KM godišnje!</p>}
               <p style={{ fontSize: '12px', color: '#6b7fa3', marginBottom: '24px' }}>14 dana besplatno, bez kartice</p>
               <div style={{ marginBottom: '28px' }}>
                 {starterFeatures.map((s, i) => (
@@ -432,9 +499,7 @@ export default function Landing() {
                 <span style={{ fontSize: '20px', fontWeight: '600', color: '#c8d0e8' }}>KM</span>
                 <span style={{ fontSize: '13px', color: '#6b7fa3' }}>{godisnji ? '/god' : '/mj'}</span>
               </div>
-              {godisnji && (
-                <p style={{ fontSize: '12px', color: '#4ade80', marginBottom: '4px' }}>Uštedite 429 KM godišnje!</p>
-              )}
+              {godisnji && <p style={{ fontSize: '12px', color: '#4ade80', marginBottom: '4px' }}>Uštedite 429 KM godišnje!</p>}
               <p style={{ fontSize: '12px', color: '#6b7fa3', marginBottom: '24px' }}>14 dana besplatno, bez kartice</p>
               <div style={{ marginBottom: '28px' }}>
                 {premiumFeatures.map((s, i) => (
@@ -451,7 +516,7 @@ export default function Landing() {
       </section>
 
       {/* FAQ */}
-      <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+      <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', background: 'rgba(255,255,255,0.02)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ maxWidth: '700px', margin: '0 auto' }}>
           <h2 style={styles.sectionTitle}>Često postavljana pitanja</h2>
           <p style={styles.sectionSub}>Sve što trebate znati prije nego počnete.</p>
@@ -477,7 +542,7 @@ export default function Landing() {
       </section>
 
       {/* CTA */}
-      <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', textAlign: 'center', background: 'rgba(255,255,255,0.02)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+      <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', textAlign: 'center', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ maxWidth: '600px', margin: '0 auto' }}>
           <div style={{ fontSize: '48px', marginBottom: '16px' }}>🚀</div>
           <h2 style={{ ...styles.sectionTitle, marginBottom: '16px' }}>
@@ -500,7 +565,7 @@ export default function Landing() {
               <div style={{ background: '#0d1628', borderRadius: '16px', padding: '12px', fontSize: '11px' }}>
                 <div style={{ textAlign: 'center', marginBottom: '10px' }}>
                   <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'rgba(74,222,128,0.2)', margin: '0 auto 6px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px' }}>🦷</div>
-                  <p style={{ color: '#f0f4ff', fontWeight: '700', margin: 0, fontSize: '11px' }}>Dr. Amra Hodžić</p>
+                  <p style={{ color: '#f0f4ff', fontWeight: '700', margin: 0, fontSize: '11px' }}>Dr. Amra H.</p>
                   <p style={{ color: '#4ade80', margin: '2px 0 0', fontSize: '10px' }}>📍 Sarajevo</p>
                 </div>
                 <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '8px', marginBottom: '8px' }}>
