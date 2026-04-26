@@ -18,6 +18,8 @@ import Landing from './pages/Landing'
 import Booking from './pages/Booking'
 import Uposlenici from './pages/Uposlenici'
 import TermsAndConditions from './pages/TermsAndConditions'
+import { BlogLista, BlogClanak } from './pages/Blog'
+
 function App() {
   return (
     <BrowserRouter>
@@ -40,6 +42,8 @@ function App() {
         <Route path="/terms" element={<TermsAndConditions />} />
         <Route path="/uposlenici" element={<Uposlenici />} />
         <Route path="/privatnost" element={<Privatnost />} />
+        <Route path="/blog" element={<BlogLista />} />
+<Route path="/blog/:slug" element={<BlogClanak />} />
       </Routes>
     </BrowserRouter>
   )
