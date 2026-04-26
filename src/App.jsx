@@ -4,7 +4,7 @@ import Privatnost from './pages/Privatnost'
 import Prihodi from './pages/Prihodi'
 import OtkaziTermin from './pages/OtkaziTermin'
 import Postavke from './pages/Postavke'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { HashRouter, Routes, Route } from 'react-router-dom'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
@@ -24,7 +24,7 @@ import Uputstvo from './pages/Uputstvo'
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/recenzija/:token" element={<Recenzija />} />
         <Route path="/prihodi" element={<Prihodi />} />
@@ -49,7 +49,7 @@ function App() {
 <Route path="/akcije" element={<Akcije />} />
 <Route path="/uputstvo" element={<Uputstvo />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 
