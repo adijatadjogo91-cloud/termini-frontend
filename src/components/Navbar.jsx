@@ -102,7 +102,7 @@ function Navbar() {
               {linkovi.map(l => (
                 <a
                   key={l.putanja}
-                  href={l.putanja}
+                  href={`#${l.putanja}`}
                   onClick={() => setMenuOtvoren(false)}
                   style={{
                     textDecoration: 'none',
