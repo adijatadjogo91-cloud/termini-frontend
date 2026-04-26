@@ -246,7 +246,77 @@ export default function Landing() {
           </p>
         </div>
       </section>
+{/* Chat haos sekcija */}
+      <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+          <h2 style={styles.sectionTitle}>Prepoznajete li ovo?</h2>
+          <p style={styles.sectionSub}>Svaki dan hiljada BiH biznisa gubi klijente ovako.</p>
+          <div style={{ display: 'grid', gridTemplateColumns: mob ? '1fr' : '1fr 1fr', gap: '32px', alignItems: 'center' }}>
 
+            {/* Chat simulacija */}
+            <div style={{ background: '#111827', borderRadius: '20px', padding: '20px', border: '1px solid rgba(255,255,255,0.08)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px', paddingBottom: '12px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: 'rgba(74,222,128,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px' }}>🦷</div>
+                <div>
+                  <p style={{ fontSize: '13px', fontWeight: '600', color: '#f0f4ff', margin: 0 }}>Dr. Hodžić — Ordinacija</p>
+                  <p style={{ fontSize: '11px', color: '#4ade80', margin: 0 }}>● na mreži</p>
+                </div>
+              </div>
+              {[
+                { od: 'klijent', tekst: 'Zdravo, mogu li zakazati pregled za sutra?' },
+                { od: 'doktor', tekst: 'Sutra u 10h je zauzeto, mogu li u 14h?' },
+                { od: 'klijent', tekst: 'Ne mogu u 14h, a u 11h?' },
+                { od: 'doktor', tekst: 'Čekajte da provjerim...' },
+                { od: 'doktor', tekst: 'Oh, 11h je upravo zauzeto 😔' },
+                { od: 'klijent', tekst: 'Dobro, zovem drugu ordinaciju...' },
+              ].map((p, i) => (
+                <div key={i} style={{ display: 'flex', justifyContent: p.od === 'klijent' ? 'flex-end' : 'flex-start', marginBottom: '8px' }}>
+                  <div style={{
+                    maxWidth: '75%', padding: '8px 12px', borderRadius: '12px', fontSize: '12px',
+                    background: p.od === 'klijent' ? 'rgba(74,222,128,0.15)' : 'rgba(255,255,255,0.08)',
+                    color: p.od === 'klijent' ? '#4ade80' : '#c8d0e8',
+                    borderBottomRightRadius: p.od === 'klijent' ? '4px' : '12px',
+                    borderBottomLeftRadius: p.od === 'doktor' ? '4px' : '12px',
+                  }}>
+                    {p.tekst}
+                  </div>
+                </div>
+              ))}
+              <div style={{ marginTop: '12px', padding: '8px 12px', background: 'rgba(248,113,113,0.1)', borderRadius: '8px', border: '1px solid rgba(248,113,113,0.2)' }}>
+                <p style={{ fontSize: '11px', color: '#f87171', margin: 0, textAlign: 'center' }}>❌ Pacijent otišao konkurenciji</p>
+              </div>
+            </div>
+
+            {/* Rješenje */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div style={{ background: 'rgba(74,222,128,0.06)', border: '1px solid rgba(74,222,128,0.2)', borderRadius: '16px', padding: '20px' }}>
+                <p style={{ fontSize: '13px', color: '#4ade80', fontWeight: '600', marginBottom: '8px' }}>✓ Sa termini.pro</p>
+                <p style={{ fontSize: '14px', color: '#c8d0e8', lineHeight: '1.7', margin: 0 }}>
+                  Pacijent otvori vaš link, odabere slobodan termin i za 30 sekundi dobije potvrdu. <strong style={{ color: '#4ade80' }}>Vi ne radite ništa.</strong>
+                </p>
+              </div>
+              {[
+                { broj: '50%', opis: 'manje otkaza zahvaljujući automatskim podsjetnicima' },
+                { broj: '24/7', opis: 'klijenti zakazuju čak i dok spavate' },
+                { broj: '5 min', opis: 'dovoljno za postavljanje ordinacije' },
+              ].map((s, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '16px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '12px', padding: '14px 16px' }}>
+                  <span style={{ fontSize: '22px', fontWeight: '700', color: '#4ade80', minWidth: '52px' }}>{s.broj}</span>
+                  <span style={{ fontSize: '13px', color: '#8b9ec7', lineHeight: '1.5' }}>{s.opis}</span>
+                </div>
+              ))}
+              <button onClick={() => navigate('/register')} style={{
+                background: '#16a34a', color: 'white', border: 'none',
+                borderRadius: '10px', padding: '13px', fontSize: '14px',
+                fontWeight: '600', cursor: 'pointer', fontFamily: 'Inter, sans-serif'
+              }}>
+                Počni besplatno — bez kartice →
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </section>
       {/* Stats bar */}
       <div style={styles.statsBar}>
         {[
