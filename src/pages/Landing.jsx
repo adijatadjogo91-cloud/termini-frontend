@@ -258,13 +258,13 @@ export default function Landing() {
             {' '}i sve uslužne djelatnosti.
           </p>
           <div style={styles.heroBtns}>
-            <button onClick={() => navigate('/register')} style={styles.btnPrimary}>
-              Postavi biznis besplatno →
-            </button>
-            <button onClick={() => navigate('/login')} style={styles.btnSecondary}>
-              Prijavi se
-            </button>
-          </div>
+  <button onClick={() => navigate('/register')} style={styles.btnPrimary}>
+    Postavi biznis besplatno →
+  </button>
+  <button onClick={() => window.open('/booking/salon-lazic-yqz7', '_blank')} style={styles.btnSecondary}>
+    👀 Pogledaj demo
+  </button>
+</div>
           <p style={{ fontSize: '12px', color: '#4a5a7a', marginTop: '16px' }}>
             ✓ Bez kartice &nbsp;&nbsp; ✓ Bez limita &nbsp;&nbsp; ✓ Otkaži kad god želiš
           </p>
