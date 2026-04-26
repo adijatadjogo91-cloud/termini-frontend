@@ -152,7 +152,7 @@ function Dashboard() {
           }}>
             Kopiraj link
         </button>
-        <button onClick={() => window.open('/uputstvo', '_blank')} style={{
+        <button onClick={() => window.open('/#/uputstvo', '_blank')} style={{
   background: 'rgba(255,255,255,0.07)', color: '#c8d0e8',
   border: '1px solid rgba(255,255,255,0.12)',
   borderRadius: '8px', padding: '10px 18px', fontSize: '13px',
