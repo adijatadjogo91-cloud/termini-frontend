@@ -250,7 +250,7 @@ export default function Landing() {
       <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto' }}>
           <h2 style={styles.sectionTitle}>Prepoznajete li ovo?</h2>
-          <p style={styles.sectionSub}>Svaki dan hiljada BiH biznisa gubi klijente ovako.</p>
+          <p style={styles.sectionSub}>Svaki dan stotinu BiH biznisa gubi klijente na isti način.</p>
           <div style={{ display: 'grid', gridTemplateColumns: mob ? '1fr' : '1fr 1fr', gap: '32px', alignItems: 'center' }}>
 
             {/* Chat simulacija */}
@@ -263,12 +263,12 @@ export default function Landing() {
                 </div>
               </div>
               {[
-                { od: 'klijent', tekst: 'Zdravo, mogu li zakazati pregled za sutra?' },
-                { od: 'doktor', tekst: 'Sutra u 10h je zauzeto, mogu li u 14h?' },
-                { od: 'klijent', tekst: 'Ne mogu u 14h, a u 11h?' },
-                { od: 'doktor', tekst: 'Čekajte da provjerim...' },
-                { od: 'doktor', tekst: 'Oh, 11h je upravo zauzeto 😔' },
-                { od: 'klijent', tekst: 'Dobro, zovem drugu ordinaciju...' },
+               { od: 'klijent', tekst: 'Zdravo, mogu li zakazati pregled za sutra?' },
+{ od: 'doktor', tekst: 'Sutra u 10h je zauzeto. Može li u 14h?' },
+{ od: 'klijent', tekst: 'Ne mogu u 14h. Ima li nešto u 11h?' },
+{ od: 'doktor', tekst: 'Sačekajte da provjerim...' },
+{ od: 'doktor', tekst: 'Nažalost, 11h je također zauzeto 😔' },
+{ od: 'klijent', tekst: 'U redu, nazvaću drugu ordinaciju.' },
               ].map((p, i) => (
                 <div key={i} style={{ display: 'flex', justifyContent: p.od === 'klijent' ? 'flex-end' : 'flex-start', marginBottom: '8px' }}>
                   <div style={{
