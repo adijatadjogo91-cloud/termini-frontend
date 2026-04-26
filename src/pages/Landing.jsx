@@ -127,11 +127,35 @@ export default function Landing() {
   ];
 
   const testimonijali = [
-    { ime: 'Dr. Amra H.', biznis: 'Stomatološka ordinacija', grad: 'Sarajevo', ikona: '🦷', tekst: 'Pacijenti zakazuju sami dok ja radim. Nema više telefoniranja između pacijenata. Ordinacija je popunjena, a ja sam mirnija.' },
-    { ime: 'Lejla Č.', biznis: 'Kozmetički salon', grad: 'Mostar', ikona: '💅', tekst: 'Za 5 minuta sam postavila sve i odmah dobila prve online rezervacije. Klijentice cijene što mogu zakazati u ponoć.' },
-    { ime: 'Haris B.', biznis: 'Lični trener', grad: 'Sarajevo', ikona: '💪', tekst: 'Loyalty program je genijalan — klijenti dolaze redovnije jer skupljaju bodove. Prihodi su mi porasli za 30% u prvom mjesecu.' },
-    { ime: 'Elvir G.', biznis: 'Frizerski salon', grad: 'Ilidža', ikona: '✂️', tekst: 'Konačno prestao da gubim klijente koji ne mogu dočekati da im odgovorim na poruku. Sada zakazuju sami i dolaze. Jednostavno.' },
-  ];
+  {
+    ime: 'Dr. Amra H.',
+    biznis: 'Stomatološka ordinacija',
+    grad: 'Sarajevo',
+    ikona: '🦷',
+    tekst: 'Ranije sam između dva pacijenta odgovarala na poruke i pozive — i ni pacijentu ni sebi nisam bila potpuno prisutna. Danas se pacijenti zakazuju sami, dobijaju potvrdu i podsjetnik automatski. Ordinacija je punija nego ikad, a ja sam konačno samo doktor — ne i recepcionar.'
+  },
+  {
+    ime: 'Lejla Č.',
+    biznis: 'Kozmetički salon',
+    grad: 'Mostar',
+    ikona: '💅',
+    tekst: 'Postavila sam sve za 5 minuta i stavila link u Instagram bio. Iste večeri sam dobila 3 rezervacije — dok sam spavala. Klijentice kažu da im je lakše nego ikad. Meni je lakše nego ikad. Ne znam zašto nisam počela ranije.'
+  },
+  {
+    ime: 'Haris B.',
+    biznis: 'Lični trener',
+    grad: 'Sarajevo',
+    ikona: '💪',
+    tekst: 'Imao sam problem sa klijentima koji zakazuju pa ne dođu. Otkad koristim termini.pro i automatske podsjetnike — nedolasci su pali za više od pola. Loyalty program je bonus koji nisam očekivao — klijenti sami pitaju koliko bodova imaju i kada mogu iskoristiti popust. To je motivacija da dolaze redovnije.'
+  },
+  {
+    ime: 'Elvir G.',
+    biznis: 'Frizerski salon',
+    grad: 'Ilidža',
+    ikona: '✂️',
+    tekst: 'Frizer sam 18 godina i uvijek sam mislio da su poruke i pozivi jednostavno dio posla. termini.pro mi je pokazao da ne mora biti tako. Sada se fokusiram na rad, a ne na telefon. Klijenti zakazuju sami i dolaze. Tako jednostavno.'
+  },
+];
 
   const starterFeatures = [
     'Neograničeni termini i klijenti',
