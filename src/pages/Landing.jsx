@@ -612,7 +612,55 @@ export default function Landing() {
           </div>
         </div>
       </section>
-
+{/* Garancija */}
+<section style={{ padding: mob ? '40px 1.5rem' : '56px 2rem', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+  <div style={{ maxWidth: '700px', margin: '0 auto' }}>
+    <div style={{
+      background: 'rgba(74,222,128,0.05)',
+      border: '2px solid rgba(74,222,128,0.2)',
+      borderRadius: '20px', padding: mob ? '28px' : '40px',
+      textAlign: 'center', position: 'relative', overflow: 'hidden'
+    }}>
+      <div style={{
+        position: 'absolute', inset: 0, zIndex: 0,
+        background: 'radial-gradient(ellipse 80% 60% at 50% 100%, rgba(74,222,128,0.08) 0%, transparent 70%)',
+        pointerEvents: 'none'
+      }} />
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        <div style={{ fontSize: '48px', marginBottom: '16px' }}>🛡️</div>
+        <h2 style={{ fontSize: mob ? '22px' : '28px', fontWeight: '700', color: '#f0f4ff', marginBottom: '16px' }}>
+          14 dana — potpuno besplatno.<br />
+          <span style={{ color: '#4ade80' }}>Bez ikakvog rizika.</span>
+        </h2>
+        <p style={{ fontSize: '16px', color: '#8b9ec7', lineHeight: '1.8', marginBottom: '28px', maxWidth: '500px', margin: '0 auto 28px' }}>
+          Probajte termini.pro 14 dana bez kartice i bez obaveza. Ako odlučite da nije za vas — jednostavno ne nastavite. Nema naplaćivanja, nema ugovora, nema komplikacija.
+        </p>
+        <div style={{ display: 'grid', gridTemplateColumns: mob ? '1fr' : 'repeat(3, 1fr)', gap: '12px', marginBottom: '28px' }}>
+          {[
+            { icon: '💳', tekst: 'Bez kreditne kartice' },
+            { icon: '📄', tekst: 'Bez ugovora' },
+            { icon: '🚪', tekst: 'Otkaži kad god želiš' },
+          ].map((g, i) => (
+            <div key={i} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '14px', display: 'flex', alignItems: 'center', gap: '10px', justifyContent: 'center' }}>
+              <span style={{ fontSize: '20px' }}>{g.icon}</span>
+              <span style={{ fontSize: '13px', fontWeight: '600', color: '#c8d0e8' }}>{g.tekst}</span>
+            </div>
+          ))}
+        </div>
+        <button onClick={() => navigate('/register')} style={{
+          background: '#16a34a', color: 'white', border: 'none',
+          borderRadius: '12px', padding: '16px 40px', fontSize: '16px',
+          fontWeight: '700', cursor: 'pointer', fontFamily: 'Inter, sans-serif'
+        }}>
+          Počni besplatno danas →
+        </button>
+        <p style={{ fontSize: '12px', color: '#4a5a7a', marginTop: '12px' }}>
+          Više od 90% korisnika ostaje i nakon triala.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
       {/* FAQ */}
       <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ maxWidth: '700px', margin: '0 auto' }}>
