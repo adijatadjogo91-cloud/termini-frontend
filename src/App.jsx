@@ -20,6 +20,7 @@ import Uposlenici from './pages/Uposlenici'
 import TermsAndConditions from './pages/TermsAndConditions'
 import { BlogLista, BlogClanak } from './pages/Blog'
 import Akcije from './pages/Akcije'
+import Uputstvo from './pages/Uputstvo'
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
         <Route path="/blog" element={<BlogLista />} />
 <Route path="/blog/:slug" element={<BlogClanak />} />
 <Route path="/akcije" element={<Akcije />} />
+<Route path="/uputstvo" element={<Uputstvo />} />
       </Routes>
     </BrowserRouter>
   )
