@@ -100,12 +100,21 @@ export default function Landing() {
   };
 
   const features = [
-    { icon: '📅', title: 'Online booking 24/7', opis: 'Klijenti zakazuju sami u bilo koje doba dana. Bez telefoniranja, bez čekanja.' },
-    { icon: '👥', title: 'Baza klijenata', opis: 'Evidencija svih klijenata sa historijom posjeta i kontakt informacijama.' },
+  { icon: '📅', title: 'Online booking 24/7', opis: 'Klijenti zakazuju sami u bilo koje doba dana. Bez telefoniranja, bez čekanja.' },
+  { icon: '🧑‍🤝‍🧑', title: 'Baza klijenata', opis: 'Evidencija svih klijenata sa historijom posjeta i kontakt informacijama.' },
     { icon: '📧', title: 'Automatski podsjetnici', opis: 'Email podsjetnici dan prije termina. Drastično manje otkaza!' },
     { icon: '💰', title: 'Praćenje prihoda', opis: 'Prihodi po danu, sedmici i mjesecu. Uvijek znate gdje stojite.' },
     { icon: '🔒', title: 'Vlastiti brend', opis: 'Vaša privatna booking stranica. Bez konkurencije pored vas.' },
-    { icon: '✨', title: 'AI asistent za rast', opis: 'Svaki dan dobijete konkretan savjet za rast prihoda. Plus AI chatbot na vašoj booking stranici prima rezervacije automatski.' },
+    { 
+  icon: null,
+  svg: (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ade80" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </svg>
+  ),
+  title: 'AI asistent za rast', 
+  opis: 'Svaki dan dobijete konkretan savjet za rast prihoda. Plus AI chatbot na vašoj booking stranici prima rezervacije automatski.' 
+},
   ];
 
   const nise = [
@@ -447,8 +456,16 @@ export default function Landing() {
           <p style={styles.sectionSub}>Jednostavno. Pouzdano. Napravljeno za BiH.</p>
           <div style={{ display: 'grid', gridTemplateColumns: mob ? '1fr' : 'repeat(3, 1fr)', gap: '16px' }}>
             {features.map((f, i) => (
-              <div key={i} style={styles.featCard}>
-                <div style={{ fontSize: '28px', marginBottom: '14px' }}>{f.icon}</div>
+  <div key={i} style={styles.featCard}>
+    <div style={{ marginBottom: '14px' }}>
+      {f.svg ? (
+        <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'rgba(74,222,128,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          {f.svg}
+        </div>
+      ) : (
+        <div style={{ fontSize: '28px' }}>{f.icon}</div>
+      )}
+    </div>
                 <h3 style={styles.featH3}>{f.title}</h3>
                 <p style={styles.featP}>{f.opis}</p>
               </div>
@@ -465,7 +482,7 @@ export default function Landing() {
           <div style={{ display: 'grid', gridTemplateColumns: mob ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)', gap: '12px' }}>
             {[
               { icon: '📅', label: 'Neograničeni termini' },
-              { icon: '👥', label: 'Neograničeni klijenti' },
+            { icon: '🧑‍🤝‍🧑', label: 'Neograničeni klijenti' },
               { icon: '📋', label: 'Neograničene usluge' },
               { icon: '🧑‍💼', label: 'Neograničeni uposlenici' },
             ].map((item, i) => (
