@@ -19,6 +19,7 @@ import Booking from './pages/Booking'
 import Uposlenici from './pages/Uposlenici'
 import TermsAndConditions from './pages/TermsAndConditions'
 import { BlogLista, BlogClanak } from './pages/Blog'
+import Akcije from './pages/Akcije'
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
         <Route path="/privatnost" element={<Privatnost />} />
         <Route path="/blog" element={<BlogLista />} />
 <Route path="/blog/:slug" element={<BlogClanak />} />
+<Route path="/akcije" element={<Akcije />} />
       </Routes>
     </BrowserRouter>
   )
