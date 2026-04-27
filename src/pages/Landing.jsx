@@ -633,30 +633,31 @@ export default function Landing() {
   </div>
   <p style={{ fontSize: '12px', fontWeight: '600', color: '#818cf8', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '8px' }}>Lifetime</p>
   <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '4px' }}>
-    <span style={{ fontSize: '40px', fontWeight: '700', color: '#f0f4ff' }}>1.990</span>
+   <span style={{ fontSize: '40px', fontWeight: '700', color: '#f0f4ff' }}>2.490</span>
     <span style={{ fontSize: '20px', fontWeight: '600', color: '#c8d0e8' }}>KM</span>
     <span style={{ fontSize: '13px', color: '#6b7fa3' }}>/jednom</span>
   </div>
-  <p style={{ fontSize: '12px', color: '#4ade80', marginBottom: '4px' }}>Uštedite 1.438 KM vs mjesečna pretplata!</p>
-  <p style={{ fontSize: '12px', color: '#6b7fa3', marginBottom: '24px' }}>Platite jednom — koristite zauvijek. Bez pretplate.</p>
+  <p style={{ fontSize: '12px', color: '#4ade80', marginBottom: '4px' }}>Ekvivalent 21 mjeseca Premium pretplate — zauvijek!</p>
+<p style={{ fontSize: '12px', color: '#6b7fa3', marginBottom: '24px' }}>Platite jednom — koristite zauvijek. Sa ugovorom i garancijom.</p>
   <div style={{ marginBottom: '28px' }}>
     {[
-      'Sve iz Premium plana',
-      'Doživotni pristup — bez pretplate',
-      'Sve buduće nadogradnje besplatno',
-      'Prioritetna podrška zauvijek',
-      'Idealno za etablirane biznise',
-    ].map((s, i) => <div key={i} style={styles.pf}><div style={styles.pfDot} />{s}</div>)}
+  'Sve iz Premium plana — uključujući WhatsApp',
+  'Doživotni pristup — bez ikakve pretplate',
+  'Sve buduće nadogradnje besplatno',
+  'Prioritetna podrška zauvijek',
+  'Ugovor koji garantuje pristup',
+  'Aktivacija u roku 24h',
+].map((s, i) => <div key={i} style={styles.pf}><div style={styles.pfDot} />{s}</div>)}
   </div>
-  <a href="mailto:info@termini.pro?subject=Lifetime plan&body=Zainteresovan/a sam za Lifetime plan." style={{
-    display: 'block', textAlign: 'center',
-    background: '#6366f1', color: 'white', border: 'none',
-    borderRadius: '10px', padding: '13px', fontSize: '14px',
-    fontWeight: '600', cursor: 'pointer', textDecoration: 'none',
-    fontFamily: 'Inter, sans-serif'
-  }}>
-    Kontaktiraj nas →
-  </a>
+  <a href="mailto:info@termini.pro?subject=Lifetime plan 2.490 KM&body=Zdravo,%0A%0AZainteresovan/a sam za Lifetime plan. Molim vas kontaktirajte me.%0A%0AIme biznisa:%0ATelefon:" style={{
+  display: 'block', textAlign: 'center',
+  background: '#6366f1', color: 'white', border: 'none',
+  borderRadius: '10px', padding: '13px', fontSize: '14px',
+  fontWeight: '600', cursor: 'pointer', textDecoration: 'none',
+  fontFamily: 'Inter, sans-serif'
+}}>
+  📧 Zatraži ponudu →
+</a>
 </div>
           </div>
         </div>
