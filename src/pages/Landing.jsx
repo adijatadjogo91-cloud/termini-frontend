@@ -118,16 +118,15 @@ export default function Landing() {
   ];
 
   const nise = [
-    { icon: '🦷', naziv: 'Stomatolozi', opis: 'Zakazivanje bez telefoniranja' },
-    { icon: '👩‍⚕️', naziv: 'Ginekolozi', opis: 'Diskretno i jednostavno' },
-    { icon: '🧘', naziv: 'Fizioterapeuti', opis: 'Redovni termini, manje otkaza' },
-    { icon: '🧠', naziv: 'Psiholozi', opis: 'Privatna booking stranica' },
-    { icon: '🎨', naziv: 'Tattoo studiji', opis: 'Mladi klijenti zakazuju online' },
-    { icon: '💪', naziv: 'Lični treneri', opis: 'Upravljanje svim klijentima' },
-    { icon: '✂️', naziv: 'Frizeri', opis: 'Vlastiti brend, ne platforme' },
-    { icon: '💅', naziv: 'Kozmetičari', opis: 'Galerija radova + booking' },
-  ];
-
+  { icon: '🦷', naziv: 'Stomatolozi', opis: 'Pacijenti zakazuju sami — telefon više ne zvoni' },
+  { icon: '👩‍⚕️', naziv: 'Ginekolozi', opis: 'Diskretno zakazivanje — bez čekanja na liniji' },
+  { icon: '🧠', naziv: 'Psiholozi', opis: 'Privatna stranica — povjerljivost garantovana' },
+  { icon: '🧘', naziv: 'Fizioterapeuti', opis: 'Redovni termini — automatski podsjetnici' },
+  { icon: '💉', naziv: 'Estetska medicina', opis: 'Premium klijenti zakazuju online 24/7' },
+  { icon: '👶', naziv: 'Pedijatri', opis: 'Zabrinuti roditelji zakazuju odmah' },
+  { icon: '🔬', naziv: 'Dijagnostika', opis: 'Bez gužve na telefonu — termin za minute' },
+  { icon: '🐾', naziv: 'Veterinari', opis: 'Vlasnici ljubimaca zakazuju online' },
+];
   const painPoints = [
     { problem: 'Telefon zvoni dok ste s klijentom', rjesenje: 'Klijenti zakazuju sami online — 24/7' },
     { problem: 'Dvostruko zakazivanje i zabune', rjesenje: 'Automatska provjera slobodnih termina' },
@@ -368,8 +367,8 @@ export default function Landing() {
       {/* Za koga */}
       <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', background: 'rgba(255,255,255,0.02)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
-          <h2 style={styles.sectionTitle}>Za sve koji rade s klijentima</h2>
-          <p style={styles.sectionSub}>Medicinska struka, wellness, ljepota — termini.pro se prilagođava vašem biznisu.</p>
+          <h2 style={styles.sectionTitle}>Za medicinske i wellness profesionalce</h2>
+<p style={styles.sectionSub}>Svaki dan pacijenti ne mogu dočekati da im neko digne telefon. termini.pro to mijenja.</p>
           <div style={{ display: 'grid', gridTemplateColumns: mob ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)', gap: '12px' }}>
             {nise.map((n, i) => (
               <div key={i} style={{
