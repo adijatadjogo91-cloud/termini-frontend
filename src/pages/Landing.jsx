@@ -580,7 +580,45 @@ export default function Landing() {
           </div>
         </div>
       </section>
-
+{/* Demo poziv CTA */}
+<section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', background: 'rgba(255,255,255,0.02)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+  <div style={{ maxWidth: '700px', margin: '0 auto', textAlign: 'center' }}>
+    <div style={{ display: 'inline-block', background: 'rgba(74,222,128,0.12)', color: '#4ade80', border: '1px solid rgba(74,222,128,0.25)', padding: '4px 14px', borderRadius: '20px', fontSize: '12px', fontWeight: '500', marginBottom: '20px' }}>
+      Besplatno · 15 minuta · Bez obaveza
+    </div>
+    <h2 style={{ fontSize: mob ? '24px' : '32px', fontWeight: '700', color: '#f0f4ff', marginBottom: '16px', lineHeight: '1.3' }}>
+      Niste sigurni da li je termini.pro za vas?<br />
+      <span style={{ color: '#4ade80' }}>Zakažite besplatni demo poziv.</span>
+    </h2>
+    <p style={{ fontSize: '16px', color: '#8b9ec7', lineHeight: '1.8', marginBottom: '32px', maxWidth: '500px', margin: '0 auto 32px' }}>
+      Za 15 minuta pokazujemo kako termini.pro radi za vaš specifičan biznis — stomatologiju, frizerski salon, fizioterapiju ili bilo koju drugu djelatnost. Bez PowerPoint prezentacija. Samo živi demo.
+    </p>
+    <div style={{ display: 'grid', gridTemplateColumns: mob ? '1fr' : 'repeat(3, 1fr)', gap: '12px', marginBottom: '32px' }}>
+      {[
+        { icon: '📅', tekst: '15 minuta vašeg vremena' },
+        { icon: '🎯', tekst: 'Prilagođeno vašoj niši' },
+        { icon: '💬', tekst: 'Odgovaramo na sva pitanja' },
+      ].map((d, i) => (
+        <div key={i} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '14px', display: 'flex', alignItems: 'center', gap: '10px', justifyContent: 'center' }}>
+          <span style={{ fontSize: '20px' }}>{d.icon}</span>
+          <span style={{ fontSize: '13px', color: '#c8d0e8', fontWeight: '500' }}>{d.tekst}</span>
+        </div>
+      ))}
+    </div>
+    <a href="mailto:info@termini.pro?subject=Demo poziv&body=Zdravo,%0A%0AŽelim zakazati besplatni demo poziv.%0A%0ANaziv biznisa:%0ATelefon:%0ANajbolje vrijeme za poziv:" style={{
+      display: 'inline-block',
+      background: '#16a34a', color: 'white',
+      borderRadius: '12px', padding: '16px 40px',
+      fontSize: '16px', fontWeight: '700',
+      textDecoration: 'none', fontFamily: 'Inter, sans-serif'
+    }}>
+      📅 Zakaži besplatni demo →
+    </a>
+    <p style={{ fontSize: '12px', color: '#4a5a7a', marginTop: '12px' }}>
+      Odgovaramo u roku 2 sata radnim danima
+    </p>
+  </div>
+</section>
       {/* Cijene */}
       <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', background: 'rgba(255,255,255,0.02)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ maxWidth: '860px', margin: '0 auto' }}>
