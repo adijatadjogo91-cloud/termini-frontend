@@ -57,10 +57,18 @@ text: 'Usluga se naplaćuje mjesečno u iznosu od 59 KM (Starter plan) ili 119 K
             title: '7. Izmjene uvjeta',
             text: 'Zadržavamo pravo izmjene ovih uvjeta. O značajnim izmjenama obavijestit ćemo korisnike putem emaila najmanje 14 dana unaprijed.'
           },
-          {
-            title: '8. Kontakt',
-            text: 'Za sva pitanja vezana za uvjete korištenja možete nas kontaktirati na: info@termini.pro'
-          },
+            {
+  title: '8. Lifetime plan — posebni uslovi',
+  text: 'Lifetime plan garantuje pristup platformi termini.pro dok kompanija aktivno posluje. U slučaju prestanka rada platforme, korisnici Lifetime plana bit će obaviješteni najmanje 24 mjeseca unaprijed, ili će im biti ponuđen proporcionalni povrat sredstava za neiskorišteni period. Lifetime plan uključuje sve funkcionalnosti Premium plana, uključujući buduće nadogradnje, bez dodatnih troškova. Aktivacija se vrši u roku 24 sata od potvrde uplate. Svaki Lifetime korisnik dobija potpisani ugovor koji reguliše međusobna prava i obaveze.'
+},
+{
+  title: '9. Povrat sredstava',
+  text: 'Za mjesečne i godišnje pretplate: povrat nije moguć nakon što je period plaćanja počeo, ali možete otkazati pretplatu u bilo kom trenutku i nastaviti koristiti uslugu do kraja plaćenog perioda. Za Lifetime plan: povrat sredstava je moguć u roku 30 dana od aktivacije ako niste zadovoljni uslugom, bez pitanja. Nakon 30 dana, Lifetime plan je nepovratan.'
+},
+{
+  title: '10. Kontakt',
+  text: 'Za sva pitanja vezana za uvjete korištenja možete nas kontaktirati na: info@termini.pro'
+},
         ].map((s, i) => (
           <div key={i} style={{ marginBottom: '2rem' }}>
             <h2 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '8px', color: '#1a1a1a' }}>{s.title}</h2>
