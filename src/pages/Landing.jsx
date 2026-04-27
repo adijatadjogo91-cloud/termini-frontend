@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 
 export default function Landing() {
   const navigate = useNavigate();
-  const zanimanja = ['stomatologe', 'ginekologe', 'fizioterapeute', 'psihologe', 'tattoo studije', 'lične trenere', 'frizere', 'kozmetičare', 'terapeute'];
+  const zanimanja = ['stomatologe', 'ginekologe', 'fizioterapeute', 'psihologe', 'pedijatre', 'veterinare', 'frizere', 'kozmetičare', 'estetske medicine'];
   const [trenutnoZanimanje, setTrenutnoZanimanje] = useState(0);
   const [sirina, setSirina] = useState(window.innerWidth);
   const [otvorenFaq, setOtvorenFaq] = useState(null);
@@ -100,33 +100,34 @@ export default function Landing() {
   };
 
   const features = [
-  { icon: '📅', title: 'Online booking 24/7', opis: 'Klijenti zakazuju sami u bilo koje doba dana. Bez telefoniranja, bez čekanja.' },
-  { icon: '🧑‍🤝‍🧑', title: 'Baza klijenata', opis: 'Evidencija svih klijenata sa historijom posjeta i kontakt informacijama.' },
+    { icon: '📅', title: 'Online booking 24/7', opis: 'Klijenti zakazuju sami u bilo koje doba dana. Bez telefoniranja, bez čekanja.' },
+    { icon: '🧑‍🤝‍🧑', title: 'Baza klijenata', opis: 'Evidencija svih klijenata sa historijom posjeta i kontakt informacijama.' },
     { icon: '📧', title: 'Automatski podsjetnici', opis: 'Email podsjetnici dan prije termina. Drastično manje otkaza!' },
     { icon: '💰', title: 'Praćenje prihoda', opis: 'Prihodi po danu, sedmici i mjesecu. Uvijek znate gdje stojite.' },
     { icon: '🔒', title: 'Vlastiti brend', opis: 'Vaša privatna booking stranica. Bez konkurencije pored vas.' },
-    { 
-  icon: null,
-  svg: (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ade80" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-    </svg>
-  ),
-  title: 'AI asistent za rast', 
-  opis: 'Svaki dan dobijete konkretan savjet za rast prihoda. Plus AI chatbot na vašoj booking stranici prima rezervacije automatski.' 
-},
+    {
+      icon: null,
+      svg: (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ade80" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+      ),
+      title: 'AI asistent za rast',
+      opis: 'Svaki dan dobijete konkretan savjet za rast prihoda. Plus AI chatbot na vašoj booking stranici prima rezervacije automatski.'
+    },
   ];
 
   const nise = [
-  { icon: '🦷', naziv: 'Stomatolozi', opis: 'Pacijenti zakazuju sami — telefon više ne zvoni' },
-  { icon: '👩‍⚕️', naziv: 'Ginekolozi', opis: 'Diskretno zakazivanje — bez čekanja na liniji' },
-  { icon: '🧠', naziv: 'Psiholozi', opis: 'Privatna stranica — povjerljivost garantovana' },
-  { icon: '🧘', naziv: 'Fizioterapeuti', opis: 'Redovni termini — automatski podsjetnici' },
-  { icon: '💉', naziv: 'Estetska medicina', opis: 'Premium klijenti zakazuju online 24/7' },
-  { icon: '👶', naziv: 'Pedijatri', opis: 'Zabrinuti roditelji zakazuju odmah' },
-  { icon: '🔬', naziv: 'Dijagnostika', opis: 'Bez gužve na telefonu — termin za minute' },
-  { icon: '🐾', naziv: 'Veterinari', opis: 'Vlasnici ljubimaca zakazuju online' },
-];
+    { icon: '🦷', naziv: 'Stomatolozi', opis: 'Pacijenti zakazuju sami — telefon više ne zvoni' },
+    { icon: '👩‍⚕️', naziv: 'Ginekolozi', opis: 'Diskretno zakazivanje — bez čekanja na liniji' },
+    { icon: '🧠', naziv: 'Psiholozi', opis: 'Privatna stranica — povjerljivost garantovana' },
+    { icon: '🧘', naziv: 'Fizioterapeuti', opis: 'Redovni termini — automatski podsjetnici' },
+    { icon: '💉', naziv: 'Estetska medicina', opis: 'Premium klijenti zakazuju online 24/7' },
+    { icon: '👶', naziv: 'Pedijatri', opis: 'Zabrinuti roditelji zakazuju odmah' },
+    { icon: '🔬', naziv: 'Dijagnostika', opis: 'Bez gužve na telefonu — termin za minute' },
+    { icon: '🐾', naziv: 'Veterinari', opis: 'Vlasnici ljubimaca zakazuju online' },
+  ];
+
   const painPoints = [
     { problem: 'Telefon zvoni dok ste s klijentom', rjesenje: 'Klijenti zakazuju sami online — 24/7' },
     { problem: 'Dvostruko zakazivanje i zabune', rjesenje: 'Automatska provjera slobodnih termina' },
@@ -135,35 +136,35 @@ export default function Landing() {
   ];
 
   const testimonijali = [
-  {
-    ime: 'Dr. Amra H.',
-    biznis: 'Stomatološka ordinacija',
-    grad: 'Sarajevo',
-    ikona: '🦷',
-    tekst: 'Ranije sam između dva pacijenta odgovarala na poruke i pozive — i ni pacijentu ni sebi nisam bila potpuno prisutna. Danas se pacijenti zakazuju sami, dobijaju potvrdu i podsjetnik automatski. Ordinacija je punija nego ikad, a ja sam konačno samo doktor — ne i recepcionar.'
-  },
-  {
-    ime: 'Lejla Č.',
-    biznis: 'Kozmetički salon',
-    grad: 'Mostar',
-    ikona: '💅',
-    tekst: 'Postavila sam sve za 5 minuta i stavila link u Instagram bio. Iste večeri sam dobila 3 rezervacije — dok sam spavala. Klijentice kažu da im je lakše nego ikad. Meni je lakše nego ikad. Ne znam zašto nisam počela ranije.'
-  },
-  {
-    ime: 'Haris B.',
-    biznis: 'Lični trener',
-    grad: 'Sarajevo',
-    ikona: '💪',
-    tekst: 'Imao sam problem sa klijentima koji zakazuju pa ne dođu. Otkad koristim termini.pro i automatske podsjetnike — nedolasci su pali za više od pola. Loyalty program je bonus koji nisam očekivao — klijenti sami pitaju koliko bodova imaju i kada mogu iskoristiti popust. To je motivacija da dolaze redovnije.'
-  },
-  {
-    ime: 'Elvir G.',
-    biznis: 'Frizerski salon',
-    grad: 'Ilidža',
-    ikona: '✂️',
-    tekst: 'Frizer sam 18 godina i uvijek sam mislio da su poruke i pozivi jednostavno dio posla. termini.pro mi je pokazao da ne mora biti tako. Sada se fokusiram na rad, a ne na telefon. Klijenti zakazuju sami i dolaze. Tako jednostavno.'
-  },
-];
+    {
+      ime: 'Dr. Amra H.',
+      biznis: 'Stomatološka ordinacija',
+      grad: 'Sarajevo',
+      ikona: '🦷',
+      tekst: 'Ranije sam između dva pacijenta odgovarala na poruke i pozive — i ni pacijentu ni sebi nisam bila potpuno prisutna. Danas se pacijenti zakazuju sami, dobijaju potvrdu i podsjetnik automatski. Ordinacija je punija nego ikad, a ja sam konačno samo doktor — ne i recepcionar.'
+    },
+    {
+      ime: 'Lejla Č.',
+      biznis: 'Kozmetički salon',
+      grad: 'Mostar',
+      ikona: '💅',
+      tekst: 'Postavila sam sve za 5 minuta i stavila link u Instagram bio. Iste večeri sam dobila 3 rezervacije — dok sam spavala. Klijentice kažu da im je lakše nego ikad. Meni je lakše nego ikad. Ne znam zašto nisam počela ranije.'
+    },
+    {
+      ime: 'Haris B.',
+      biznis: 'Lični trener',
+      grad: 'Sarajevo',
+      ikona: '💪',
+      tekst: 'Imao sam problem sa klijentima koji zakazuju pa ne dođu. Otkad koristim termini.pro i automatske podsjetnike — nedolasci su pali za više od pola. Loyalty program je bonus koji nisam očekivao — klijenti sami pitaju koliko bodova imaju i kada mogu iskoristiti popust.'
+    },
+    {
+      ime: 'Elvir G.',
+      biznis: 'Frizerski salon',
+      grad: 'Ilidža',
+      ikona: '✂️',
+      tekst: 'Frizer sam 18 godina i uvijek sam mislio da su poruke i pozivi jednostavno dio posla. termini.pro mi je pokazao da ne mora biti tako. Sada se fokusiram na rad, a ne na telefon. Klijenti zakazuju sami i dolaze. Tako jednostavno.'
+    },
+  ];
 
   const starterFeatures = [
     'Neograničeni termini i klijenti',
@@ -194,6 +195,7 @@ export default function Landing() {
     { pitanje: 'Je li sigurno za medicinske ordinacije?', odgovor: 'Da. termini.pro je GDPR usklađen — podaci pacijenata su zaštićeni i dostupni samo vama. Svaki klijent daje pisani pristanak pri zakazivanju. Niko drugi ne vidi podatke vaših pacijenata.' },
     { pitanje: 'Šta se desi nakon 14 dana besplatnog triala?', odgovor: 'Dobijate obavijest da trial ističe. Možete odabrati plan koji vam odgovara. Nema automatskog naplaćivanja bez vaše potvrde. Ako ne nastavite — ne plaćate ništa.' },
     { pitanje: 'Postoje li limiti na broj termina ili klijenata?', odgovor: 'Ne! termini.pro nema nikakvih limita — neograničeni termini, neograničeni klijenti, neograničene usluge. Plaćate fiksnu cijenu bez obzira na obim posla.' },
+    { pitanje: 'Radi li termini.pro i za frizere i kozmetičare?', odgovor: 'Da! termini.pro koriste i frizerski saloni i kozmetičari diljem BiH. Platforma se prilagođava svakom uslužnom biznisu — bez obzira na djelatnost. Ako zakazujete termine sa klijentima, termini.pro radi za vas.' },
   ];
 
   const kakoRadiKoraci = [
@@ -236,6 +238,38 @@ export default function Landing() {
     },
   ];
 
+  const zastoKartice = [
+    {
+      icon: '🔒',
+      svg: null,
+      title: 'Privatnost',
+      opis: 'Vaša stranica — bez konkurencije pored vas. Idealno za medicinsku struku.'
+    },
+    {
+      icon: '🎨',
+      svg: null,
+      title: 'Vlastiti brend',
+      opis: 'Logo, opis, galerija radova. Sve prilagođeno vašem biznisu.'
+    },
+    {
+      icon: null,
+      svg: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4ade80" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
+          <polyline points="16 7 22 7 22 13"/>
+        </svg>
+      ),
+      title: 'AI savjetnik za prihode',
+      opis: 'Ne samo zakazivanje — AI analizira vaše prihode i svaki dan predlaže konkretne akcije za rast.'
+    },
+    {
+      icon: '📊',
+      svg: null,
+      title: 'Potpuna kontrola',
+      opis: 'Dashboard, prihodi, klijenti — sve na jednom mjestu.'
+    },
+  ];
+
   return (
     <div style={styles.land}>
 
@@ -266,26 +300,25 @@ export default function Landing() {
             {' '}i sve uslužne djelatnosti.
           </p>
           <div style={styles.heroBtns}>
-  <button onClick={() => navigate('/register')} style={styles.btnPrimary}>
-    Postavi biznis besplatno →
-  </button>
-  <button onClick={() => window.open('/booking/salon-lazic-yqz7', '_blank')} style={styles.btnSecondary}>
-    👀 Pogledaj demo
-  </button>
-</div>
+            <button onClick={() => navigate('/register')} style={styles.btnPrimary}>
+              Postavi biznis besplatno →
+            </button>
+            <button onClick={() => window.open('/#/booking/salon-lazic-yqz7', '_blank')} style={styles.btnSecondary}>
+              👀 Pogledaj demo
+            </button>
+          </div>
           <p style={{ fontSize: '12px', color: '#4a5a7a', marginTop: '16px' }}>
             ✓ Bez kartice &nbsp;&nbsp; ✓ Bez limita &nbsp;&nbsp; ✓ Otkaži kad god želiš
           </p>
         </div>
       </section>
-{/* Chat haos sekcija */}
+
+      {/* Chat haos sekcija */}
       <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto' }}>
           <h2 style={styles.sectionTitle}>Prepoznajete li ovo?</h2>
           <p style={styles.sectionSub}>Svaki dan stotinu BiH biznisa gubi klijente na isti način.</p>
           <div style={{ display: 'grid', gridTemplateColumns: mob ? '1fr' : '1fr 1fr', gap: '32px', alignItems: 'center' }}>
-
-            {/* Chat simulacija */}
             <div style={{ background: '#111827', borderRadius: '20px', padding: '20px', border: '1px solid rgba(255,255,255,0.08)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px', paddingBottom: '12px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
                 <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: 'rgba(74,222,128,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px' }}>🦷</div>
@@ -295,12 +328,12 @@ export default function Landing() {
                 </div>
               </div>
               {[
-               { od: 'klijent', tekst: 'Zdravo, mogu li zakazati pregled za sutra?' },
-{ od: 'doktor', tekst: 'Sutra u 10h je zauzeto. Može li u 14h?' },
-{ od: 'klijent', tekst: 'Ne mogu u 14h. Ima li nešto u 11h?' },
-{ od: 'doktor', tekst: 'Sačekajte da provjerim...' },
-{ od: 'doktor', tekst: 'Nažalost, 11h je također zauzeto 😔' },
-{ od: 'klijent', tekst: 'U redu, nazvaću drugu ordinaciju.' },
+                { od: 'klijent', tekst: 'Zdravo, mogu li zakazati pregled za sutra?' },
+                { od: 'doktor', tekst: 'Sutra u 10h je zauzeto. Može li u 14h?' },
+                { od: 'klijent', tekst: 'Ne mogu u 14h. Ima li nešto u 11h?' },
+                { od: 'doktor', tekst: 'Sačekajte da provjerim...' },
+                { od: 'doktor', tekst: 'Nažalost, 11h je također zauzeto 😔' },
+                { od: 'klijent', tekst: 'U redu, nazvaću drugu ordinaciju.' },
               ].map((p, i) => (
                 <div key={i} style={{ display: 'flex', justifyContent: p.od === 'klijent' ? 'flex-end' : 'flex-start', marginBottom: '8px' }}>
                   <div style={{
@@ -318,8 +351,6 @@ export default function Landing() {
                 <p style={{ fontSize: '11px', color: '#f87171', margin: 0, textAlign: 'center' }}>❌ Pacijent otišao konkurenciji</p>
               </div>
             </div>
-
-            {/* Rješenje */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div style={{ background: 'rgba(74,222,128,0.06)', border: '1px solid rgba(74,222,128,0.2)', borderRadius: '16px', padding: '20px' }}>
                 <p style={{ fontSize: '13px', color: '#4ade80', fontWeight: '600', marginBottom: '8px' }}>✓ Sa termini.pro</p>
@@ -337,18 +368,14 @@ export default function Landing() {
                   <span style={{ fontSize: '13px', color: '#8b9ec7', lineHeight: '1.5' }}>{s.opis}</span>
                 </div>
               ))}
-              <button onClick={() => navigate('/register')} style={{
-                background: '#16a34a', color: 'white', border: 'none',
-                borderRadius: '10px', padding: '13px', fontSize: '14px',
-                fontWeight: '600', cursor: 'pointer', fontFamily: 'Inter, sans-serif'
-              }}>
+              <button onClick={() => navigate('/register')} style={{ background: '#16a34a', color: 'white', border: 'none', borderRadius: '10px', padding: '13px', fontSize: '14px', fontWeight: '600', cursor: 'pointer', fontFamily: 'Inter, sans-serif' }}>
                 Počni besplatno — bez kartice →
               </button>
             </div>
-
           </div>
         </div>
       </section>
+
       {/* Stats bar */}
       <div style={styles.statsBar}>
         {[
@@ -368,22 +395,14 @@ export default function Landing() {
       <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', background: 'rgba(255,255,255,0.02)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
           <h2 style={styles.sectionTitle}>Za medicinske i wellness profesionalce</h2>
-<p style={styles.sectionSub}>Svaki dan pacijenti ne mogu dočekati da im neko digne telefon. termini.pro to mijenja.</p>
+          <p style={styles.sectionSub}>Svaki dan pacijenti ne mogu dočekati da im neko digne telefon. termini.pro to mijenja.</p>
           <div style={{ display: 'grid', gridTemplateColumns: mob ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)', gap: '12px' }}>
             {nise.map((n, i) => (
-              <div key={i} style={{
-                background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)',
-                borderRadius: '14px', padding: '20px 16px', textAlign: 'center', transition: 'all 0.2s'
-              }}
+              <div key={i} style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '14px', padding: '20px 16px', textAlign: 'center', transition: 'all 0.2s' }}
                 onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(74,222,128,0.2)'; e.currentTarget.style.background = 'rgba(74,222,128,0.04)' }}
                 onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'; e.currentTarget.style.background = 'rgba(255,255,255,0.03)' }}
               >
-                <div style={{
-                  width: '44px', height: '44px', borderRadius: '12px',
-                  background: 'rgba(74,222,128,0.08)', border: '1px solid rgba(74,222,128,0.12)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  margin: '0 auto 12px', fontSize: '20px'
-                }}>
+                <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'rgba(74,222,128,0.08)', border: '1px solid rgba(74,222,128,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px', fontSize: '20px' }}>
                   {n.icon}
                 </div>
                 <p style={{ fontSize: '13px', fontWeight: '600', color: '#e2e8f7', marginBottom: '4px', letterSpacing: '-0.01em' }}>{n.naziv}</p>
@@ -401,18 +420,11 @@ export default function Landing() {
           <p style={styles.sectionSub}>Od registracije do prvog termina — za manje od 5 minuta.</p>
           <div style={{ display: 'grid', gridTemplateColumns: mob ? '1fr' : 'repeat(3, 1fr)', gap: '20px' }}>
             {kakoRadiKoraci.map((k, i) => (
-              <div key={i} style={{
-                background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)',
-                borderRadius: '20px', padding: '32px 28px', position: 'relative', transition: 'border-color 0.2s'
-              }}
+              <div key={i} style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '20px', padding: '32px 28px', position: 'relative', transition: 'border-color 0.2s' }}
                 onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(74,222,128,0.25)'}
                 onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'}
               >
-                <div style={{
-                  width: '48px', height: '48px', borderRadius: '14px',
-                  background: 'rgba(74,222,128,0.08)', border: '1px solid rgba(74,222,128,0.15)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px'
-                }}>
+                <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: 'rgba(74,222,128,0.08)', border: '1px solid rgba(74,222,128,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
                   {k.svg}
                 </div>
                 <div style={{ position: 'absolute', top: '24px', right: '24px', fontSize: '11px', fontWeight: '700', color: 'rgba(74,222,128,0.5)', letterSpacing: '0.1em' }}>
@@ -455,16 +467,16 @@ export default function Landing() {
           <p style={styles.sectionSub}>Jednostavno. Pouzdano. Napravljeno za BiH.</p>
           <div style={{ display: 'grid', gridTemplateColumns: mob ? '1fr' : 'repeat(3, 1fr)', gap: '16px' }}>
             {features.map((f, i) => (
-  <div key={i} style={styles.featCard}>
-    <div style={{ marginBottom: '14px' }}>
-      {f.svg ? (
-        <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'rgba(74,222,128,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          {f.svg}
-        </div>
-      ) : (
-        <div style={{ fontSize: '28px' }}>{f.icon}</div>
-      )}
-    </div>
+              <div key={i} style={styles.featCard}>
+                <div style={{ marginBottom: '14px' }}>
+                  {f.svg ? (
+                    <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'rgba(74,222,128,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      {f.svg}
+                    </div>
+                  ) : (
+                    <div style={{ fontSize: '28px' }}>{f.icon}</div>
+                  )}
+                </div>
                 <h3 style={styles.featH3}>{f.title}</h3>
                 <p style={styles.featP}>{f.opis}</p>
               </div>
@@ -481,7 +493,7 @@ export default function Landing() {
           <div style={{ display: 'grid', gridTemplateColumns: mob ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)', gap: '12px' }}>
             {[
               { icon: '📅', label: 'Neograničeni termini' },
-            { icon: '🧑‍🤝‍🧑', label: 'Neograničeni klijenti' },
+              { icon: '🧑‍🤝‍🧑', label: 'Neograničeni klijenti' },
               { icon: '📋', label: 'Neograničene usluge' },
               { icon: '🧑‍💼', label: 'Neograničeni uposlenici' },
             ].map((item, i) => (
@@ -503,14 +515,15 @@ export default function Landing() {
           <h2 style={styles.sectionTitle}>Zašto termini.pro?</h2>
           <p style={styles.sectionSub}>Za razliku od javnih platformi — ovo je vaš prostor.</p>
           <div style={{ display: 'grid', gridTemplateColumns: mob ? '1fr' : '1fr 1fr', gap: '16px', marginTop: '8px' }}>
-            {[
-              { icon: '🔒', title: 'Privatnost', opis: 'Vaša stranica — bez konkurencije pored vas. Idealno za medicinsku struku.' },
-              { icon: '🎨', title: 'Vlastiti brend', opis: 'Logo, opis, galerija radova. Sve prilagođeno vašem biznisu.' },
-              { icon: '✨', title: 'AI savjetnik za prihode', opis: 'Ne samo zakazivanje — AI analizira vaše prihode i svaki dan predlaže konkretne akcije za rast.' },
-              { icon: '📊', title: 'Potpuna kontrola', opis: 'Dashboard, prihodi, klijenti — sve na jednom mjestu.' },
-            ].map((k, i) => (
+            {zastoKartice.map((k, i) => (
               <div key={i} style={{ ...styles.featCard, textAlign: 'left' }}>
-                <p style={{ fontSize: '28px', marginBottom: '10px' }}>{k.icon}</p>
+                {k.svg ? (
+                  <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'rgba(74,222,128,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '10px' }}>
+                    {k.svg}
+                  </div>
+                ) : (
+                  <p style={{ fontSize: '28px', marginBottom: '10px' }}>{k.icon}</p>
+                )}
                 <h3 style={styles.featH3}>{k.title}</h3>
                 <p style={styles.featP}>{k.opis}</p>
               </div>
@@ -579,47 +592,43 @@ export default function Landing() {
           </div>
         </div>
       </section>
-{/* Demo poziv CTA */}
-<section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', background: 'rgba(255,255,255,0.02)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-  <div style={{ maxWidth: '700px', margin: '0 auto', textAlign: 'center' }}>
-    <div style={{ display: 'inline-block', background: 'rgba(74,222,128,0.12)', color: '#4ade80', border: '1px solid rgba(74,222,128,0.25)', padding: '4px 14px', borderRadius: '20px', fontSize: '12px', fontWeight: '500', marginBottom: '20px' }}>
-      Besplatno · 15 minuta · Bez obaveza
-    </div>
-    <h2 style={{ fontSize: mob ? '24px' : '32px', fontWeight: '700', color: '#f0f4ff', marginBottom: '16px', lineHeight: '1.3' }}>
-      Niste sigurni da li je termini.pro za vas?<br />
-      <span style={{ color: '#4ade80' }}>Zakažite besplatni demo poziv.</span>
-    </h2>
-    <p style={{ fontSize: '16px', color: '#8b9ec7', lineHeight: '1.8', marginBottom: '32px', maxWidth: '500px', margin: '0 auto 32px' }}>
-      Za 15 minuta pokazujemo kako termini.pro radi za vaš specifičan biznis — stomatologiju, frizerski salon, fizioterapiju ili bilo koju drugu djelatnost. Bez PowerPoint prezentacija. Samo živi demo.
-    </p>
-    <div style={{ display: 'grid', gridTemplateColumns: mob ? '1fr' : 'repeat(3, 1fr)', gap: '12px', marginBottom: '32px' }}>
-      {[
-        { icon: '📅', tekst: '15 minuta vašeg vremena' },
-        { icon: '🎯', tekst: 'Prilagođeno vašoj niši' },
-        { icon: '💬', tekst: 'Odgovaramo na sva pitanja' },
-      ].map((d, i) => (
-        <div key={i} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '14px', display: 'flex', alignItems: 'center', gap: '10px', justifyContent: 'center' }}>
-          <span style={{ fontSize: '20px' }}>{d.icon}</span>
-          <span style={{ fontSize: '13px', color: '#c8d0e8', fontWeight: '500' }}>{d.tekst}</span>
-        </div>
-      ))}
-    </div>
-    <a href="mailto:info@termini.pro?subject=Demo poziv&body=Zdravo,%0A%0AŽelim zakazati besplatni demo poziv.%0A%0ANaziv biznisa:%0ATelefon:%0ANajbolje vrijeme za poziv:" style={{
-      display: 'inline-block',
-      background: '#16a34a', color: 'white',
-      borderRadius: '12px', padding: '16px 40px',
-      fontSize: '16px', fontWeight: '700',
-      textDecoration: 'none', fontFamily: 'Inter, sans-serif'
-    }}>
-      📅 Zakaži besplatni demo →
-    </a>
-    <p style={{ fontSize: '12px', color: '#4a5a7a', marginTop: '12px' }}>
-      Odgovaramo u roku 2 sata radnim danima
-    </p>
-  </div>
-</section>
-      {/* Cijene */}
+
+      {/* Demo poziv CTA */}
       <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', background: 'rgba(255,255,255,0.02)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+        <div style={{ maxWidth: '700px', margin: '0 auto', textAlign: 'center' }}>
+          <div style={{ display: 'inline-block', background: 'rgba(74,222,128,0.12)', color: '#4ade80', border: '1px solid rgba(74,222,128,0.25)', padding: '4px 14px', borderRadius: '20px', fontSize: '12px', fontWeight: '500', marginBottom: '20px' }}>
+            Besplatno · 15 minuta · Bez obaveza
+          </div>
+          <h2 style={{ fontSize: mob ? '24px' : '32px', fontWeight: '700', color: '#f0f4ff', marginBottom: '16px', lineHeight: '1.3' }}>
+            Niste sigurni da li je termini.pro za vas?<br />
+            <span style={{ color: '#4ade80' }}>Zakažite besplatni demo poziv.</span>
+          </h2>
+          <p style={{ fontSize: '16px', color: '#8b9ec7', lineHeight: '1.8', marginBottom: '32px', maxWidth: '500px', margin: '0 auto 32px' }}>
+            Za 15 minuta pokazujemo kako termini.pro radi za vaš specifičan biznis — stomatologiju, frizerski salon, fizioterapiju ili bilo koju drugu djelatnost. Bez PowerPoint prezentacija. Samo živi demo.
+          </p>
+          <div style={{ display: 'grid', gridTemplateColumns: mob ? '1fr' : 'repeat(3, 1fr)', gap: '12px', marginBottom: '32px' }}>
+            {[
+              { icon: '📅', tekst: '15 minuta vašeg vremena' },
+              { icon: '🎯', tekst: 'Prilagođeno vašoj niši' },
+              { icon: '💬', tekst: 'Odgovaramo na sva pitanja' },
+            ].map((d, i) => (
+              <div key={i} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '14px', display: 'flex', alignItems: 'center', gap: '10px', justifyContent: 'center' }}>
+                <span style={{ fontSize: '20px' }}>{d.icon}</span>
+                <span style={{ fontSize: '13px', color: '#c8d0e8', fontWeight: '500' }}>{d.tekst}</span>
+              </div>
+            ))}
+          </div>
+          <a href="mailto:info@termini.pro?subject=Demo poziv&body=Zdravo,%0A%0AŽelim zakazati besplatni demo poziv.%0A%0ANaziv biznisa:%0ATelefon:%0ANajbolje vrijeme za poziv:" style={{ display: 'inline-block', background: '#16a34a', color: 'white', borderRadius: '12px', padding: '16px 40px', fontSize: '16px', fontWeight: '700', textDecoration: 'none', fontFamily: 'Inter, sans-serif' }}>
+            📅 Zakaži besplatni demo →
+          </a>
+          <p style={{ fontSize: '12px', color: '#4a5a7a', marginTop: '12px' }}>
+            Odgovaramo u roku 2 sata radnim danima
+          </p>
+        </div>
+      </section>
+
+      {/* Cijene */}
+      <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ maxWidth: '860px', margin: '0 auto' }}>
           <h2 style={styles.sectionTitle}>Jednostavne cijene</h2>
           <p style={styles.sectionSub}>Bez skrivenih troškova. Otkaži kad god želiš.</p>
@@ -663,93 +672,77 @@ export default function Landing() {
               </div>
               <button onClick={() => navigate('/register')} style={styles.btnPlan}>Počni besplatno →</button>
             </div>
+
             {/* Lifetime */}
-<div style={{ background: 'rgba(99,102,241,0.05)', border: '1px solid rgba(99,102,241,0.3)', borderRadius: '16px', padding: mob ? '28px' : '36px 32px', textAlign: 'left', position: 'relative', gridColumn: mob ? 'auto' : '1 / -1', maxWidth: mob ? '100%' : '430px', margin: '0 auto' }}>
-  <div style={{ position: 'absolute', top: '-12px', left: '50%', transform: 'translateX(-50%)', background: '#6366f1', color: 'white', fontSize: '11px', fontWeight: '600', padding: '3px 14px', borderRadius: '20px', whiteSpace: 'nowrap' }}>
-    JEDNOM ZAUVIJEK
-  </div>
-  <p style={{ fontSize: '12px', fontWeight: '600', color: '#818cf8', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '8px' }}>Lifetime</p>
-  <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '4px' }}>
-   <span style={{ fontSize: '40px', fontWeight: '700', color: '#f0f4ff' }}>2.490</span>
-    <span style={{ fontSize: '20px', fontWeight: '600', color: '#c8d0e8' }}>KM</span>
-    <span style={{ fontSize: '13px', color: '#6b7fa3' }}>/jednom</span>
-  </div>
-  <p style={{ fontSize: '12px', color: '#4ade80', marginBottom: '4px' }}>Ekvivalent 21 mjeseca Premium pretplate — zauvijek!</p>
-<p style={{ fontSize: '12px', color: '#6b7fa3', marginBottom: '24px' }}>Platite jednom — koristite zauvijek. Sa ugovorom i garancijom.</p>
-  <div style={{ marginBottom: '28px' }}>
-    {[
-  'Sve iz Premium plana — uključujući WhatsApp',
-  'Doživotni pristup — bez ikakve pretplate',
-  'Sve buduće nadogradnje besplatno',
-  'Prioritetna podrška zauvijek',
-  'Ugovor koji garantuje pristup',
-  'Aktivacija u roku 24h',
-].map((s, i) => <div key={i} style={styles.pf}><div style={styles.pfDot} />{s}</div>)}
-  </div>
-  <a href="mailto:info@termini.pro?subject=Lifetime plan 2.490 KM&body=Zdravo,%0A%0AZainteresovan/a sam za Lifetime plan. Molim vas kontaktirajte me.%0A%0AIme biznisa:%0ATelefon:" style={{
-  display: 'block', textAlign: 'center',
-  background: '#6366f1', color: 'white', border: 'none',
-  borderRadius: '10px', padding: '13px', fontSize: '14px',
-  fontWeight: '600', cursor: 'pointer', textDecoration: 'none',
-  fontFamily: 'Inter, sans-serif'
-}}>
-  📧 Zatraži ponudu →
-</a>
-</div>
+            <div style={{ background: 'rgba(99,102,241,0.05)', border: '1px solid rgba(99,102,241,0.3)', borderRadius: '16px', padding: mob ? '28px' : '36px 32px', textAlign: 'left', position: 'relative', gridColumn: mob ? 'auto' : '1 / -1', maxWidth: mob ? '100%' : '430px', margin: '0 auto' }}>
+              <div style={{ position: 'absolute', top: '-12px', left: '50%', transform: 'translateX(-50%)', background: '#6366f1', color: 'white', fontSize: '11px', fontWeight: '600', padding: '3px 14px', borderRadius: '20px', whiteSpace: 'nowrap' }}>
+                JEDNOM ZAUVIJEK
+              </div>
+              <p style={{ fontSize: '12px', fontWeight: '600', color: '#818cf8', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '8px' }}>Lifetime</p>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '4px' }}>
+                <span style={{ fontSize: '40px', fontWeight: '700', color: '#f0f4ff' }}>2.490</span>
+                <span style={{ fontSize: '20px', fontWeight: '600', color: '#c8d0e8' }}>KM</span>
+                <span style={{ fontSize: '13px', color: '#6b7fa3' }}>/jednom</span>
+              </div>
+              <p style={{ fontSize: '12px', color: '#4ade80', marginBottom: '4px' }}>Ekvivalent 21 mjeseca Premium pretplate — zauvijek!</p>
+              <p style={{ fontSize: '12px', color: '#6b7fa3', marginBottom: '24px' }}>Platite jednom — koristite zauvijek. Sa ugovorom i garancijom.</p>
+              <div style={{ marginBottom: '28px' }}>
+                {[
+                  'Sve iz Premium plana — uključujući WhatsApp',
+                  'Doživotni pristup — bez ikakve pretplate',
+                  'Sve buduće nadogradnje besplatno',
+                  'Prioritetna podrška zauvijek',
+                  'Ugovor koji garantuje pristup',
+                  'Aktivacija u roku 24h',
+                ].map((s, i) => <div key={i} style={styles.pf}><div style={styles.pfDot} />{s}</div>)}
+              </div>
+              <a href="mailto:info@termini.pro?subject=Lifetime plan 2.490 KM&body=Zdravo,%0A%0AZainteresovan/a sam za Lifetime plan. Molim vas kontaktirajte me.%0A%0AIme biznisa:%0ATelefon:" style={{ display: 'block', textAlign: 'center', background: '#6366f1', color: 'white', border: 'none', borderRadius: '10px', padding: '13px', fontSize: '14px', fontWeight: '600', cursor: 'pointer', textDecoration: 'none', fontFamily: 'Inter, sans-serif' }}>
+                📧 Zatraži ponudu →
+              </a>
+            </div>
           </div>
         </div>
       </section>
-{/* Garancija */}
-<section style={{ padding: mob ? '40px 1.5rem' : '56px 2rem', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-  <div style={{ maxWidth: '700px', margin: '0 auto' }}>
-    <div style={{
-      background: 'rgba(74,222,128,0.05)',
-      border: '2px solid rgba(74,222,128,0.2)',
-      borderRadius: '20px', padding: mob ? '28px' : '40px',
-      textAlign: 'center', position: 'relative', overflow: 'hidden'
-    }}>
-      <div style={{
-        position: 'absolute', inset: 0, zIndex: 0,
-        background: 'radial-gradient(ellipse 80% 60% at 50% 100%, rgba(74,222,128,0.08) 0%, transparent 70%)',
-        pointerEvents: 'none'
-      }} />
-      <div style={{ position: 'relative', zIndex: 1 }}>
-        <div style={{ fontSize: '48px', marginBottom: '16px' }}>🛡️</div>
-        <h2 style={{ fontSize: mob ? '22px' : '28px', fontWeight: '700', color: '#f0f4ff', marginBottom: '16px' }}>
-          14 dana — potpuno besplatno.<br />
-          <span style={{ color: '#4ade80' }}>Bez ikakvog rizika.</span>
-        </h2>
-        <p style={{ fontSize: '16px', color: '#8b9ec7', lineHeight: '1.8', marginBottom: '28px', maxWidth: '500px', margin: '0 auto 28px' }}>
-          Probajte termini.pro 14 dana bez kartice i bez obaveza. Ako odlučite da nije za vas — jednostavno ne nastavite. Nema naplaćivanja, nema ugovora, nema komplikacija.
-        </p>
-        <div style={{ display: 'grid', gridTemplateColumns: mob ? '1fr' : 'repeat(3, 1fr)', gap: '12px', marginBottom: '28px' }}>
-          {[
-            { icon: '💳', tekst: 'Bez kreditne kartice' },
-            { icon: '📄', tekst: 'Bez ugovora' },
-            { icon: '🚪', tekst: 'Otkaži kad god želiš' },
-          ].map((g, i) => (
-            <div key={i} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '14px', display: 'flex', alignItems: 'center', gap: '10px', justifyContent: 'center' }}>
-              <span style={{ fontSize: '20px' }}>{g.icon}</span>
-              <span style={{ fontSize: '13px', fontWeight: '600', color: '#c8d0e8' }}>{g.tekst}</span>
+
+      {/* Garancija */}
+      <section style={{ padding: mob ? '40px 1.5rem' : '56px 2rem', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+        <div style={{ maxWidth: '700px', margin: '0 auto' }}>
+          <div style={{ background: 'rgba(74,222,128,0.05)', border: '2px solid rgba(74,222,128,0.2)', borderRadius: '20px', padding: mob ? '28px' : '40px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+            <div style={{ position: 'absolute', inset: 0, zIndex: 0, background: 'radial-gradient(ellipse 80% 60% at 50% 100%, rgba(74,222,128,0.08) 0%, transparent 70%)', pointerEvents: 'none' }} />
+            <div style={{ position: 'relative', zIndex: 1 }}>
+              <div style={{ fontSize: '48px', marginBottom: '16px' }}>🛡️</div>
+              <h2 style={{ fontSize: mob ? '22px' : '28px', fontWeight: '700', color: '#f0f4ff', marginBottom: '16px' }}>
+                14 dana — potpuno besplatno.<br />
+                <span style={{ color: '#4ade80' }}>Bez ikakvog rizika.</span>
+              </h2>
+              <p style={{ fontSize: '16px', color: '#8b9ec7', lineHeight: '1.8', marginBottom: '28px', maxWidth: '500px', margin: '0 auto 28px' }}>
+                Probajte termini.pro 14 dana bez kartice i bez obaveza. Ako odlučite da nije za vas — jednostavno ne nastavite. Nema naplaćivanja, nema ugovora, nema komplikacija.
+              </p>
+              <div style={{ display: 'grid', gridTemplateColumns: mob ? '1fr' : 'repeat(3, 1fr)', gap: '12px', marginBottom: '28px' }}>
+                {[
+                  { icon: '💳', tekst: 'Bez kreditne kartice' },
+                  { icon: '📄', tekst: 'Bez ugovora' },
+                  { icon: '🚪', tekst: 'Otkaži kad god želiš' },
+                ].map((g, i) => (
+                  <div key={i} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '14px', display: 'flex', alignItems: 'center', gap: '10px', justifyContent: 'center' }}>
+                    <span style={{ fontSize: '20px' }}>{g.icon}</span>
+                    <span style={{ fontSize: '13px', fontWeight: '600', color: '#c8d0e8' }}>{g.tekst}</span>
+                  </div>
+                ))}
+              </div>
+              <button onClick={() => navigate('/register')} style={{ background: '#16a34a', color: 'white', border: 'none', borderRadius: '12px', padding: '16px 40px', fontSize: '16px', fontWeight: '700', cursor: 'pointer', fontFamily: 'Inter, sans-serif' }}>
+                Počni besplatno danas →
+              </button>
+              <p style={{ fontSize: '12px', color: '#4a5a7a', marginTop: '12px' }}>
+                Više od 90% korisnika ostaje i nakon triala.
+              </p>
             </div>
-          ))}
+          </div>
         </div>
-        <button onClick={() => navigate('/register')} style={{
-          background: '#16a34a', color: 'white', border: 'none',
-          borderRadius: '12px', padding: '16px 40px', fontSize: '16px',
-          fontWeight: '700', cursor: 'pointer', fontFamily: 'Inter, sans-serif'
-        }}>
-          Počni besplatno danas →
-        </button>
-        <p style={{ fontSize: '12px', color: '#4a5a7a', marginTop: '12px' }}>
-          Više od 90% korisnika ostaje i nakon triala.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
+      </section>
+
       {/* FAQ */}
-      <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+      <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', background: 'rgba(255,255,255,0.02)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ maxWidth: '700px', margin: '0 auto' }}>
           <h2 style={styles.sectionTitle}>Često postavljana pitanja</h2>
           <p style={styles.sectionSub}>Sve što trebate znati prije nego počnete.</p>
@@ -772,7 +765,7 @@ export default function Landing() {
       </section>
 
       {/* CTA */}
-      <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', textAlign: 'center', background: 'rgba(255,255,255,0.02)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+      <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', textAlign: 'center', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ maxWidth: '600px', margin: '0 auto' }}>
           <div style={{ fontSize: '48px', marginBottom: '16px' }}>🚀</div>
           <h2 style={{ ...styles.sectionTitle, marginBottom: '16px' }}>Postavite vaš biznis danas</h2>
@@ -845,8 +838,8 @@ export default function Landing() {
                   { label: 'Politika privatnosti', href: '/privatnost' },
                   { label: 'Uslovi korištenja', href: '/terms' },
                 ].map((l, i) => (
-             <span key={i} onClick={() => navigate(l.href)} style={{ fontSize: '13px', color: '#6b7fa3', textDecoration: 'none', cursor: 'pointer' }}>{l.label}</span>
-          ))}
+                  <span key={i} onClick={() => navigate(l.href)} style={{ fontSize: '13px', color: '#6b7fa3', textDecoration: 'none', cursor: 'pointer' }}>{l.label}</span>
+                ))}
               </div>
             </div>
             <div>
