@@ -398,7 +398,7 @@ export default function Landing() {
       <section style={{ padding: mob ? '56px 1.5rem' : '72px 2rem', background: 'rgba(255,255,255,0.02)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
           <h2 style={styles.sectionTitle}>Za medicinske i wellness profesionalce</h2>
-          <p style={styles.sectionSub}>Svaki dan pacijenti ne mogu dočekati da im neko digne telefon. termini.pro to mijenja.</p>
+          <p style={styles.sectionSub}>Svaki propušteni poziv je izgubljeni klijent. termini.pro to mijenja.</p>
           <div style={{ display: 'grid', gridTemplateColumns: mob ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)', gap: '12px' }}>
             {nise.map((n, i) => (
               <div key={i} style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '14px', padding: '20px 16px', textAlign: 'center', transition: 'all 0.2s' }}
