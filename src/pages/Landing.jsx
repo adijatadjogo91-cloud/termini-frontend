@@ -288,7 +288,7 @@ export default function Landing() {
       <section style={styles.hero}>
         <div style={styles.heroBg} />
         <div style={styles.heroInner}>
-          <div style={styles.badge}>🎉 14 dana besplatno — bez kartice</div>
+         <div style={styles.badge}>🔥 Prvih 20 korisnika — 2 dodatna mjeseca besplatno</div>
           <h1 style={styles.h1}>
             Dok ste s klijentom,<br />
             <span style={styles.h1Span}>novi već zakazuju.</span>
@@ -307,9 +307,9 @@ export default function Landing() {
               👀 Pogledaj demo
             </button>
           </div>
-          <p style={{ fontSize: '12px', color: '#4a5a7a', marginTop: '16px' }}>
-            ✓ Bez kartice &nbsp;&nbsp; ✓ Bez limita &nbsp;&nbsp; ✓ Otkaži kad god želiš
-          </p>
+         <p style={{ fontSize: '12px', color: '#4a5a7a', marginTop: '16px' }}>
+  🛡️ 14 dana besplatno — ako nisi zadovoljan, ne plaćaš ništa &nbsp;&nbsp; ✓ Bez kartice
+</p>
         </div>
       </section>
 
@@ -656,7 +656,8 @@ export default function Landing() {
                 {starterFeatures.map((s, i) => <div key={i} style={styles.pf}><div style={styles.pfDot} />{s}</div>)}
               </div>
               <button onClick={() => navigate('/register')} style={styles.btnPlanOutline}>Počni besplatno →</button>
-            </div>
+              <p style={{ fontSize: '11px', color: '#4a5a7a', textAlign: 'center', marginTop: '8px' }}>🛡️ 14 dana besplatno — bez rizika</p>
+      </div>
             <div style={{ background: 'rgba(74,222,128,0.05)', border: '1px solid rgba(74,222,128,0.4)', borderRadius: '16px', padding: mob ? '28px' : '36px 32px', textAlign: 'left', position: 'relative' }}>
               <div style={{ position: 'absolute', top: '-12px', left: '50%', transform: 'translateX(-50%)', background: '#16a34a', color: 'white', fontSize: '11px', fontWeight: '600', padding: '3px 14px', borderRadius: '20px', whiteSpace: 'nowrap' }}>NAJPOPULARNIJE</div>
               <p style={{ fontSize: '12px', fontWeight: '600', color: '#4ade80', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '8px' }}>Premium</p>
@@ -671,6 +672,7 @@ export default function Landing() {
                 {premiumFeatures.map((s, i) => <div key={i} style={styles.pf}><div style={styles.pfDot} />{s}</div>)}
               </div>
               <button onClick={() => navigate('/register')} style={styles.btnPlan}>Počni besplatno →</button>
+              <p style={{ fontSize: '11px', color: '#4a5a7a', textAlign: 'center', marginTop: '8px' }}>🛡️ 14 dana besplatno — bez rizika</p>
             </div>
 
             {/* Lifetime */}
@@ -846,6 +848,7 @@ export default function Landing() {
               <h3 style={{ fontSize: '14px', fontWeight: '600', color: '#8b9ec7', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Kontakt</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <a href="mailto:info@termini.pro" style={{ fontSize: '13px', color: '#6b7fa3', textDecoration: 'none' }}>📧 info@termini.pro</a>
+                <a href="tel:+38761256572" style={{ fontSize: '13px', color: '#6b7fa3', textDecoration: 'none' }}>📞 +387 61 256572S</a>
                 <a href="https://instagram.com/termini.pro" target="_blank" rel="noreferrer" style={{ fontSize: '13px', color: '#6b7fa3', textDecoration: 'none' }}>📱 @termini.pro</a>
                 <p style={{ fontSize: '13px', color: '#6b7fa3', margin: 0 }}>📍 Sarajevo, Bosna i Hercegovina</p>
               </div>
