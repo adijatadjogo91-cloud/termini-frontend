@@ -277,7 +277,10 @@ export default function Landing() {
       <nav style={styles.nav}>
         <h2 style={styles.logo}>termini<span style={styles.logoSpan}>.pro</span></h2>
         <div style={styles.navBtns}>
-          <button onClick={() => navigate('/login')} style={styles.btnGhost}>Prijava</button>
+  <a href="tel:+38761256572" style={{ fontSize: '13px', color: '#4ade80', textDecoration: 'none', display: mob ? 'none' : 'flex', alignItems: 'center', gap: '6px', fontWeight: '500' }}>
+    📞 +387 61 256 572
+  </a>
+  <button onClick={() => navigate('/login')} style={styles.btnGhost}>Prijava</button>
           <button onClick={() => navigate('/register')} style={styles.btnGreen}>
             {mob ? 'Probaj' : 'Probaj besplatno'}
           </button>
@@ -848,7 +851,7 @@ export default function Landing() {
               <h3 style={{ fontSize: '14px', fontWeight: '600', color: '#8b9ec7', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Kontakt</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <a href="mailto:info@termini.pro" style={{ fontSize: '13px', color: '#6b7fa3', textDecoration: 'none' }}>📧 info@termini.pro</a>
-                <a href="tel:+38761256572" style={{ fontSize: '13px', color: '#6b7fa3', textDecoration: 'none' }}>📞 +387 61 256572S</a>
+                <a href="tel:+38761256572" style={{ fontSize: '13px', color: '#6b7fa3', textDecoration: 'none' }}>📞 +387 61 256572</a>
                 <a href="https://instagram.com/termini.pro" target="_blank" rel="noreferrer" style={{ fontSize: '13px', color: '#6b7fa3', textDecoration: 'none' }}>📱 @termini.pro</a>
                 <p style={{ fontSize: '13px', color: '#6b7fa3', margin: 0 }}>📍 Sarajevo, Bosna i Hercegovina</p>
               </div>
