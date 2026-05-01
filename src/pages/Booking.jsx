@@ -6,7 +6,7 @@ const API = 'https://termini-pro.onrender.com'
 function BookingChat({ salon, usluge }) {
   const [otvoren, setOtvoren] = useState(false)
   const [poruke, setPoruke] = useState([
-    { od: 'ai', tekst: `Hej! 👋 Mogu li vam pomoći sa zakazivanjem u ${salon?.name}?` }
+    { od: 'ai', tekst: `Hej!  Mogu li vam pomoći sa zakazivanjem u ${salon?.name}?` }
   ])
   const [unos, setUnos] = useState('')
   const [ucitava, setUcitava] = useState(false)
@@ -137,7 +137,7 @@ setUcitava(false)
 }
 
 function Booking() {
-  const slug = window.location.pathname.split('/booking/')[1]
+ const slug = window.location.hash.split('/booking/')[1]
   const [datumBlokiran, setDatumBlokiran] = useState(false)
   const [salon, setSalon] = useState(null)
   const [usluge, setUsluge] = useState([])
