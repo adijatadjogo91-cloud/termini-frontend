@@ -306,7 +306,7 @@ export default function Landing() {
             <button onClick={() => navigate('/register')} style={styles.btnPrimary}>
               Postavi biznis besplatno →
             </button>
-            <button onClick={() => window.open('/#/booking/stomatoloka-ordinacija-demo-2gxk', '_blank')} style={styles.btnSecondary}>
+            <button onClick={() => window.open('/#/booking/stomatoloska-ordinacija-demo-2gxk', '_blank')} style={styles.btnSecondary}>
   Pogledaj demo
 </button>
           </div>
