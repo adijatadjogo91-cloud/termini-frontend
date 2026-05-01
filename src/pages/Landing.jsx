@@ -306,9 +306,9 @@ export default function Landing() {
             <button onClick={() => navigate('/register')} style={styles.btnPrimary}>
               Postavi biznis besplatno →
             </button>
-            <button onClick={() => window.open('/#/booking/salon-lazic-yqz7', '_blank')} style={styles.btnSecondary}>
-              👀 Pogledaj demo
-            </button>
+            <button onClick={() => window.open('/#/booking/stomatoloka-ordinacija-demo-2gxk', '_blank')} style={styles.btnSecondary}>
+  Pogledaj demo
+</button>
           </div>
          <p style={{ fontSize: '12px', color: '#4a5a7a', marginTop: '16px' }}>
   🛡️ 14 dana besplatno — ako nisi zadovoljan, ne plaćaš ništa &nbsp;&nbsp; ✓ Bez kartice
